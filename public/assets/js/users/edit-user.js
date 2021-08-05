@@ -2,7 +2,7 @@ let editButtonUser = document.getElementById('edit-button');
 let id = null
 
 
-$("#table-user").DataTable().on('click', 'button', async function() {
+$("#table-user").DataTable().on('click', 'button.edit', async function() {
     id = $(this).attr('id');
     let title = '¡Espere, Por favor!';
     let html = 'Cargando informacion...';
@@ -18,13 +18,30 @@ $("#table-user").DataTable().on('click', 'button', async function() {
 editButtonUser.onclick = () => {
     let form = document.forms['form-user-edit'];
     updateUser(form, id).then(response => {
-        $("#table-user").DataTable().ajax.reload(null,false);
-        $("#modalUserEdit").modal('toggle')
-        Swal.fire({
-            title: "!Éxito!",
-            text: response.message,
-            icon: "success"
-        });
+        if(response.type == 'validate') {
+            let array = []
+            for (const errors in response.errors) {
+                array.push(response.errors[errors])
+            }
+            let list = '';
+            for (let index = 0; index < array.length; index++) {
+
+                list += "* " + array[index] + '<br>'
+            }
+            Swal.fire({
+                title: "!Error!",
+                html: list,
+                icon : "error"
+            })
+        } else {
+            $("#table-user").DataTable().ajax.reload(null,false);
+            $("#modalUserEdit").modal('toggle')
+            Swal.fire({
+                title: "!Éxito!",
+                text: response.message,
+                icon: "success"
+            });
+        }
     }).catch(err => console.log(err))
 }
 
@@ -58,7 +75,7 @@ async function updateUser(form, id) {
         name : name,
         email : email,
     }
-    const response = await fetch(`/users/${id}/edit`, {
+    const response = await fetch(`/users/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type' : 'application/json',
@@ -66,6 +83,7 @@ async function updateUser(form, id) {
         },
         body: JSON.stringify(object),
     })
-    return response.json();
+
+    return response.json()
 }
 

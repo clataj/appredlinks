@@ -7,21 +7,13 @@ use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
-
-    public function index()
-    {
-        return view('users.index');
-    }
-
-    public function create()
-    {
-        return view('users.create');
-    }
 
     public function show($id)
     {
@@ -32,8 +24,22 @@ class UserController extends Controller
         ], Response::HTTP_FOUND);
     }
 
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string',
+            'password_confirmation' => 'required|same:password',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'type' => 'validate',
+                'errors' => $validator->errors()
+            ]);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -46,9 +52,21 @@ class UserController extends Controller
         ], Response::HTTP_CREATED);
     }
 
-    public function update(UserUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'type' => 'validate',
+                'errors' => $validator->errors()
+            ]);
+        }
 
         $user->update($request->all());
 

@@ -25,7 +25,15 @@
                         <i class="nav-icon fas fa-id-badge"></i>
                         <p>
                             Usuarios
-                            <span class="right badge badge-info">5</i>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('categories.index') }}"
+                        class="{{ Request::path() === 'categories' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fab fa-cuttlefish"></i>
+                        <p>
+                            Categorias
                         </p>
                     </a>
                 </li>

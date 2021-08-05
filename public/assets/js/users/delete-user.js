@@ -1,6 +1,5 @@
 let token = document.getElementById('token').value;
-debugger
-$("#table-user").DataTable().on('click', 'a', function() {
+$("#table-user").DataTable().on('click', 'button.delete', function() {
     id = $(this).attr('id');
     deleteUser(id);
 })
@@ -18,7 +17,7 @@ function showAlert(title, html) {
 
 
 function deleteUser(id) {
-    fetch(`/users/${id}/delete`, {
+    fetch(`/users/${id}`, {
         method: 'DELETE',
         headers: {
             'X-CSRF-TOKEN' : token

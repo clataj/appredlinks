@@ -11,13 +11,30 @@ saveButtonUser.onclick = () => {
     let form = document.forms['form-user'];
     storeUser(form)
     .then(response => {
-        $("#table-user").DataTable().ajax.reload(null,false);
-        $("#modalUser").modal('toggle')
-        Swal.fire({
-            title: "!Éxito!",
-            text: response.message,
-            icon: "success"
-        });
+        if(response.type === 'validate') {
+            let array = []
+            for (const errors in response.errors) {
+                array.push(response.errors[errors])
+            }
+            let list = '';
+            for (let index = 0; index < array.length; index++) {
+
+                list += "* " + array[index] + '<br>'
+            }
+            Swal.fire({
+                title: "!Error!",
+                html: list,
+                icon : "error"
+            })
+        } else {
+            $("#table-user").DataTable().ajax.reload(null,false);
+            $("#modalUser").modal('toggle')
+            Swal.fire({
+                title: "!Éxito!",
+                text: response.message,
+                icon: "success"
+            });
+        }
     })
     .catch(error => console.log(error))
 }
@@ -43,7 +60,7 @@ async function storeUser(form) {
         password_confirmation : repassword
     }
 
-    const response = await fetch(`/users/create`, {
+    const response = await fetch(`/users`, {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json',
