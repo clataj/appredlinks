@@ -27,7 +27,7 @@
                     >
                     @error('email')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->has('email') }}</strong>
+                        <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                     </div>

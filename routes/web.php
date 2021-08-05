@@ -26,10 +26,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
     // Users
-    Route::get('users/create', 'UserController@create')->name('users.create');
-    Route::post('users/create', 'UserController@store')->name('users.store');
+    Route::post('users', 'UserController@store')->name('users.store');
     Route::get('users/{user}/edit', 'UserController@show')->name('users.show');
-    Route::put('users/{user}/edit', 'UserController@update')->name('users.update');
-    Route::delete('users/{user}/delete', 'UserController@destroy')->name('users.destroy');
+    Route::put('users/{user}', 'UserController@update')->name('users.update');
+    Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
     Route::get('users/all', 'UserController@findAll')->name('users.data');
+
+    // Categories
+
+    Route::get('categories', 'CategoryController@index')->name('categories.index');
+    Route::post('categories', 'CategoryController@store')->name('categories.store');
 });
