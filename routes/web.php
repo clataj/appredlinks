@@ -36,4 +36,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('categories', 'CategoryController@index')->name('categories.index');
     Route::post('categories', 'CategoryController@store')->name('categories.store');
+    Route::get('categories/{category}/edit', 'CategoryController@show')->name('categories.show');
+    Route::put('categories/{category}', 'CategoryController@update')->name('categories.update');
+    Route::post('categories/{category}/image', 'CategoryController@updateImage')->name('categories.updateImage');
+    Route::get('categories/all', 'CategoryController@findAll')->name('categories.data');
 });
