@@ -31,6 +31,11 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string',
             'password_confirmation' => 'required|same:password',
+        ], [], [
+            'name' => 'nombre',
+            'email' => 'correo electrónico',
+            'password' => 'contraseña',
+            'password_confirmation' => 'confirmación de contraseña'
         ]);
 
         if($validator->fails()) {
@@ -59,6 +64,9 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email,'.$user->id,
+        ],[], [
+            'name' => 'nombre',
+            'email' => 'correo electrónico',
         ]);
 
         if($validator->fails()) {
