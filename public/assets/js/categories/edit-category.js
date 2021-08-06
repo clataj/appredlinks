@@ -4,8 +4,6 @@ let statusEdit = document.getElementById('status-edit');
 let statusSaveEdit = statusEdit.value
 let id = null
 let changeImageButton = document.getElementById('change-image-button');
-// img_category_edit - label
-// image_category_edit - input
 
 imageCategoryEdit.onchange = () => {
     let form = document.forms['form-category-edit-image']

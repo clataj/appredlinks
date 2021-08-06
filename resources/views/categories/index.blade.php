@@ -177,6 +177,28 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modalDelete" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">¿Seguro que desea eliminar?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="delete-category">
+                        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="delete-button" type="button" class="btn btn-primary">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <table id="table-category" class="display nowrap table table-bordered table-hover" style="width: 100%;">
         <thead>
@@ -225,7 +247,10 @@
                 data : "name"
             },
             {
-                data : "status"
+                data : "status",
+                render: function(data, type, row) {
+                    return data==='Activo' ? `<span class="badge badge-success">${data}</span>` : `<span class="badge badge-danger">${data}</span>`;
+                }
             },
             {
                 data : "actions"
@@ -235,4 +260,5 @@
 </script>
 <script src="{{ asset('assets/js/categories/create-category.js') }}"></script>
 <script src="{{ asset('assets/js/categories/edit-category.js') }}"></script>
+<script src="{{ asset('assets/js/categories/delete-category.js') }}"></script>
 @endpush

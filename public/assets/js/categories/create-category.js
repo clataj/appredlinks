@@ -40,6 +40,7 @@ saveButtonCategory.onclick = () => {
                 icon : "error"
             })
         } else {
+            $("#table-category").DataTable().ajax.reload(null,false);
             $("#modalCategory").modal('toggle')
             Swal.fire({
                 title: "!Éxito!",
