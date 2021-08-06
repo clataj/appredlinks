@@ -4,18 +4,6 @@ $("#table-user").DataTable().on('click', 'button.delete', function() {
     deleteUser(id);
 })
 
-function showAlert(title, html) {
-    Swal.fire({
-        title: title,
-        html: html,
-        allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading()
-        }
-    });
-}
-
-
 function deleteUser(id) {
     fetch(`/users/${id}`, {
         method: 'DELETE',

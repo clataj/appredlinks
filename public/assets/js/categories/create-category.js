@@ -40,6 +40,7 @@ saveButtonCategory.onclick = () => {
                 icon : "error"
             })
         } else {
+            $("#table-category").DataTable().ajax.reload(null,false);
             $("#modalCategory").modal('toggle')
             Swal.fire({
                 title: "!Éxito!",
@@ -78,7 +79,6 @@ async function storeCategory(form) {
     formData.append("name", name);
     formData.append("image_category", image_category)
     formData.append("status", statusSave)
-
     let response = await fetch('/categories', {
         method: 'POST',
         headers: {
