@@ -56,12 +56,13 @@ class LoginController extends Controller
 
         if ($userFound) {
             return redirect()->route('dashboard');
-        } else {
-            return back()->withErrors([
-                'email' => trans('auth.failed'),
-                'password' => 'Por favor ingrese su contraseña correctamente'
-            ])->withInput($request->input());
         }
+
+
+        return back()->withErrors([
+            'email' => trans('auth.failed'),
+            'password' => 'Por favor ingrese su contraseña correctamente'
+        ])->withInput($request->input());
 
     }
 
@@ -70,6 +71,9 @@ class LoginController extends Controller
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required|string',
+        ],[],[
+            'email' => 'correo electrónico',
+            'password' => 'contraseña'
         ]);
     }
 

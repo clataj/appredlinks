@@ -118,6 +118,10 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image_category')) {
 
+            $fileOld = basename($category->ruta_img);
+
+            Storage::disk('public')->delete('categories'.'/'.$fileOld);
+
             $file = $request->file('image_category');
             $token = sha1(time());
             $nameFile = $file->getClientOriginalName();
