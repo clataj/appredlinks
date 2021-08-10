@@ -27,6 +27,10 @@ class CategoryController extends Controller
             'name' => 'required',
             'image_category' => 'image',
             'status' => 'required|string|not_in:0'
+        ], [], [
+            'name' => 'nombre',
+            'image_category' => 'imagen de la categoria',
+            'status' => 'estado'
         ]);
 
         if ($validator->fails()) {
@@ -71,6 +75,9 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'status' => 'required|string|not_in:0'
+        ],[], [
+            'name' => 'nombre',
+            'status' => 'estado'
         ]);
 
         if ($validator->fails()) {
@@ -98,6 +105,8 @@ class CategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'image_category' => 'image',
+        ],[], [
+            'image_category' => 'imagen de la categoria',
         ]);
 
         if ($validator->fails()) {
@@ -108,6 +117,10 @@ class CategoryController extends Controller
         }
 
         if ($request->hasFile('image_category')) {
+
+            $fileOld = basename($category->ruta_img);
+
+            Storage::disk('public')->delete('categories'.'/'.$fileOld);
 
             $file = $request->file('image_category');
             $token = sha1(time());
