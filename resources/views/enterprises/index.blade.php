@@ -25,6 +25,9 @@
 
     @include('enterprises.modalCreate')
 
+    <!-- Edit Modal Text -->
+    @include('enterprises.modalEditText')
+
     <div class="card">
         <div class="card-body">
             <table id="table-enterprise" class="display nowrap table table-bordered table-hover" style="width: 100%;">

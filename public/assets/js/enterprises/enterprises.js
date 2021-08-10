@@ -1,5 +1,5 @@
 import { responsePromise, showAlertWaiting } from '../helpers.js';
-import { storeEnterprise } from './endpoints.js'
+import { getEnterprise, storeEnterprise } from './endpoints.js'
 
 let id = null
 
@@ -36,6 +36,30 @@ saveButtonEnterprise.onclick = () => {
     let form = document.forms['form-enterprise']
     showAlertWaiting()
     storeEnterprise(form).then(response => {
-        responsePromise(response, "", "#modalEnterprise")
+        responsePromise(response, "#table-enterprise", "#modalEnterprise")
     })
 }
+
+// Show Enterprise for update Text
+$("#table-enterprise").DataTable().on('click', 'button.edit', async function() {
+    id = $(this).attr('id');
+    showAlertWaiting()
+    let enterprise = await getEnterprise(id)
+    const data = enterprise.data
+    Swal.close()
+    let form = document.forms['form-enterprise-edit'];
+    $("#modalEnterpriseEditText").modal('toggle')
+    form['ruc'].value=data.ruc
+    form['razon_social'].value=data.razon_social
+    form['beneficio'].value=data.beneficio
+    form['nombre_comercial'].value=data.nombre_comercial
+    form['categoria_id'].value=data.categoria_id
+    form['direccion'].value=data.direccion
+    form['telefono'].value=data.telefono
+    form['correo'].value=data.correo
+    form['twitter'].value=data.twitter
+    form['facebook'].value=data.facebook
+    form['instagram'].value=data.instagram
+    form['website'].value=data.website
+    form['estado'].value=data.estado
+})

@@ -45,6 +45,10 @@ Route::middleware(['auth'])->group(function () {
     // Empresas
     Route::get('enterprises', 'EnterpriseController@index')->name('enterprises.index');
     Route::post('enterprises', 'EnterpriseController@store')->name('enterprises.store');
+    Route::get('enterprises/{enterprise}/edit', 'EnterpriseController@show')->name('enterprises.show');
+    Route::put('enterprises/{enterprise}', 'EnterpriseController@update')->name('enterprises.update');
+    Route::post('enterprises/{enterprise}/image/background', 'EnterpriseController@updateImageBackground')->name('enterprises.updateImageBackground');
+    Route::post('enterprises/{enterprise}/image/content', 'EnterpriseController@updateImageContent')->name('enterprises.updateImageContent');
     Route::get('enterprises/all', 'EnterpriseController@findAll')->name('enterprises.data');
 
 });

@@ -20,6 +20,15 @@ class EnterpriseController extends Controller
         return view('enterprises.index', compact('user','categories'));
     }
 
+    public function show($id)
+    {
+        $enterprise = Enterprise::findOrFail($id);
+
+        return response()->json([
+            'data' => $enterprise
+        ], Response::HTTP_FOUND);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[

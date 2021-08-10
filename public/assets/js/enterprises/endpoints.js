@@ -1,3 +1,8 @@
+export async function getEnterprise(id) {
+    let data = await fetch(`/enterprises/${id}/edit`);
+    return data.json()
+}
+
 export async function storeEnterprise(form) {
     var formData = new FormData(form)
     let ruc = form['ruc'].value
