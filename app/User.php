@@ -36,4 +36,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * This method will convert in uppercase every word
+     * @return string
+     */
+    public function getNameAttribute(): string
+    {
+        return ucwords($this->attributes['name']);
+    }
 }

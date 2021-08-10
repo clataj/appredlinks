@@ -12,7 +12,7 @@
                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                     <div class="row">
                         <div class="col-md-12">
-                            <p><b>Imagen</b></p>
+                            <p><b>Imagen *</b></p>
                             <img src="" id="img-category" class="img-fluid" alt="">
                         </div>
                     </div>

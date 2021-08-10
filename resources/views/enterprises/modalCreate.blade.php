@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="nombre_comercial">Nombre Comercial</label>
+                                <label for="nombre_comercial">Nombre Comercial *</label>
                                 <input
                                     type="text"
                                     id="nombre_comercial"
@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="categoria_id">Categoria</label>
+                                <label for="categoria_id">Categoria *</label>
                                 <select name="categoria_id" id="categoria_id" class="form-control">
                                     <option value="0" selected disabled>-- Seleccione --</option>
                                     @foreach ($categories as $category)
@@ -39,7 +39,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="ruc">RUC</label>
+                                <label for="ruc">RUC *</label>
                                 <input
                                     type="text"
                                     id="ruc"
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="ruc">Razón social</label>
+                                <label for="ruc">Razón social *</label>
                                 <input
                                     type="text"
                                     id="razon_social"
@@ -63,7 +63,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="beneficio">Beneficio</label>
+                                <label for="beneficio">Beneficio *</label>
                                 <input
                                     type="text"
                                     id="beneficio"
@@ -74,8 +74,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="status">Estado</label>
-                                <select name="status" id="status" class="form-control">
+                                <label for="estado">Estado *</label>
+                                <select name="estado" id="estado" class="form-control">
                                     <option value="0" selected disabled>-- Seleccione --</option>
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
@@ -88,7 +88,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="direccion">Dirección</label>
+                                <label for="direccion">Dirección *</label>
                                 <input
                                     type="text"
                                     id="direccion"
@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="telefono">Telefono</label>
+                                <label for="telefono">Telefono *</label>
                                 <input
                                     type="text"
                                     id="telefono"
@@ -175,7 +175,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <p><b>Imagen de Fondo</b></p>
+                                <p><b>Imagen de Fondo *</b></p>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text" id="fondo">Subir</span>
@@ -192,14 +192,14 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <p><b>Imagen de contenido</b></p>
+                                <p><b>Imagen de contenido *</b></p>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text" id="small">Subir</span>
                                     </div>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="ruta_small" aria-describedby="small">
-                                        <label id="img_small" class="custom-file-label" for="ruta_small">Escoger archivo</label>
+                                        <input type="file" class="custom-file-input" id="ruta_small_2" aria-describedby="small">
+                                        <label id="img_small" class="custom-file-label" for="ruta_small_2">Escoger archivo</label>
                                     </div>
                                 </div>
                             </div>

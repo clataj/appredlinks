@@ -28,23 +28,26 @@
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table id="table-user" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-            <thead>
+    <div class="card">
+        <div class="card-body">
+            <table id="table-user" class="display nowrap table table-bordered table-hover" style="width: 100%;">
+                <thead>
 
-                <tr>
-                    <th scope="col">Nombres</th>
-                    <th scope="col">Correo</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-        </table>
+                    <tr>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
 @endsection
 @push('scripts')
 <script type="text/javascript">
     $("#table-user").DataTable({
+        responsive: true,
         processing: true,
         serverSide: true,
         pageLength: 5,

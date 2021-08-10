@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="name-edit">Nombre de categoria</label>
+                                <label for="name-edit">Nombre de categoria *</label>
                                 <input
                                     type="text"
                                     id="name"
@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="status-edit">Estado</label>
+                                <label for="status-edit">Estado *</label>
                                 <select name="status" id="status-edit" class="form-control">
                                     <option value="0" selected disabled>-- Seleccione --</option>
                                     <option value="A">Activo</option>

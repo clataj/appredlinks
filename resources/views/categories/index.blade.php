@@ -31,15 +31,19 @@
     <!-- Edit Modal Image-->
     @include('categories.modalEditImage')
 
-    <table id="table-category" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-        <thead>
-            <tr>
-                <th scope="col">Categoria</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="card">
+        <div class="card-body">
+            <table id="table-category" class="display nowrap table table-bordered table-hover" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 </div>
 @endsection
 @push('scripts')

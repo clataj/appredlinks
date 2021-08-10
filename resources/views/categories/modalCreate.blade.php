@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="name">Nombre de categoria</label>
+                                <label for="name">Nombre de categoria *</label>
                                 <input
                                     type="text"
                                     id="name"
@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="status">Estado</label>
+                                <label for="status">Estado *</label>
                                 <select name="status" id="status" class="form-control">
                                     <option value="0" selected disabled>-- Seleccione --</option>
                                     <option value="A">Activo</option>
@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <p><b>Imagen</b></p>
+                                <p><b>Imagen *</b></p>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text" id="inputGroupFileAddon01">Subir</span>
