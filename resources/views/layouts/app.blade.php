@@ -6,6 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    <title>RedLinks</title>
+
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
@@ -28,10 +30,6 @@
     <link rel="stylesheet"
         href="{{ asset('/assets/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-select/css/select.bootstrap4.min.css') }}">
-    {{-- SweetAlert --}}
-    <link rel="stylesheet" href="{{ asset('assets/lte/plugins/sweetalert2/sweetalert2.min.css') }}">
-    {{-- Select2 --}}
-    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/select2/css/select2.min.css') }}">
 
     <!-- Bootstrap Date-Picker Plugin -->
     <link rel="stylesheet"
@@ -85,12 +83,10 @@
     <script src="{{ asset('/assets/lte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{ asset('/assets/lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('/assets/lte/plugins/datatables-select/js/select.bootstrap4.min.js')}}"></script>
-    {{-- SweetAlert --}}
-    <script src="{{ asset('assets/lte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-    {{-- Select2 --}}
-    <script src="{{ asset('/assets/lte/plugins/select2/js/select2.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('/assets/lte/dist/js/adminlte.js') }}"></script>
+    {{-- App --}}
+    <script src="{{ asset('/js/app.js') }}"></script>
     <!-- My script -->
     @stack('scripts')
 </body>

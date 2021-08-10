@@ -45,7 +45,7 @@
 @push('scripts')
 <script type="text/javascript">
     $("#table-user").DataTable({
-        proccessing: true,
+        processing: true,
         serverSide: true,
         pageLength: 5,
         ajax: `{{ route('users.data') }}`,
@@ -63,7 +63,9 @@
                 '<option value="20">40</option>' +
                 "</select> registros",
             loadingRecords: "Cargando...",
-            processing: "Procesando...",
+            processing: "<span class='fa-stack fa-lg'>\n\
+                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                       </span>&emsp;Procesando ...",
             search: "Buscar:",
             zeroRecords: "Sin resultados encontrados",
             paginate: {

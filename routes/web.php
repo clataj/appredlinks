@@ -43,4 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('categories/all', 'CategoryController@findAll')->name('categories.data');
 
     // Empresas
+    Route::get('enterprises', 'EnterpriseController@index')->name('enterprises.index');
+    Route::get('enterprises/all', 'EnterpriseController@findAll')->name('enterprises.data');
+
 });
