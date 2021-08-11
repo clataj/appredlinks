@@ -48,13 +48,3 @@ export async function showAlertDelete() {
     })
     return result
 }
-
-export function showImage(data) {
-    Swal.fire({
-        title: data.nombre,
-        imageUrl: data.ruta_img,
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: data.nombre,
-    })
-}

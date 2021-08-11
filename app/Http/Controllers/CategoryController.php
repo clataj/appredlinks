@@ -143,6 +143,8 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
+        $fileOld = basename($category->ruta_img);
+        Storage::disk('public')->delete('categories'.'/'.$fileOld);
         $category->delete();
         return $category;
     }

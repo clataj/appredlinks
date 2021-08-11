@@ -1,5 +1,5 @@
 export async function getCategory(id) {
-    let data = await fetch(`/categories/${id}/edit`);
+    let data = await fetch(`/categories/${id}/show`);
     return data.json();
 }
 

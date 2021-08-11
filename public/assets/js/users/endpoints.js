@@ -1,5 +1,5 @@
 export async function getUser(id) {
-    let data = await fetch(`/users/${id}/edit`);
+    let data = await fetch(`/users/${id}/show`);
     return data.json();
 }
 

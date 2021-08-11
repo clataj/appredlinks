@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -60,7 +61,6 @@ class EnterpriseController extends Controller
 
         if($request->hasFile('ruta_fondo') && $request->hasFile('ruta_small_2')){
             $ruta_fondo = Enterprise::uploadImageAndGetUrl($request, 'ruta_fondo');
-            sleep(5);
             $ruta_small_2 = Enterprise::uploadImageAndGetUrl($request, 'ruta_small_2');
 
             $enterprise = Enterprise::create([
@@ -90,9 +90,114 @@ class EnterpriseController extends Controller
         }
     }
 
+    public function update(Request $request, $id)
+    {
+        $enterprise = Enterprise::findOrFail($id);
+
+        $validator = Validator::make($request->all(),[
+            'ruc' => 'required',
+            'razon_social' => 'required',
+            'beneficio' => 'required',
+            'nombre_comercial' => 'required',
+            'categoria_id' => 'required|not_in:0',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            'estado' => 'required|string|not_in:0',
+        ], [], [
+            'name' => 'nombre',
+            'razon_social' => 'razón social',
+            'nombre_comercial' => 'nombre comercial',
+            'categoria_id' => 'categoria',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'type' => 'validate',
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        $enterprise->update($request->all());
+
+        return response()->json([
+            'data' => $enterprise,
+            'message' => 'Empresa actualizada correctamente'
+        ], Response::HTTP_OK);
+    }
+
+    public function updateImageBackground(Request $request, $id)
+    {
+        $enterprise = Enterprise::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'image_enterprise' => 'image',
+        ],[], [
+            'image_enterprise' => 'imagen de la empresa',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'type' => 'validate',
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        if ($request->hasFile('image_enterprise')) {
+            $fileOld = basename($enterprise->ruta_fondo);
+
+            Storage::disk('public')->delete('enterprises'.'/'.$fileOld);
+
+            $ruta_fondo = Enterprise::uploadImageAndGetUrl($request, "image_enterprise");
+
+            $enterprise->update([
+                'ruta_fondo' => $ruta_fondo
+            ]);
+
+            return response()->json([
+                'data' => $enterprise,
+                'message' => '!Cambio de imagen exitosamente!'
+            ], Response::HTTP_OK);
+        }
+    }
+
+    public function updateImageContent(Request $request, $id)
+    {
+        $enterprise = Enterprise::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'image_enterprise' => 'image',
+        ],[], [
+            'image_enterprise' => 'imagen de la empresa',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'type' => 'validate',
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        if ($request->hasFile('image_enterprise')) {
+            $fileOld = basename($enterprise->ruta_small_2);
+
+            Storage::disk('public')->delete('enterprises'.'/'.$fileOld);
+            $ruta_small_2 = Enterprise::uploadImageAndGetUrl($request, "image_enterprise");
+
+            $enterprise->update([
+                'ruta_small_2' => $ruta_small_2,
+                'ruta_large_2' => $ruta_small_2
+            ]);
+
+            return response()->json([
+                'data' => $enterprise,
+                'message' => '!Cambio de imagen exitosamente!'
+            ], Response::HTTP_OK);
+        }
+    }
+
     public function findAll()
     {
-        $enterprises = Enterprise::where('tipo','LA');
+        $enterprises = Enterprise::where('tipo','LA')->orderBy('estado', 'ASC');
         return DataTables::of($enterprises)
             ->addColumn('categoria_id', function($enterprise) {
                 return $enterprise->category->nombre;
