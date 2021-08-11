@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h3 class="m-0 text-dark">Listado de Categorias</h3>
+            <h3 class="m-0 text-dark">Listado de Empresas</h3>
         </div><!-- /.col -->
     </div><!-- /.row -->
 
@@ -11,33 +11,48 @@
         <div class="col-md-6">
             <!-- Button trigger modal -->
             <button
-                id="openModalCategory"
+                id="openModalEnterprise"
                 type="button"
                 class="btn btn-primary"
                 data-toggle="modal"
-                data-target="#modalCategory">
-                <i class="fa fa-plus"></i> Agregar Categoria
+                data-target="#modalEnterprise">
+                <i class="fa fa-plus"></i> Agregar Empresa
             </button>
         </div>
     </div>
 
     <!-- Create Modal -->
 
-    @include('categories.modalCreate')
+    @include('enterprises.modalCreate')
 
     <!-- Edit Modal Text -->
-    @include('categories.modalEditText')
+    @include('enterprises.modalEditText')
 
-    <!-- Edit Modal Image-->
-    @include('categories.modalEditImage')
+    <!-- Show Image -->
+    @include('enterprises.modalImage')
+
+    <!-- Update Image -->
+    @include('enterprises.modalEditImage')
 
     <div class="card">
         <div class="card-body">
-            <table id="table-category" class="display nowrap table table-bordered table-hover" style="width: 100%;">
+            <table id="table-enterprise" class="display nowrap table table-bordered table-hover" style="width: 100%;">
                 <thead>
+
                     <tr>
-                        <th scope="col">Categoria</th>
+                        <th scope="col">Nombre de la compañia</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">RUC</th>
+                        <th scope="col">Razón Social</th>
+                        <th scope="col">Beneficio</th>
                         <th scope="col">Estado</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Correo electrónico</th>
+                        <th scope="col">Sitio Web</th>
+                        <th scope="col">Facebook</th>
+                        <th scope="col">Twitter</th>
+                        <th scope="col">Instagram</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -48,11 +63,12 @@
 @endsection
 @push('scripts')
 <script type="text/javascript">
-    $("#table-category").DataTable({
+    $("#table-enterprise").DataTable({
         processing: true,
+        responsive: true,
         serverSide: true,
         pageLength: 5,
-        ajax: `{{ route('categories.data') }}`,
+        ajax: `{{ route('enterprises.data') }}`,
         type: 'GET',
         language: {
             emptyTable: "No hay información",
@@ -79,21 +95,55 @@
                 previous: "Anterior",
             },
         },
-        columns : [
+        columns: [
             {
-                data : "name"
+                data: "nombre_comercial"
             },
             {
-                data : "status",
+                data: 'categoria_id'
+            },
+            {
+                data: "ruc"
+            },
+            {
+                data: "razon_social"
+            },
+            {
+                data: "beneficio"
+            },
+            {
+                data: "estado",
                 render: function(data, type, row) {
                     return data==='Activo' ? `<span class="badge badge-success">${data}</span>` : `<span class="badge badge-danger">${data}</span>`;
                 }
             },
             {
-                data : "actions"
+                data: "direccion"
+            },
+            {
+                data: "telefono"
+            },
+            {
+                data: "correo"
+            },
+            {
+                data: "website"
+            },
+            {
+                data: "facebook"
+            },
+            {
+                data: "twitter"
+            },
+            {
+                data: "instagram"
+            },
+            {
+                data: "actions"
             }
         ]
-    });
+    })
 </script>
-<script src="{{ asset('assets/js/categories/categories.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/enterprises/enterprises.js') }}" type="module"></script>
+
 @endpush

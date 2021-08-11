@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="name">Nombres</label>
+                                <label for="name">Nombres *</label>
                                 <input
                                     type="text"
                                     id="name"
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="email">Correo electrónico</label>
+                                <label for="email">Correo electrónico *</label>
                                 <input
                                     type="text"
                                     id="email"

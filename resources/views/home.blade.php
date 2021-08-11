@@ -28,24 +28,27 @@
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table id="table-user" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-            <thead>
+    <div class="card">
+        <div class="card-body">
+            <table id="table-user" class="display nowrap table table-bordered table-hover" style="width: 100%;">
+                <thead>
 
-                <tr>
-                    <th scope="col">Nombres</th>
-                    <th scope="col">Correo</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-        </table>
+                    <tr>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
 @endsection
 @push('scripts')
 <script type="text/javascript">
     $("#table-user").DataTable({
-        proccessing: true,
+        responsive: true,
+        processing: true,
         serverSide: true,
         pageLength: 5,
         ajax: `{{ route('users.data') }}`,
@@ -63,7 +66,9 @@
                 '<option value="20">40</option>' +
                 "</select> registros",
             loadingRecords: "Cargando...",
-            processing: "Procesando...",
+            processing: "<span class='fa-stack fa-lg'>\n\
+                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                       </span>&emsp;Procesando ...",
             search: "Buscar:",
             zeroRecords: "Sin resultados encontrados",
             paginate: {

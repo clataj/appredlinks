@@ -37,6 +37,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('enterprises.index') }}"
+                        class="{{ Request::path() === 'enterprises' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>
+                            Empresas
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
