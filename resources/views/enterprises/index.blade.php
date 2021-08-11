@@ -25,6 +25,15 @@
 
     @include('enterprises.modalCreate')
 
+    <!-- Edit Modal Text -->
+    @include('enterprises.modalEditText')
+
+    <!-- Show Image -->
+    @include('enterprises.modalImage')
+
+    <!-- Update Image -->
+    @include('enterprises.modalEditImage')
+
     <div class="card">
         <div class="card-body">
             <table id="table-enterprise" class="display nowrap table table-bordered table-hover" style="width: 100%;">

@@ -1,5 +1,5 @@
 import { storeCategory, getCategory, changeImage, updateCategory, deleteCategory } from "./endpoints.js"
-import { responsePromise, showAlertDelete, showAlertWaiting, showImage } from "../helpers.js";
+import { responsePromise, showAlertDelete, showAlertWaiting } from "../helpers.js";
 
 let id = null
 
@@ -124,3 +124,13 @@ $("#table-category").DataTable().on('click', 'button.delete', function() {
         }
     })
 })
+
+function showImage(data) {
+    Swal.fire({
+        title: data.nombre,
+        imageUrl: data.ruta_img,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: data.nombre,
+    })
+}
