@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('enterprises/{enterprise}', 'EnterpriseController@update')->name('enterprises.update');
     Route::post('enterprises/{enterprise}/image/background', 'EnterpriseController@updateImageBackground')->name('enterprises.updateImageBackground');
     Route::post('enterprises/{enterprise}/image/content', 'EnterpriseController@updateImageContent')->name('enterprises.updateImageContent');
+    Route::delete('enterprises/{enterprise}', 'EnterpriseController@destroy')->name('enterprise.destroy');
     Route::get('enterprises/all', 'EnterpriseController@findAll')->name('enterprises.data');
 
 });

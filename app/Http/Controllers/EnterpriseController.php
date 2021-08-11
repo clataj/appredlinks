@@ -195,6 +195,17 @@ class EnterpriseController extends Controller
         }
     }
 
+    public function destroy($id)
+    {
+        $enterprise = Enterprise::findOrFail($id);
+        $fileSmall = basename($enterprise->ruta_small_2);
+        $fileBackground = basename($enterprise->ruta_fondo);
+        Storage::disk('public')->delete('enterprises'.'/'.$fileSmall);
+        Storage::disk('public')->delete('enterprises'.'/'.$fileBackground);
+        $enterprise->delete();
+        return $enterprise;
+    }
+
     public function findAll()
     {
         $enterprises = Enterprise::where('tipo','LA')->orderBy('estado', 'ASC');

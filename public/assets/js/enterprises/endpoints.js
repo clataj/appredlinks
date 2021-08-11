@@ -117,3 +117,20 @@ export async function changeImageContent(form, id) {
     })
     return response.json()
 }
+
+export async function deleteEnterprise(id, token) {
+    fetch(`/enterprises/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN' : token
+        },
+    }).then(res => res.json())
+    .then(response => {
+        $("#table-enterprise").DataTable().ajax.reload(null,false);
+        Swal.fire({
+            title: "Eliminado!",
+            text: `Empresa ${response.nombre_comercial} eliminada éxitosamente`,
+            icon: "success"
+        });
+    }).catch(error => console.log(error))
+}
