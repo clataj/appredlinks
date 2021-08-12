@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Http\Requests\UserUpdateRequest;
 use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
+/**
+ * Controller of 'Users'
+ */
 class UserController extends Controller
 {
 
-    public function show($id)
+    /**
+     * This method will get data of an user by id
+     * @param int $id id of user
+     * @return JsonResponse data of user in format JSON
+     */
+    public function show(int $id): JsonResponse
     {
         $user = User::findOrFail($id);
 
@@ -24,7 +30,12 @@ class UserController extends Controller
         ], Response::HTTP_FOUND);
     }
 
-    public function store(Request $request)
+    /**
+     * This method will save data of an user
+     * @param Request $request
+     * @return JsonResponse data of the created user in format JSON
+     */
+    public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
             'name' => 'required|string',
@@ -42,7 +53,7 @@ class UserController extends Controller
             return response()->json([
                 'type' => 'validate',
                 'errors' => $validator->errors()
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         $user = User::create([
@@ -57,7 +68,13 @@ class UserController extends Controller
         ], Response::HTTP_CREATED);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * This method will update data of an user
+     * @param Request $request
+     * @param int $id id of the user
+     * @return JsonResponse data of the updated user in format JSON
+     */
+    public function update(Request $request, int $id): JsonResponse
     {
         $user = User::findOrFail($id);
 
@@ -73,7 +90,7 @@ class UserController extends Controller
             return response()->json([
                 'type' => 'validate',
                 'errors' => $validator->errors()
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         $user->update($request->all());

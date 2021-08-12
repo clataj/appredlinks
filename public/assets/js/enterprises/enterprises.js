@@ -1,5 +1,5 @@
-import { responsePromise, showAlertWaiting } from '../helpers.js';
-import { changeImageBackground, changeImageContent, getEnterprise, storeEnterprise, updateEnterprise } from './endpoints.js'
+import { responsePromise, showAlertDelete, showAlertWaiting } from '../helpers.js';
+import { changeImageBackground, changeImageContent, deleteEnterprise, getEnterprise, storeEnterprise, updateEnterprise } from './endpoints.js'
 
 let id = null
 
@@ -23,6 +23,9 @@ let changeImageContentButton = document.getElementById('change-image-content-but
 
 // Update text
 let editButtonTextEnterprise = document.getElementById('edit-button');
+
+// Delete
+let token = document.getElementById('token').value;
 
 // Post Enterprise
 
@@ -161,3 +164,14 @@ changeImageContentButton.onclick = () => {
         responsePromise(response, "#table-enterprise", "#modalImageEditContent")
     })
 }
+
+// Delete Enterprise
+$("#table-enterprise").DataTable().on('click', 'button.delete', function() {
+    id = $(this).attr('id');
+    showAlertDelete().then((result) => {
+        if (result.isConfirmed) {
+            showAlertWaiting()
+            deleteEnterprise(id, token)
+        }
+    })
+})

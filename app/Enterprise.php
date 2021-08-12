@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -56,5 +57,14 @@ class Enterprise extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'categoria_id');
+    }
+
+    /**
+     * This method will be related with the model BranchOffice
+     * @return HasMany
+     */
+    public function branchOffices(): HasMany
+    {
+        return $this->hasMany(BranchOffice::class, 'empresa_id');
     }
 }

@@ -62,8 +62,6 @@
                 "Mostrar <select>" +
                 '<option value="5">5</option>' +
                 '<option value="10">10</option>' +
-                '<option value="15">20</option>' +
-                '<option value="20">40</option>' +
                 "</select> registros",
             loadingRecords: "Cargando...",
             processing: "<span class='fa-stack fa-lg'>\n\
