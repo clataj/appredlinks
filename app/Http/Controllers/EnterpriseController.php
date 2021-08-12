@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
+/**
+ * Controller of 'Empresas'
+ */
 class EnterpriseController extends Controller
 {
     public function index()
@@ -56,7 +59,7 @@ class EnterpriseController extends Controller
             return response()->json([
                 'type' => 'validate',
                 'errors' => $validator->errors()
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         if($request->hasFile('ruta_fondo') && $request->hasFile('ruta_small_2')){
@@ -232,7 +235,14 @@ class EnterpriseController extends Controller
                 return $enterprise->estado === 'A' ? 'Activo' : 'Inactivo';
             })
             ->addColumn('actions', 'enterprises.actions')
-            ->rawColumns(['actions'])
+            ->addColumn('createBranchOffice', function($enterprise) {
+                return '<a
+                        href="'. route("branchOffices.createBranchOffice", $enterprise->id) .'"
+                        class="btn btn-success">
+                        <i class="fas fa-save"></i>
+                        </a>';
+            })
+            ->rawColumns(['actions', 'createBranchOffice'])
             ->make(true);
     }
 }

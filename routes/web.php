@@ -52,4 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('enterprises/{enterprise}', 'EnterpriseController@destroy')->name('enterprise.destroy');
     Route::get('enterprises/all', 'EnterpriseController@findAll')->name('enterprises.data');
 
+    // Sucursales
+    Route::get('enterprises/{enterprise}/branch-office', 'BranchOfficeController@showViewOfBranchOfficeByEnterprises')->name('branchOffices.createBranchOffice');
+    Route::get('enterprises/{enterprise}/branch-offices', 'BranchOfficeController@findAllBranchOfficeByEnterprise')->name('branchOffices.data');
+    Route::post('branchOffices', 'BranchOfficeController@store')->name('branchOffices.store');
 });
