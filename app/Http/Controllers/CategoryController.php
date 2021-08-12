@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
+/**
+ * Controller of 'Categorias'
+ */
 class CategoryController extends Controller
 {
     public function index()
@@ -37,7 +40,7 @@ class CategoryController extends Controller
             return response()->json([
                 'type' => 'validate',
                 'errors' => $validator->errors()
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         if ($request->hasFile('image_category')) {
