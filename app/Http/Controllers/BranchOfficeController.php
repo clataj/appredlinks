@@ -25,6 +25,62 @@ class BranchOfficeController extends Controller
 
     public function store(Request $request)
     {
+        $validator = $this->validation($request);
+
+        if($validator->fails()) {
+            return response()->json([
+                'type' => 'validate',
+                'errors' => $validator->errors()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $branchOffice = BranchOffice::create($request->all());
+
+        return response()->json([
+            'data' => $branchOffice,
+            'message' => '!Sucursal creada exitosamente!'
+        ], Response::HTTP_CREATED);
+    }
+
+    public function show($id)
+    {
+        $branchOffice = BranchOffice::findOrFail($id);
+
+        return response()->json([
+            'data' => $branchOffice
+        ], Response::HTTP_FOUND);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $branchOffice = BranchOffice::findOrFail($id);
+
+        $validator = $this->validation($request);
+
+        if($validator->fails()) {
+            return response()->json([
+                'type' => 'validate',
+                'errors' => $validator->errors()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $branchOffice->update($request->all());
+
+        return response()->json([
+            'data' => $branchOffice,
+            'message' => "!Sucursal actualizada exitosamente!"
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $branchOffice = BranchOffice::findOrFail($id);
+        $branchOffice->delete();
+        return $branchOffice;
+    }
+
+    public function validation(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
             'ciudad_id' => 'required|not_in:0',
@@ -40,20 +96,7 @@ class BranchOfficeController extends Controller
             'latitud_map' => 'latitud del mapa',
             'longitud_map' => 'longitud del mapa'
         ]);
-
-        if($validator->fails()) {
-            return response()->json([
-                'type' => 'validate',
-                'errors' => $validator->errors()
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $branchOffice = BranchOffice::create($request->all());
-
-        return response()->json([
-            'data' => $branchOffice,
-            'message' => '!Sucursal creada exitosamente!'
-        ], Response::HTTP_CREATED);
+        return $validator;
     }
 
     public function findAllBranchOfficeByEnterprise($id) {

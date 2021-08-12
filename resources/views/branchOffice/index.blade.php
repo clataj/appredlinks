@@ -21,7 +21,12 @@
             </a>
         </div>
     </div>
+    <!-- Create Modal -->
     @include('branchOffice.modals.modalCreate')
+
+    <!-- Edit Modal -->
+    @include('branchOffice.modals.modalEdit')
+
     <div class="card">
         <div class="card-body">
             <table id="table-branch-office"

@@ -51,9 +51,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('enterprises/{enterprise}/image/content', 'EnterpriseController@updateImageContent')->name('enterprises.updateImageContent');
     Route::delete('enterprises/{enterprise}', 'EnterpriseController@destroy')->name('enterprise.destroy');
     Route::get('enterprises/all', 'EnterpriseController@findAll')->name('enterprises.data');
-
-    // Sucursales
     Route::get('enterprises/{enterprise}/branch-office', 'BranchOfficeController@showViewOfBranchOfficeByEnterprises')->name('branchOffices.createBranchOffice');
     Route::get('enterprises/{enterprise}/branch-offices', 'BranchOfficeController@findAllBranchOfficeByEnterprise')->name('branchOffices.data');
+
+    // Sucursales
+    Route::get('branchOffices/{branchOffice}', 'BranchOfficeController@show')->name('branchOffices.show');
+    Route::put('branchOffices/{branchOffice}', 'BranchOfficeController@update')->name('branchOffices.update');
+    Route::delete('branchOffices/{branchOffice}', 'BranchOfficeController@destroy')->name('branchOffices.destroy');
     Route::post('branchOffices', 'BranchOfficeController@store')->name('branchOffices.store');
 });
