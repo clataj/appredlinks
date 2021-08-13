@@ -34,6 +34,7 @@
     <!-- Bootstrap Date-Picker Plugin -->
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    @stack('css')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -88,6 +89,9 @@
     {{-- App --}}
     <script src="{{ asset('/js/app.js') }}"></script>
     <!-- My script -->
+    <script type="text/javascript">
+        window.CSRF_TOKEN = '{{ csrf_token() }}'
+    </script>
     @stack('scripts')
 </body>
 </html>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Traits\FileImage;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,6 +19,8 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class CategoryController extends Controller
 {
+    use FileImage;
+
     public function index()
     {
         $user = User::findOrFail(Auth::user()->id);
@@ -44,14 +47,13 @@ class CategoryController extends Controller
         }
 
         if ($request->hasFile('image_category')) {
-            $file = $request->file('image_category');
-            $token = sha1(time());
-            $nameFile = $file->getClientOriginalName();
-            $nameReplace = Str::replaceArray($nameFile, [$token], $nameFile);
-            Storage::disk('public')->put('categories' . '/' . $nameReplace . '.' . $file->extension(), File::get($file));
+
+
+            $ruta_img = FileImage::uploadImageAndGetUrl($request, 'categories', 'image_category');
+
             $category = Category::create([
                 'nombre' => $request->name,
-                'ruta_img' => config('app.url') . '/storage/categories/' . $nameReplace . '.' . $file->extension(),
+                'ruta_img' => $ruta_img,
                 'estado' => $request->status
             ]);
 
@@ -77,7 +79,7 @@ class CategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'status' => 'required|string|not_in:0'
+            'status' => 'required|string'
         ],[], [
             'name' => 'nombre',
             'status' => 'estado'
@@ -121,19 +123,12 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image_category')) {
 
-            $fileOld = basename($category->ruta_img);
+            FileImage::deleteImage($category->ruta_img, 'categories');
 
-            Storage::disk('public')->delete('categories'.'/'.$fileOld);
-
-            $file = $request->file('image_category');
-            $token = sha1(time());
-            $nameFile = $file->getClientOriginalName();
-            $nameReplace = Str::replaceArray($nameFile, [$token], $nameFile);
-
-            Storage::disk('public')->put('categories' . '/' . $nameReplace . '.' . $file->extension(), File::get($file));
+            $ruta_img = FileImage::uploadImageAndGetUrl($request, 'categories', 'image_category');
 
             $category->update([
-                'ruta_img' => config('app.url') . '/storage/categories/' . $nameReplace . '.' . $file->extension(),
+                'ruta_img' => $ruta_img,
             ]);
 
             return response()->json([
@@ -146,8 +141,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        $fileOld = basename($category->ruta_img);
-        Storage::disk('public')->delete('categories'.'/'.$fileOld);
+        FileImage::deleteImage($category->ruta_img, 'categories');
         $category->delete();
         return $category;
     }

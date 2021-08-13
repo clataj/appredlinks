@@ -7,7 +7,7 @@
             <button
                 id="openModalBranchOffice"
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-primary float-left"
                 data-toggle="modal"
                 data-target="#modalBranchOffice">
                 <i class="fa fa-plus"></i> Agregar Sucursal
@@ -15,7 +15,7 @@
             <a href="{{ route('enterprises.index') }}">
                 <button
                     type="button"
-                    class="btn btn-primary">
+                    class="btn btn-primary float-right">
                     <i class="fa fa-arrow-left"></i> Regresar
                 </button>
             </a>
