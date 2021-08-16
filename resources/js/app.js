@@ -4,7 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 window.Swal = require('sweetalert2');
-require('./select2.min.js');
+
+require ('./select2.min.js')
 
 
 /**

@@ -65,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('publicities/{publicity}/show', 'PublicityController@show')->name('publicities.show');
     Route::post('publicities/{publicity}/image', 'PublicityController@updateImage')->name('enterprises.updateImage');
     Route::put('publicities/{publicity}', 'PublicityController@update')->name('enterprises.update');
+    Route::delete('publicities/{publicity}', 'PublicityController@destroy')->name('enterprises.destroy');
     Route::post('publicities', 'PublicityController@store')->name('publicities.store');
     Route::get('publicities/enterprises', 'PublicityController@searchEnterprise')->name('publicities.enterprises');
     Route::get('publicities/all', 'PublicityController@findAll')->name('publicities.data');

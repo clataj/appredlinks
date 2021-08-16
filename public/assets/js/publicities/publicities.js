@@ -1,5 +1,5 @@
-import { responsePromise, showAlertWaiting } from "../helpers.js";
-import { changeImage, getPublicity, storePublicity, updatePublicity } from "./endpoints.js";
+import { responsePromise, showAlertDelete, showAlertWaiting } from "../helpers.js";
+import { changeImage, deletePublicity, getPublicity, storePublicity, updatePublicity } from "./endpoints.js";
 // Post Publicity
 let openModalPublicity = document.getElementById('openModalPublicity')
 let saveButton = document.getElementById('save-button')
@@ -168,3 +168,13 @@ editButton.onclick = () => {
     })
 }
 
+// Delete Enterprise
+$("#table-publicity").DataTable().on('click', 'button.delete', function() {
+    id = $(this).attr('id');
+    showAlertDelete().then((result) => {
+        if (result.isConfirmed) {
+            showAlertWaiting()
+            deletePublicity(id)
+        }
+    })
+})

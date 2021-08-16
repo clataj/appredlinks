@@ -130,6 +130,17 @@ class PublicityController extends Controller
 
     }
 
+    public function destroy($id)
+    {
+        $publicity = Publicity::findOrFail($id);
+
+        FileImage::deleteImage($publicity->imagen, 'publicities');
+
+        $publicity->delete();
+
+        return $publicity;
+    }
+
     public function validation(Request $request)
     {
         $validator = Validator::make($request->all(), [

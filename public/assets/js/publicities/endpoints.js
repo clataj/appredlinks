@@ -76,3 +76,20 @@ export async function changeImage(form, id) {
     debugger
     return response.json()
 }
+
+export async function deletePublicity(id) {
+    fetch(`/publicities/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
+        },
+    }).then(res => res.json())
+    .then(response => {
+        $("#table-publicity").DataTable().ajax.reload(null,false);
+        Swal.fire({
+            title: "Eliminado!",
+            text: `Publicidad ${response.nombre} eliminada éxitosamente`,
+            icon: "success"
+        });
+    }).catch(error => console.log(error))
+}
