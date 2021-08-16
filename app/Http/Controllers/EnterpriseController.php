@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Enterprise;
+use App\Traits\FileImage;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -17,6 +17,8 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class EnterpriseController extends Controller
 {
+    use FileImage;
+
     public function index()
     {
         $user = User::findOrFail(Auth::user()->id);
@@ -63,8 +65,8 @@ class EnterpriseController extends Controller
         }
 
         if($request->hasFile('ruta_fondo') && $request->hasFile('ruta_small_2')){
-            $ruta_fondo = Enterprise::uploadImageAndGetUrl($request, 'ruta_fondo');
-            $ruta_small_2 = Enterprise::uploadImageAndGetUrl($request, 'ruta_small_2');
+            $ruta_fondo = FileImage::uploadImageAndGetUrl($request, 'enterprises', 'ruta_fondo');
+            $ruta_small_2 = FileImage::uploadImageAndGetUrl($request, 'enterprises', 'ruta_small_2');
 
             $enterprise = Enterprise::create([
                 'ruc' => $request->ruc,
@@ -105,7 +107,7 @@ class EnterpriseController extends Controller
             'categoria_id' => 'required|not_in:0',
             'direccion' => 'required',
             'telefono' => 'required',
-            'estado' => 'required|string|not_in:0',
+            'estado' => 'required|string',
         ], [], [
             'name' => 'nombre',
             'razon_social' => 'razón social',
@@ -146,11 +148,10 @@ class EnterpriseController extends Controller
         }
 
         if ($request->hasFile('image_enterprise')) {
-            $fileOld = basename($enterprise->ruta_fondo);
 
-            Storage::disk('public')->delete('enterprises'.'/'.$fileOld);
+            FileImage::deleteImage($enterprise->ruta_fondo, 'enterprises');
 
-            $ruta_fondo = Enterprise::uploadImageAndGetUrl($request, "image_enterprise");
+            $ruta_fondo = FileImage::uploadImageAndGetUrl($request, 'enterprises', 'image_enterprise');
 
             $enterprise->update([
                 'ruta_fondo' => $ruta_fondo
@@ -181,10 +182,10 @@ class EnterpriseController extends Controller
         }
 
         if ($request->hasFile('image_enterprise')) {
-            $fileOld = basename($enterprise->ruta_small_2);
 
-            Storage::disk('public')->delete('enterprises'.'/'.$fileOld);
-            $ruta_small_2 = Enterprise::uploadImageAndGetUrl($request, "image_enterprise");
+            FileImage::deleteImage($enterprise->ruta_small_2, 'enterprises');
+
+            $ruta_small_2 = FileImage::uploadImageAndGetUrl($request, 'enterprises', 'image_enterprise');
 
             $enterprise->update([
                 'ruta_small_2' => $ruta_small_2,
@@ -201,10 +202,8 @@ class EnterpriseController extends Controller
     public function destroy($id)
     {
         $enterprise = Enterprise::findOrFail($id);
-        $fileSmall = basename($enterprise->ruta_small_2);
-        $fileBackground = basename($enterprise->ruta_fondo);
-        Storage::disk('public')->delete('enterprises'.'/'.$fileSmall);
-        Storage::disk('public')->delete('enterprises'.'/'.$fileBackground);
+        FileImage::deleteImage($enterprise->ruta_small_2, 'enterprises');
+        FileImage::deleteImage($enterprise->ruta_fondo, 'enterprises');
         $enterprise->delete();
         return $enterprise;
     }

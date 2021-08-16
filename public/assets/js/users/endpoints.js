@@ -21,7 +21,7 @@ export async function storeUser(form) {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json',
-            'X-CSRF-TOKEN' : token
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: JSON.stringify(object),
     })
@@ -31,7 +31,6 @@ export async function storeUser(form) {
 export async function updateUser(form, id) {
     let name = form['name'].value;
     let email = form['email'].value;
-    let token = form['token'].value;
 
     let object = {
         name : name,
@@ -41,7 +40,7 @@ export async function updateUser(form, id) {
         method: 'PUT',
         headers: {
             'Content-Type' : 'application/json',
-            'X-CSRF-TOKEN' : token
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: JSON.stringify(object),
     })
@@ -49,11 +48,11 @@ export async function updateUser(form, id) {
     return response.json()
 }
 
-export function deleteUser(id, token) {
+export function deleteUser(id) {
     fetch(`/users/${id}`, {
         method: 'DELETE',
         headers: {
-            'X-CSRF-TOKEN' : token
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
     })
     .then(res => res.json())

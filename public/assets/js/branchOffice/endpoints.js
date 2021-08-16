@@ -30,7 +30,7 @@ export async function storeBranchOffice(form) {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json',
-            'X-CSRF-TOKEN' : form['token'].value
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: JSON.stringify(object)
     })
@@ -65,7 +65,7 @@ export async function updateBranchOffice(form, id) {
         method: 'PUT',
         headers: {
             'Content-Type' : 'application/json',
-            'X-CSRF-TOKEN' : form['token'].value
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: JSON.stringify(object)
     })
@@ -73,11 +73,11 @@ export async function updateBranchOffice(form, id) {
     return response.json()
 }
 
-export async function deleteBranchOffice(id, token) {
+export async function deleteBranchOffice(id) {
     fetch(`/branchOffices/${id}`, {
         method: 'DELETE',
         headers: {
-            'X-CSRF-TOKEN' : token
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
     }).then(res => res.json())
     .then(response => {

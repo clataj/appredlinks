@@ -24,9 +24,6 @@ let changeImageContentButton = document.getElementById('change-image-content-but
 // Update text
 let editButtonTextEnterprise = document.getElementById('edit-button');
 
-// Delete
-let token = document.getElementById('token').value;
-
 // Post Enterprise
 
 openModalCreateEnterprise.onclick = () => {
@@ -171,7 +168,7 @@ $("#table-enterprise").DataTable().on('click', 'button.delete', function() {
     showAlertDelete().then((result) => {
         if (result.isConfirmed) {
             showAlertWaiting()
-            deleteEnterprise(id, token)
+            deleteEnterprise(id)
         }
     })
 })

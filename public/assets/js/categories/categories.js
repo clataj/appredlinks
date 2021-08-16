@@ -22,9 +22,6 @@ let editButtonCategory = document.getElementById('edit-button');
 let statusEdit = document.getElementById('status-edit');
 let statusSaveEdit = statusEdit.value
 
-// Delete Category
-let token = document.getElementById('token').value;
-
 // Post Category
 
 openModalCreateCategory.onclick = () => {
@@ -120,7 +117,7 @@ $("#table-category").DataTable().on('click', 'button.delete', function() {
     showAlertDelete().then((result) => {
         if (result.isConfirmed) {
             showAlertWaiting()
-            deleteCategory(id, token)
+            deleteCategory(id)
         }
     })
 })

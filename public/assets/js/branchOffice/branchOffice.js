@@ -10,9 +10,6 @@ let modalEditBranchOffice = "#modalEditBranchOffice";
 let editButton = document.getElementById('edit-button');
 let id = null;
 
-// Delete
-let token = document.getElementById('token').value;
-
 
 // Post BranchOffice
 openModalBranchOffice.onclick = () => {
@@ -62,7 +59,7 @@ $("#table-branch-office").DataTable().on('click', 'button.delete', function() {
     showAlertDelete().then((result) => {
         if (result.isConfirmed) {
             showAlertWaiting()
-            deleteBranchOffice(id, token)
+            deleteBranchOffice(id)
         }
     })
 })

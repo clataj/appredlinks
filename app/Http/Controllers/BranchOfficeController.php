@@ -84,7 +84,7 @@ class BranchOfficeController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required',
             'ciudad_id' => 'required|not_in:0',
-            'estado' => 'required|not_in:0',
+            'estado' => 'required|string',
             'qr' => 'required',
             'telefono' => 'required',
             'direccion' => 'required',
@@ -105,7 +105,7 @@ class BranchOfficeController extends Controller
                             ->get();
         return DataTables::of($branchOffices)
             ->addColumn('city', function($branchOffice) {
-                return $branchOffice->city->ciudDesc;
+                return $branchOffice->city!=null ? $branchOffice->city->ciudDesc : 'Sin ciudad';
             })
             ->addColumn('status', function($branchOffice) {
                 return $branchOffice->estado=='A' ? 'Activo' : 'Inactivo';
