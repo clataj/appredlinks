@@ -39,7 +39,7 @@ export async function storeEnterprise(form) {
     let response = await fetch('/enterprises', {
         method: 'POST',
         headers: {
-            'X-CSRF-TOKEN' : form['token'].value
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: formData
     })
@@ -81,7 +81,7 @@ export async function updateEnterprise(form, id) {
         method: 'PUT',
         headers: {
             'Content-Type' : 'application/json',
-            'X-CSRF-TOKEN' : form['token'].value
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: JSON.stringify(object),
     })
@@ -96,7 +96,7 @@ export async function changeImageBackground(form, id) {
     let response = await fetch(`/enterprises/${id}/image/background`, {
         method: 'POST',
         headers: {
-            'X-CSRF-TOKEN' : form['token'].value
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: formData
     })
@@ -111,18 +111,18 @@ export async function changeImageContent(form, id) {
     let response = await fetch(`/enterprises/${id}/image/content`, {
         method: 'POST',
         headers: {
-            'X-CSRF-TOKEN' : form['token'].value
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: formData
     })
     return response.json()
 }
 
-export async function deleteEnterprise(id, token) {
+export async function deleteEnterprise(id) {
     fetch(`/enterprises/${id}`, {
         method: 'DELETE',
         headers: {
-            'X-CSRF-TOKEN' : token
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
     }).then(res => res.json())
     .then(response => {

@@ -10,9 +10,6 @@ let saveButtonUser = document.getElementById('save-button');
 // Edit User
 let editButtonUser = document.getElementById('edit-button');
 
-// Delete User
-let token = document.getElementById('token').value;
-
 // Post User
 
 openModal.onclick = () => {
@@ -65,7 +62,7 @@ $("#table-user").DataTable().on('click', 'button.delete', function() {
     .then((result) => {
         if (result.isConfirmed) {
             showAlertWaiting()
-            deleteUser(id, token)
+            deleteUser(id)
         }
     })
 

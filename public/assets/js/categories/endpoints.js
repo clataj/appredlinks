@@ -14,7 +14,7 @@ export async function storeCategory(form, status) {
     let response = await fetch('/categories', {
         method: 'POST',
         headers: {
-            'X-CSRF-TOKEN' : form['token'].value
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: formData
     })
@@ -34,7 +34,7 @@ export async function updateCategory(form, status, id) {
         method: 'PUT',
         headers: {
             'Content-Type' : 'application/json',
-            'X-CSRF-TOKEN' : form['token'].value
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: JSON.stringify(object)
     })
@@ -50,18 +50,18 @@ export async function changeImage(form, id) {
     let response = await fetch(`/categories/${id}/image`, {
         method: 'POST',
         headers: {
-            'X-CSRF-TOKEN' : form['token'].value
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
         body: formData
     })
     return response.json()
 }
 
-export function deleteCategory(id, token) {
+export function deleteCategory(id) {
     fetch(`/categories/${id}`, {
         method: 'DELETE',
         headers: {
-            'X-CSRF-TOKEN' : token
+            'X-CSRF-TOKEN' : window.CSRF_TOKEN
         },
     }).then(res => res.json())
     .then(response => {

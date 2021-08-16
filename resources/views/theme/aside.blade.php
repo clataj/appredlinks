@@ -46,6 +46,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('publicities.index') }}"
+                        class="{{ Request::path() === 'publicities' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fas fa-bullhorn"></i>
+                        <p>
+                            Publicidades
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

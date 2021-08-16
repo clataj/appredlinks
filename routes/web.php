@@ -51,9 +51,21 @@ Route::middleware(['auth'])->group(function () {
     Route::post('enterprises/{enterprise}/image/content', 'EnterpriseController@updateImageContent')->name('enterprises.updateImageContent');
     Route::delete('enterprises/{enterprise}', 'EnterpriseController@destroy')->name('enterprise.destroy');
     Route::get('enterprises/all', 'EnterpriseController@findAll')->name('enterprises.data');
-
-    // Sucursales
     Route::get('enterprises/{enterprise}/branch-office', 'BranchOfficeController@showViewOfBranchOfficeByEnterprises')->name('branchOffices.createBranchOffice');
     Route::get('enterprises/{enterprise}/branch-offices', 'BranchOfficeController@findAllBranchOfficeByEnterprise')->name('branchOffices.data');
+
+    // Sucursales
+    Route::get('branchOffices/{branchOffice}', 'BranchOfficeController@show')->name('branchOffices.show');
+    Route::put('branchOffices/{branchOffice}', 'BranchOfficeController@update')->name('branchOffices.update');
+    Route::delete('branchOffices/{branchOffice}', 'BranchOfficeController@destroy')->name('branchOffices.destroy');
     Route::post('branchOffices', 'BranchOfficeController@store')->name('branchOffices.store');
+
+    // Publicidades
+    Route::get('publicities', 'PublicityController@index')->name('publicities.index');
+    Route::get('publicities/{publicity}/show', 'PublicityController@show')->name('publicities.show');
+    Route::post('publicities/{publicity}/image', 'PublicityController@updateImage')->name('enterprises.updateImage');
+    Route::put('publicities/{publicity}', 'PublicityController@update')->name('enterprises.update');
+    Route::post('publicities', 'PublicityController@store')->name('publicities.store');
+    Route::get('publicities/enterprises', 'PublicityController@searchEnterprise')->name('publicities.enterprises');
+    Route::get('publicities/all', 'PublicityController@findAll')->name('publicities.data');
 });
