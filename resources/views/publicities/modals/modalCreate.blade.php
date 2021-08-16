@@ -14,7 +14,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="sub_categoria">Buscar</label>
-                                <select id="sub_categoria" class="searchEnterprise form-control col-md-10" name="sub_categoria"></select>
+                                <select id="sub_categoria" class="searchEnterprise form-control col-md-12" name="sub_categoria"></select>
                             </div>
                         </div>
                     </div>

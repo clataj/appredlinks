@@ -61,6 +61,40 @@ class PublicityController extends Controller
         ], Response::HTTP_FOUND);
     }
 
+    public function update(Request $request, $id)
+    {
+        $publicity = Publicity::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'fecha_inicio' => 'required|date_format:Y-m-d',
+            'fecha_fin' => 'required|date_format:Y-m-d',
+            'estado' => 'required|string',
+            'sub_categoria' => 'required|not_in:0',
+            'tipo' => 'required|string'
+        ], [], [
+            'fecha_inicio' => 'fecha de inicio',
+            'fecha_fin' => 'fecha de culminación',
+            'sub_categoria' => 'de la empresa',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'type' => 'validate',
+                'errors' => $validator->errors()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $publicity->update($request->all());
+
+        return response()->json([
+            'data' => $publicity,
+            'message' => "!Publicidad actualizada éxitosamente!"
+        ], Response::HTTP_OK);
+
+    }
+
     public function updateImage(Request $request, $id)
     {
         $publicity = Publicity::findOrFail($id);

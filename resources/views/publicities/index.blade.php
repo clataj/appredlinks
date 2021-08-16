@@ -62,36 +62,6 @@
 @push('scripts')
 <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
 <script type="text/javascript">
-    $('.searchEnterprise').select2({
-        theme: 'bootstrap4',
-        placeholder: 'Busque una empresa',
-        language:{
-            noResults: function(){
-                return "No hay resultados";
-            },
-            searching: function(){
-                return "Buscando..";
-            },
-        },
-        ajax: {
-            url: '/publicities/enterprises',
-            dataType: 'json',
-            delay: 250,
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.nombre_comercial,
-                            id:item.id
-                        }
-                    })
-                };
-            },
-            cache: true
-        },
-    });
-</script>
-<script type="text/javascript">
     $("#table-publicity").DataTable({
         processing: true,
         responsive: true,

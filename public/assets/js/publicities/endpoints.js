@@ -32,6 +32,35 @@ export async function storePublicity(form) {
     return response.json()
 }
 
+export async function updatePublicity(form, id)
+{
+    let nombre = form['nombre'].value;
+    let descripcion = form['descripcion'].value;
+    let fecha_inicio = form['fecha_inicio'].value;
+    let fecha_fin = form['fecha_fin'].value;
+    let estado = form['estado'].value;
+    let tipo = form['tipo'].value;
+    let sub_categoria = form['sub_categoria'].value;
+
+    let response = await fetch(`/publicities/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type' : 'application/json',
+            'X-CSRF-TOKEN': window.CSRF_TOKEN
+        },
+        body: JSON.stringify({
+            nombre : nombre,
+            descripcion : descripcion,
+            fecha_inicio : fecha_inicio,
+            fecha_fin : fecha_fin,
+            estado : estado,
+            tipo : tipo,
+            sub_categoria : sub_categoria
+        })
+    })
+    return response.json()
+}
+
 export async function changeImage(form, id) {
     let image_publicity = form['imageEdit'].files[0]
     var formData = new FormData()

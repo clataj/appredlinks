@@ -1,5 +1,5 @@
 import { responsePromise, showAlertWaiting } from "../helpers.js";
-import { changeImage, getPublicity, storePublicity } from "./endpoints.js";
+import { changeImage, getPublicity, storePublicity, updatePublicity } from "./endpoints.js";
 // Post Publicity
 let openModalPublicity = document.getElementById('openModalPublicity')
 let saveButton = document.getElementById('save-button')
@@ -12,13 +12,44 @@ let imgPublicityEdit = document.getElementById('img_publicity_edit')
 let imageEdit = document.getElementById('imageEdit');
 let changeImageButton = document.getElementById('change-image-button')
 
+// Update Text
+let editButton = document.getElementById('edit-button')
+
 // Post Publicity
 openModalPublicity.onclick = () => {
     let form = document.forms['form-save-publicity']
-    form.reset()
     var imgPublicity = document.getElementById('img_publicity')
-    $('.searchEnterprise').val(null).trigger('change')
     imgPublicity.textContent='Escoger una imagen'
+    $('.searchEnterprise').empty()
+    $('.searchEnterprise').select2({
+        theme: 'bootstrap4',
+        placeholder: 'Busque una empresa',
+        language:{
+            noResults: function(){
+                return "No hay resultados";
+            },
+            searching: function(){
+                return "Buscando..";
+            },
+        },
+        ajax: {
+            url: '/publicities/enterprises',
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.nombre_comercial,
+                            id:item.id
+                        }
+                    })
+                };
+            },
+            cache: true
+        },
+    });
+    form.reset()
 }
 
 imagen.onchange = () => {
@@ -97,9 +128,43 @@ $("#table-publicity").DataTable().on('click', 'button.edit', async function() {
     form['fecha_inicio'].value=data.fecha_inicio;
     form['fecha_fin'].value=data.fecha_fin;
     form['descripcion'].value=data.descripcion;
-    $('.searchEnterprise')
-        .text(data.enterprise.nombre_comercial)
-        .val(data.sub_categoria)
-        .trigger('change')
+    $('.searchEnterpriseEdit').select2({
+        theme: 'bootstrap4',
+        placeholder: 'Busque una empresa',
+        language:{
+            noResults: function(){
+                return "No hay resultados";
+            },
+            searching: function(){
+                return "Buscando..";
+            },
+        },
+        ajax: {
+            url: '/publicities/enterprises',
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.nombre_comercial,
+                            id:item.id
+                        }
+                    })
+                };
+            },
+            cache: true
+        },
+    });
+    var enterprise = new Option(data.enterprise.nombre_comercial, data.sub_categoria, true, true)
+    $(".searchEnterpriseEdit").append(enterprise).trigger('change')
 })
+
+editButton.onclick = () => {
+    let form = document.forms['form-edit-publicity']
+    showAlertWaiting()
+    updatePublicity(form, id).then(response => {
+        responsePromise(response, "#table-publicity", "#modalEditPublicity");
+    })
+}
 
