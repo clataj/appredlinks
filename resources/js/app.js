@@ -3,10 +3,11 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+import "moment/locale/es";
+
 window.Swal = require('sweetalert2');
 
-require ('./select2.min.js')
-
+window.moment = require('moment');
 
 /**
  * The following block of code may be used to automatically register your

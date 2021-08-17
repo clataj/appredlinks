@@ -56,4 +56,22 @@ class Enterprise extends Model
     {
         return $this->hasMany(Publicity::class, 'sub_categoria');
     }
+
+    /**
+     * This method will be related with the model Coupon
+     * @return HasMany
+     */
+    public function coupons(): HasMany
+    {
+        return $this->hasMany(Coupon::class, 'empresa_id');
+    }
+
+    /**
+     * This method will be related with the model Benefit
+     * @return HasMany
+     */
+    public function benefits(): HasMany
+    {
+        return $this->hasMany(Benefit::class, 'empresa_id');
+    }
 }

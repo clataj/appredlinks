@@ -55,6 +55,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('coupons.index') }}"
+                        class="{{ Request::path() === 'coupons' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fas fa-gift"></i>
+                        <p>
+                            Cupones
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
