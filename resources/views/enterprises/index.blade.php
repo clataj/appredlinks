@@ -45,6 +45,7 @@
                         <th scope="col">RUC</th>
                         <th scope="col">Razón Social</th>
                         <th scope="col">Beneficio</th>
+                        <th scope="col">Beneficios</th>
                         <th scope="col">Sucursal</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Dirección</th>
@@ -113,6 +114,9 @@
             },
             {
                 data: "beneficio"
+            },
+            {
+                data: "beneficios"
             },
             {
                 data: "createBranchOffice"
