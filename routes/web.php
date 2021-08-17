@@ -53,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('enterprises/all', 'EnterpriseController@findAll')->name('enterprises.data');
     Route::get('enterprises/{enterprise}/branch-office', 'BranchOfficeController@showViewOfBranchOfficeByEnterprises')->name('branchOffices.createBranchOffice');
     Route::get('enterprises/{enterprise}/branch-offices', 'BranchOfficeController@findAllBranchOfficeByEnterprise')->name('branchOffices.data');
+    Route::get('enterprises/{enterprise}/benefit', 'BenefitController@showViewOfBenefitByEnterprises')->name('benefits.create');
+    Route::get('enterprises/{enterprise}/benefits', 'BenefitController@findAllBenefitsByEnterprise')->name('benefits.data');
 
     // Sucursales
     Route::get('branchOffices/{branchOffice}', 'BranchOfficeController@show')->name('branchOffices.show');
@@ -78,4 +80,10 @@ Route::middleware(['auth'])->group(function () {
     Route::put('coupons/{coupon}/enabled', 'CouponController@enabled')->name('coupons.enabled');
     Route::get('coupons/{coupon}/show', 'CouponController@show')->name('coupons.show');
     Route::get('coupons/all', 'CouponController@findAll')->name('coupons.data');
+
+    // Beneficios
+    Route::post('benefits', 'BenefitController@store')->name('benefits.store');
+    Route::get('benefits/{benefit}', 'BenefitController@show')->name('benefits.show');
+    Route::put('benefits/{benefit}', 'BenefitController@update')->name('benefits.update');
+    Route::delete('benefits/{benefit}', 'BenefitController@destroy')->name('benefits.destroy');
 });

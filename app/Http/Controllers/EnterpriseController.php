@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -208,9 +209,10 @@ class EnterpriseController extends Controller
         return $enterprise;
     }
 
-    public function findAll()
+    public function findAll(Request $request)
     {
         $enterprises = Enterprise::where('tipo','LA')->orderBy('estado', 'ASC');
+
         return DataTables::of($enterprises)
             ->addColumn('categoria_id', function($enterprise) {
                 return $enterprise->category->nombre;
@@ -241,7 +243,14 @@ class EnterpriseController extends Controller
                         <i class="fas fa-save"></i>
                         </a>';
             })
-            ->rawColumns(['actions', 'createBranchOffice'])
+            ->addColumn('beneficios', function($enterprise) {
+                return '<a
+                        href="'. route("benefits.create", $enterprise->id) .'"
+                        class="btn btn-success">
+                        <i class="fas fa-concierge-bell"></i>
+                        </a>';
+            })
+            ->rawColumns(['actions', 'createBranchOffice', 'beneficios'])
             ->make(true);
     }
 }

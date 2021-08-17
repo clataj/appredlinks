@@ -6,7 +6,6 @@ let openModalBranchOffice = document.getElementById('openModalBranchOffice');
 let saveButton = document.getElementById('save-button');
 
 // Update
-let modalEditBranchOffice = "#modalEditBranchOffice";
 let editButton = document.getElementById('edit-button');
 let id = null;
 
