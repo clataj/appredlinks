@@ -69,4 +69,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('publicities', 'PublicityController@store')->name('publicities.store');
     Route::get('publicities/enterprises', 'PublicityController@searchEnterprise')->name('publicities.enterprises');
     Route::get('publicities/all', 'PublicityController@findAll')->name('publicities.data');
+
+    // Cupones
+    Route::get('coupons', 'CouponController@index')->name('coupons.index');
+    Route::post('coupons', 'CouponController@store')->name('coupons.store');
+    Route::put('coupons/{coupon}', 'CouponController@update')->name('coupons.update');
+    Route::put('coupons/{coupon}/disabled', 'CouponController@disabled')->name('coupons.disabled');
+    Route::put('coupons/{coupon}/enabled', 'CouponController@enabled')->name('coupons.enabled');
+    Route::get('coupons/{coupon}/show', 'CouponController@show')->name('coupons.show');
+    Route::get('coupons/all', 'CouponController@findAll')->name('coupons.data');
 });

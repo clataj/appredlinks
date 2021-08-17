@@ -54,11 +54,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="fecha_inicio">Fecha de inicio *</label>
-                            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control">
+                            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control", min="{{ date('Y-m-d') }}" value="{{ date('Y-m-d') }}">
                         </div>
                         <div class="col-md-6">
                             <label for="fecha_fin">Fecha final *</label>
-                            <input type="date" name="fecha_fin" id="fecha_fin" class="form-control">
+                            <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" min="{{ date('Y-m-d') }}">
                         </div>
                     </div>
                     <div class="row">

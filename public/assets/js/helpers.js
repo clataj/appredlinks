@@ -48,3 +48,29 @@ export async function showAlertDelete() {
     })
     return result
 }
+
+export async function showAlertDisabled() {
+    let result = await Swal.fire({
+        title: 'Estas seguro?',
+        text: "Se desactivara el cupon!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, desactivar!'
+    })
+    return result
+}
+
+export async function showAlertEnabled() {
+    let result = await Swal.fire({
+        title: 'Estas seguro?',
+        text: "Se activara el cupon!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, activar!'
+    })
+    return result
+}
