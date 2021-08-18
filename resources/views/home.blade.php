@@ -2,11 +2,8 @@
 
 @section('content')
 <div class="container">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h3 class="m-0 text-dark">Listado de Usuarios</h3>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+    <!-- Page Heading -->
+    <h3 class="h3 mb-2 text-gray-800">Listado de Usuarios</h3>
     <div class="row mb-2">
         <div class="col-md-6">
             <!-- Button trigger modal -->
@@ -28,18 +25,20 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card shadow mb-4">
         <div class="card-body">
-            <table id="table-user" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-                <thead>
+            <div class="table-responsive">
+                <table id="table-user" class="display nowrap table table-bordered table-hover" style="width: 100%;">
+                    <thead>
 
-                    <tr>
-                        <th scope="col">Nombres</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-            </table>
+                        <tr>
+                            <th scope="col">Nombres</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -33,7 +33,7 @@
     <!-- Edit Modal Text-->
     @include('coupons.modals.modalEdit')
 
-    <div class="card">
+    <div class="card shadow">
         <div class="card-body">
             <table id="table-coupons"
                 class="display nowrap table table-bordered table-hover"

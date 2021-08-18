@@ -1,41 +1,41 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h3 class="m-0 text-dark">Listado de Empresas</h3>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+<div class="row mb-2">
+    <div class="col-sm-6">
+        <h3 class="m-0 text-dark">Listado de Empresas</h3>
+    </div><!-- /.col -->
+</div><!-- /.row -->
 
-    <div class="row mb-2">
-        <div class="col-md-6">
-            <!-- Button trigger modal -->
-            <button
-                id="openModalEnterprise"
-                type="button"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#modalEnterprise">
-                <i class="fa fa-plus"></i> Agregar Empresa
-            </button>
-        </div>
+<div class="row mb-2">
+    <div class="col-md-6">
+        <!-- Button trigger modal -->
+        <button
+            id="openModalEnterprise"
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#modalEnterprise">
+            <i class="fa fa-plus"></i> Agregar Empresa
+        </button>
     </div>
+</div>
 
-    <!-- Create Modal -->
+<!-- Create Modal -->
 
-    @include('enterprises.modalCreate')
+@include('enterprises.modalCreate')
 
-    <!-- Edit Modal Text -->
-    @include('enterprises.modalEditText')
+<!-- Edit Modal Text -->
+@include('enterprises.modalEditText')
 
-    <!-- Show Image -->
-    @include('enterprises.modalImage')
+<!-- Show Image -->
+@include('enterprises.modalImage')
 
-    <!-- Update Image -->
-    @include('enterprises.modalEditImage')
+<!-- Update Image -->
+@include('enterprises.modalEditImage')
 
-    <div class="card">
-        <div class="card-body">
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
             <table id="table-enterprise" class="display nowrap table table-bordered table-hover" style="width: 100%;">
                 <thead>
 
