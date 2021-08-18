@@ -14,6 +14,11 @@ class Role extends Model
     ];
 
 
+    public function getDescripcionAttribute(): string
+    {
+        return ucwords($this->attributes['descripcion']);
+    }
+
     /**
      * This method will be related with the model User
      * @return HasMany

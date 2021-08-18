@@ -6,14 +6,54 @@ let id = null;
 // Post User
 let openModal = document.getElementById('openModal');
 let saveButtonUser = document.getElementById('save-button');
+let roleId = document.getElementById('role_id');
+let searchShow = document.getElementById('searchShow');
 
 // Edit User
 let editButtonUser = document.getElementById('edit-button');
 
 // Post User
 
+roleId.onchange = (event) => {
+    if(event.target.value==2) {
+        searchShow.style.display = ''
+        $('.searchEnterprise').empty()
+        $('.searchEnterprise').select2({
+            theme: 'bootstrap4',
+            placeholder: 'Busque una empresa',
+            language:{
+                noResults: function(){
+                    return "No hay resultados";
+                },
+                searching: function(){
+                    return "Buscando..";
+                },
+            },
+            ajax: {
+                url: '/publicities/enterprises',
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.nombre_comercial,
+                                id:item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            },
+        });
+    } else {
+        searchShow.style.display = 'none'
+    }
+}
+
 openModal.onclick = () => {
     let form = document.forms['form-user'];
+    searchShow.style.display = 'none'
     form.reset();
 }
 
@@ -40,6 +80,7 @@ $("#table-user").DataTable().on('click', 'button.edit', async function() {
     let form = document.forms['form-user-edit'];
     $("#modalUserEdit").modal('toggle')
     form['name'].value=data.name;
+    form['role_id'].value=data.role_id;
     form['email'].value=data.email;
 });
 

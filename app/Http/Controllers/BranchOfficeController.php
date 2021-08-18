@@ -20,6 +20,14 @@ class BranchOfficeController extends Controller
     {
         $user = User::findOrFail(Auth::user()->id);
         $cities = City::all();
+
+        if(Auth::user()->role_id == 2) {
+            if($user->enterprises->contains($id)) {
+                return view('branchOffice.index', compact('id','user','cities'));
+            }
+            return redirect('/enterprises');
+        }
+
         return view('branchOffice.index', compact('id','user','cities'));
     }
 
@@ -103,15 +111,17 @@ class BranchOfficeController extends Controller
         $branchOffices = BranchOffice::where('sucursales.empresa_id', $id)
                             ->orderBy('sucursales.nombre', 'ASC')
                             ->get();
+
         return DataTables::of($branchOffices)
-            ->addColumn('city', function($branchOffice) {
-                return $branchOffice->city!=null ? $branchOffice->city->ciudDesc : 'Sin ciudad';
-            })
-            ->addColumn('status', function($branchOffice) {
-                return $branchOffice->estado=='A' ? 'Activo' : 'Inactivo';
-            })
-            ->addColumn('actions', 'branchOffice.actions')
-            ->rawColumns(['actions'])
-            ->make(true);
+        ->addColumn('city', function($branchOffice) {
+            return $branchOffice->city!=null ? $branchOffice->city->ciudDesc : 'Sin ciudad';
+        })
+        ->addColumn('status', function($branchOffice) {
+            return $branchOffice->estado=='A' ? 'Activo' : 'Inactivo';
+        })
+        ->addColumn('actions', 'branchOffice.actions')
+        ->rawColumns(['actions'])
+        ->make(true);
+
     }
 }
