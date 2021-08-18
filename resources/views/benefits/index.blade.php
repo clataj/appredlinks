@@ -1,34 +1,34 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="row mb-2">
-        <div class="col-md-12">
-            <!-- Button trigger modal -->
+<div class="row mb-2">
+    <div class="col-md-12">
+        <!-- Button trigger modal -->
+        <button
+            id="openModalBenefits"
+            type="button"
+            class="btn btn-primary float-left"
+            data-toggle="modal"
+            data-target="#modalBenefits">
+            <i class="fa fa-plus"></i> Agregar Beneficio
+        </button>
+        <a href="{{ route('enterprises.index') }}">
             <button
-                id="openModalBenefits"
                 type="button"
-                class="btn btn-primary float-left"
-                data-toggle="modal"
-                data-target="#modalBenefits">
-                <i class="fa fa-plus"></i> Agregar Beneficio
+                class="btn btn-danger float-right">
+                <i class="fa fa-arrow-left"></i> Regresar
             </button>
-            <a href="{{ route('enterprises.index') }}">
-                <button
-                    type="button"
-                    class="btn btn-primary float-right">
-                    <i class="fa fa-arrow-left"></i> Regresar
-                </button>
-            </a>
-        </div>
+        </a>
     </div>
-    <!-- Create Modal -->
-    @include('benefits.modals.modalCreate')
+</div>
+<!-- Create Modal -->
+@include('benefits.modals.modalCreate')
 
-    <!-- Edit Modal -->
-    @include('benefits.modals.modalEdit')
+<!-- Edit Modal -->
+@include('benefits.modals.modalEdit')
 
-    <div class="card">
-        <div class="card-body">
+<div class="card shadow">
+    <div class="card-body">
+        <div class="table-responsive">
             <table id="table-benefits"
                 class="display nowrap table table-bordered table-hover"
                 style="width: 100%;">

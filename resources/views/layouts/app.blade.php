@@ -15,7 +15,7 @@
     <!-- Font awesome -->
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('/assets/lte/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/lte/dist/css/sb-admin-2.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
@@ -37,45 +37,80 @@
     @stack('css')
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
+<body id="page-top">
+    <div id="wrapper">
         <!-- Navbar -->
-        @include('theme.header')
+        @include('theme.aside')
         <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
-        @include('theme.aside')
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
+                    <!-- Topbar Search -->
+                    <div
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    </div>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $user->name }}</span>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a
+                                    class="dropdown-item"
+                                    href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Cerrar sesión
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    @yield('content-header')
-                </div><!-- /.container-fluid -->
+                    @yield('content')
+                </div>
+                <!-- /.container-fluid -->
             </div>
-            <!-- /.content-header -->
-            <!-- Main content -->
-            <section class="content">
-                @yield('content')
-            </section>
-            <!-- /.content -->
+            <!-- End of Main Content -->
+            @include('theme.footer')
         </div>
-        <!-- /.content-wrapper -->
-        @include('theme.footer')
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+        <!-- End of Content Wrapper -->
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
     </div>
-    <!-- ./wrapper -->
+    <!-- End of Page Wrapper -->
     <!-- jQuery -->
     <script src="{{ asset('/assets/lte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('/assets/lte/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-
+    <script src="{{ asset('/assets/lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('assets/lte/plugins/jquery-easing/jquery.easing.min.js') }}"></script>
     <!-- DataTables -->
     <script src="{{ asset('/assets/lte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('/assets/lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
@@ -84,8 +119,8 @@
     <script src="{{ asset('/assets/lte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{ asset('/assets/lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('/assets/lte/plugins/datatables-select/js/select.bootstrap4.min.js')}}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('/assets/lte/dist/js/adminlte.js') }}"></script>
+    <!-- Custom scripts for all pages -->
+    <script src="{{ asset('/assets/lte/dist/js/sb-admin-2.js') }}"></script>
     {{-- App --}}
     <script src="{{ asset('/js/app.js') }}"></script>
     <!-- My script -->

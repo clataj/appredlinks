@@ -1,38 +1,38 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h3 class="m-0 text-dark">Listado de Categorias</h3>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+<div class="row mb-2">
+    <div class="col-sm-6">
+        <h3 class="m-0 text-dark">Listado de Categorias</h3>
+    </div><!-- /.col -->
+</div><!-- /.row -->
 
-    <div class="row mb-2">
-        <div class="col-md-6">
-            <!-- Button trigger modal -->
-            <button
-                id="openModalCategory"
-                type="button"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#modalCategory">
-                <i class="fa fa-plus"></i> Agregar Categoria
-            </button>
-        </div>
+<div class="row mb-2">
+    <div class="col-md-6">
+        <!-- Button trigger modal -->
+        <button
+            id="openModalCategory"
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#modalCategory">
+            <i class="fa fa-plus"></i> Agregar Categoria
+        </button>
     </div>
+</div>
 
-    <!-- Create Modal -->
+<!-- Create Modal -->
 
-    @include('categories.modalCreate')
+@include('categories.modalCreate')
 
-    <!-- Edit Modal Text -->
-    @include('categories.modalEditText')
+<!-- Edit Modal Text -->
+@include('categories.modalEditText')
 
-    <!-- Edit Modal Image-->
-    @include('categories.modalEditImage')
+<!-- Edit Modal Image-->
+@include('categories.modalEditImage')
 
-    <div class="card">
-        <div class="card-body">
+<div class="card shadow">
+    <div class="card-body">
+        <div class="table-responsive">
             <table id="table-category" class="display nowrap table table-bordered table-hover" style="width: 100%;">
                 <thead>
                     <tr>

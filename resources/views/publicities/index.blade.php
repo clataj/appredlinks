@@ -7,38 +7,34 @@
 @endpush
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h3 class="m-0 text-dark">Listado de Publicidades</h3>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+<h3 class="h3 mb-0 text-gray-800">Listado de Publicidades</h3>
 
-    <div class="row mb-2">
-        <div class="col-md-6">
-            <!-- Button trigger modal -->
-            <button
-                id="openModalPublicity"
-                type="button"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#modalPublicity">
-                <i class="fa fa-plus"></i> Agregar Publicidad
-            </button>
-        </div>
+<div class="row mb-2">
+    <div class="col-md-6">
+        <!-- Button trigger modal -->
+        <button
+            id="openModalPublicity"
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#modalPublicity">
+            <i class="fa fa-plus"></i> Agregar Publicidad
+        </button>
     </div>
+</div>
 
-    <!-- Create Modal -->
-    @include('publicities.modals.modalCreate')
+<!-- Create Modal -->
+@include('publicities.modals.modalCreate')
 
-    <!-- Edit Modal Image-->
-    @include('publicities.modals.modalEditImage')
+<!-- Edit Modal Image-->
+@include('publicities.modals.modalEditImage')
 
-    <!-- Edit Modal Text-->
-    @include('publicities.modals.modalEditText')
+<!-- Edit Modal Text-->
+@include('publicities.modals.modalEditText')
 
-    <div class="card">
-        <div class="card-body">
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
             <table id="table-publicity"
                 class="display nowrap table table-bordered table-hover"
                 style="width: 100%;">

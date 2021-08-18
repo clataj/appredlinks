@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title text-center" id="exampleModalLabel">Imagenes</h5>
@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card shadow mb-4">
                             <div class="card-body">
                                 <h5 class="card-title">Imagen de Fondo</h5>
                             </div>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card shadow mb-4">
                             <div class="card-body">
                                 <h5 class="card-title">Imagen de Contenido</h5>
                             </div>
