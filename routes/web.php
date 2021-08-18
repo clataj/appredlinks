@@ -34,6 +34,7 @@ Route::middleware(['auth', 'administrator'])->group(function () {
 
     // Categories
 
+
     Route::get('categories', 'CategoryController@index')->name('categories.index');
     Route::post('categories', 'CategoryController@store')->name('categories.store');
     Route::get('categories/{category}/show', 'CategoryController@show')->name('categories.show');
