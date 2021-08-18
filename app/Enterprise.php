@@ -74,4 +74,9 @@ class Enterprise extends Model
     {
         return $this->hasMany(Benefit::class, 'empresa_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'empresas_users', 'user_id', 'empresas_id');
+    }
 }

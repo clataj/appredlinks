@@ -38,11 +38,13 @@ class UserController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(),[
+            'role_id' => 'required|not_in:0',
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string',
             'password_confirmation' => 'required|same:password',
         ], [], [
+            'role_id' => 'rol',
             'name' => 'nombre',
             'email' => 'correo electrónico',
             'password' => 'contraseña',
@@ -57,6 +59,7 @@ class UserController extends Controller
         }
 
         $user = User::create([
+            'role_id' => $request->role_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -79,6 +82,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
+            'role_id' => 'required',
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email,'.$user->id,
         ],[], [

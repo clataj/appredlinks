@@ -22,7 +22,7 @@ Route::middleware(['guest'])->group(function () {
 	Route::post('/login', 'Auth\LoginController@login')->name('login');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'administrator'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
     // Users
