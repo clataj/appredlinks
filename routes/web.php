@@ -56,7 +56,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'administrator'])->group(function () {
     // Users
     Route::post('users', 'UserController@store')->name('users.store');
-    Route::get('users/{user}/show', 'UserController@show')->name('users.show');
+    Route::get('users/create', 'UserController@create')->name('users.create');
+    Route::get('users/{user}/show/{enterprise?}', 'UserController@show')->name('users.show');
     Route::put('users/{user}', 'UserController@update')->name('users.update');
     Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
     Route::get('users/all', 'UserController@findAll')->name('users.data');

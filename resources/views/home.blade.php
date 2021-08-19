@@ -14,20 +14,10 @@
         <div class="row mb-2">
             <div class="col-md-6">
                 <!-- Button trigger modal -->
-                <button
-                    id="openModal"
-                    type="button"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target="#modalUser">
+                <a href="{{ route('users.create') }}"
+                    class="btn btn-primary">
                     <i class="fa fa-user-plus"></i> Agregar Usuario
-                </button>
-
-                <!-- Modal Create -->
-                @include('users.modalCreate')
-
-                <!-- Modal Edit -->
-                @include('users.modalEdit')
+                </a>
 
             </div>
         </div>
@@ -49,8 +39,17 @@
             </div>
         </div>
     </div>
-    @endsection
+    @if (session('status'))
+        <script>
+            Swal.fire(
+                title: 'Exito!',
+                text: "{{ session('status') }}",
+                icon: 'success'
+            )
+        </script>
+    @endif
     @push('scripts')
+    @endsection
     <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
     <script type="text/javascript">
         $("#table-user").DataTable({
