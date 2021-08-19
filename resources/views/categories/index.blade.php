@@ -1,13 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<div class="row mb-2">
-    <div class="col-sm-6">
-        <h3 class="m-0 text-dark">Listado de Categorias</h3>
-    </div><!-- /.col -->
-</div><!-- /.row -->
+<!-- Page Heading -->
+<div class="row mb-4">
+    <div class="col d-flex flex-column flex-md-row justify-content-between">
+        <h3 class="h3 text-gray-800">Listado de Categorias</h3>
 
-<div class="row mb-2">
-    <div class="col-md-6">
         <!-- Button trigger modal -->
         <button
             id="openModalCategory"
@@ -17,7 +14,9 @@
             data-target="#modalCategory">
             <i class="fa fa-plus"></i> Agregar Categoria
         </button>
+
     </div>
+
 </div>
 
 <!-- Create Modal -->
@@ -30,25 +29,34 @@
 <!-- Edit Modal Image-->
 @include('categories.modalEditImage')
 
-<div class="card shadow">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="table-category" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-            </table>
+<div class="row">
+    <div class="col">
+
+        <div class="card shadow mb-4 w-100">
+
+            <div class="p-4">
+
+                <table id="table-category" class="table table-hover" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
         </div>
+
     </div>
 </div>
 @endsection
 @push('scripts')
 <script type="text/javascript">
     $("#table-category").DataTable({
+        responsive: true,
         processing: true,
         serverSide: true,
         pageLength: 5,
@@ -60,7 +68,7 @@
             infoEmpty: "Mostrando 0 a 0 de 0 registros",
             infoFiltered: "(Filtrado de _MAX_ total registros)",
             lengthMenu:
-                "Mostrar <select>" +
+                `Mostrar <select class="form-control form-control-sm">` +
                 '<option value="5">5</option>' +
                 '<option value="10">10</option>' +
                 "</select> registros",
