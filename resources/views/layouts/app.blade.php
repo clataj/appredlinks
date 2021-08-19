@@ -21,18 +21,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Styles -->
     <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
-    
+
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-autofill/css/autoFill.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-select/css/select.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-select/css/select.bootstrap4.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-checkboxes/css/dataTables.checkboxes.css') }}">
     <!-- Bootstrap Date-Picker Plugin -->
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
@@ -66,13 +66,13 @@
                         <!-- <div class="d-flex align-items-center">
                         </div> -->
                         <li class="nav-item dropdown no-arrow">
-                            
+
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="ui-avatar" src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ $user->name }}&size=32" alt="Avatar usuario.">
                                 <span class="ml-2 d-none d-lg-inline text-gray-600 small">{{ $user->name }}</span>
                             </a>
-                            
+
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -126,6 +126,7 @@
     <script src="{{ asset('/assets/lte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{ asset('/assets/lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('/assets/lte/plugins/datatables-select/js/select.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('assets/lte/plugins/datatables-checkboxes/js/dataTables.checkboxes.min.js')}}"></script>
     <!-- Custom scripts for all pages -->
     <script src="{{ asset('/assets/lte/dist/js/sb-admin-2.js') }}"></script>
     {{-- App --}}

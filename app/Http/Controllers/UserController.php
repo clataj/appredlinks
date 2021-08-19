@@ -23,7 +23,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail(Auth::user()->id);
         $roles = Role::all();
-        return view('users.create', compact('user','roles'));
+        $enterprises = Enterprise::all();
+        return view('users.create', compact('user','roles','enterprises'));
     }
 
     /**
@@ -82,16 +83,26 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
-            $user->enterprises()->sync($request->enterprises);
+            $user->enterprises()->sync($request->enterprises, false);
+            return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
         }
+        if(intval($request->role_id) == 1) {
+            $user = User::create([
+                'role_id' => $request->role_id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
+        }
+    }
 
-        $user = User::create([
-            'role_id' => $request->role_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $ids = $user->enterprises()->pluck('empresas.id')->toArray();
+        $roles = Role::all();
+        return view('users.edit', compact('user','roles', 'ids'));
     }
 
     /**

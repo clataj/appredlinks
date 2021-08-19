@@ -1,10 +1,8 @@
-<button
-    title="Editar información"
-    id="{{$id}}"
-    type="button"
+<a
+    href="{{ route('users.edit', $id) }}"
     class="edit btn btn-circle btn-info">
     <i class="fa fa-user-edit"></i>
-</button>
+</a>
 <button
     title="Eliminar"
     id="{{$id}}"
