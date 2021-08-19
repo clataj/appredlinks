@@ -20,16 +20,16 @@
         >
             <i class="fa fa-user-plus"></i> Agregar Usuario
         </a>
-        
+
     </div>
-    
+
 </div>
 
 <div class="row">
     <div class="col">
 
         <div class="card shadow mb-4 w-100">
-            
+
             <div class="p-4">
 
                 <table id="table-user" class="table table-hover" style="width: 100%;">
@@ -43,7 +43,7 @@
                 </table>
 
             </div>
-                
+
         </div>
 
     </div>
@@ -51,6 +51,8 @@
 
 </div>
 @endsection
+
+
 
 @push('scripts')
 <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
