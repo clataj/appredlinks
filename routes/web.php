@@ -52,7 +52,6 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-
 Route::middleware(['auth', 'administrator'])->group(function () {
     // Users
     Route::post('users', 'UserController@store')->name('users.store');
