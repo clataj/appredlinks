@@ -34,7 +34,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-body">
-        <div class="table-responsive">
+        <div class="table-responsive p-4">
             <table id="table-publicity"
                 class="display nowrap table table-bordered table-hover"
                 style="width: 100%;">

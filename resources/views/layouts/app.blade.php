@@ -6,29 +6,31 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>RedLinks</title>
+    <title>Administrador | Redlinks</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('/assets/css/app.css') }}">
     <!-- Font awesome -->
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('/assets/lte/dist/css/sb-admin-2.min.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Google Font: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Styles -->
     <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('/assets/lte/plugins/datatables-autofill/css/autoFill.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-autofill/css/autoFill.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-select/css/select.bootstrap4.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('/assets/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-select/css/select.bootstrap4.min.css') }}">
 
     <!-- Bootstrap Date-Picker Plugin -->
@@ -61,11 +63,16 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - User Information -->
+                        <!-- <div class="d-flex align-items-center">
+                        </div> -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $user->name }}</span>
+                            
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="ui-avatar" src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ $user->name }}&size=32" alt="Avatar usuario.">
+                                <span class="ml-2 d-none d-lg-inline text-gray-600 small">{{ $user->name }}</span>
                             </a>
+                            
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -90,7 +97,7 @@
                 </nav>
                 <!-- End of Topbar -->
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div id="app" class="container-fluid">
                     @yield('content')
                 </div>
                 <!-- /.container-fluid -->
@@ -122,7 +129,7 @@
     <!-- Custom scripts for all pages -->
     <script src="{{ asset('/assets/lte/dist/js/sb-admin-2.js') }}"></script>
     {{-- App --}}
-    <script src="{{ asset('/js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <!-- My script -->
     <script type="text/javascript">
         window.CSRF_TOKEN = '{{ csrf_token() }}'

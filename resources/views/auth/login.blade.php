@@ -8,7 +8,7 @@
           <div class="card-group">
             <div class="card p-4">
               <div class="card-body">
-                <h1>Inicio de sesion</h1>
+                <h1>Iniciar Sesión</h1>
                 <p class="text-muted">Ingrese a su cuenta</p>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+
     <!-- Page Heading -->
     <h3 class="h3 mb-2 text-gray-800">Listado de Usuarios</h3>
     <div class="row mb-2">
@@ -12,22 +13,23 @@
                 type="button"
                 class="btn btn-primary"
                 data-toggle="modal"
-                data-target="#modalUser">
+                data-target="#modalUser"
+            >
                 <i class="fa fa-user-plus"></i> Agregar Usuario
             </button>
-
-            <!-- Modal Create -->
-            @include('users.modalCreate')
-
-            <!-- Modal Edit -->
-            @include('users.modalEdit')
-
+        
+        <!-- Modal Create -->
+        @include('users.modalCreate')
+        
+        <!-- Modal Edit -->
+        @include('users.modalEdit')
+        
         </div>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive p-4">
                 <table id="table-user" class="display nowrap table table-bordered table-hover" style="width: 100%;">
                     <thead>
 

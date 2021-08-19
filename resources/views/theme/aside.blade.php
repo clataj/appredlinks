@@ -3,16 +3,16 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center"
         href="{{ route('dashboard') }}">
         <div class="sidebar-brand-icon">
-            <img src="{{ asset('favicon.png') }}">
+            <img width="48" src="{{ asset('images/redlinks-white-logo.png') }}">
         </div>
-        <div class="sidebar-brand-text mx-3">RedLinks</div>
+        <div class="sidebar-brand-text ml-2">RedLinks</div>
     </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
-    <div class="sidebar-heading">
+    <div class="sidebar-heading font-weight-normal">
         Mantenimiento
     </div>
 
