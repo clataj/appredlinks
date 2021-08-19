@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enterprise;
+use App\Role;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,6 +19,13 @@ use Yajra\DataTables\Facades\DataTables;
 class UserController extends Controller
 {
 
+    public function create()
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        $roles = Role::all();
+        return view('users.create', compact('user','roles'));
+    }
+
     /**
      * This method will get data of an user by id
      * @param int $id id of user
@@ -24,18 +34,25 @@ class UserController extends Controller
     public function show(int $id): JsonResponse
     {
         $user = User::findOrFail($id);
+        if($user->role_id == 2) {
+            $enterprises = $user->enterprises;
+            return response()->json([
+                'data' => $user,
+                'enterprises' => $enterprises
+            ], Response::HTTP_FOUND);
+        }
 
         return response()->json([
             'data' => $user
         ], Response::HTTP_FOUND);
+
     }
 
     /**
      * This method will save data of an user
      * @param Request $request
-     * @return JsonResponse data of the created user in format JSON
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'role_id' => 'required|not_in:0',
@@ -58,19 +75,23 @@ class UserController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
+        if(intval($request->role_id) == 2) {
+            $user = User::create([
+                'role_id' => $request->role_id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            $user->enterprises()->sync($request->enterprises);
+        }
+
         $user = User::create([
             'role_id' => $request->role_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        $user->enterprises()->sync([$request->empresa_id], false);
-
-        return response()->json([
-            'data' => $user,
-            'message' => 'Usuario creado exitosamente'
-        ], Response::HTTP_CREATED);
+        return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
     }
 
     /**

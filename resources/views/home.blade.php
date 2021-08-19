@@ -35,7 +35,6 @@
 </div>
 
 <div class="row">
-
     <div class="col">
 
         <div class="card shadow mb-4 w-100">
@@ -58,8 +57,10 @@
 
     </div>
 
+
 </div>
 @endsection
+
 @push('scripts')
 <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
 <script type="text/javascript">
