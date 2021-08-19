@@ -6,10 +6,11 @@
 @endpush
 @extends('layouts.app')
 @section('content')
-<h3 class="h3 mb-0 text-gray-800">Listado de Publicidades</h3>
+<!-- Page Heading -->
+<div class="row mb-4">
+    <div class="col d-flex flex-column flex-md-row justify-content-between">
+        <h3 class="h3 text-gray-800">Listado de Publicidades</h3>
 
-<div class="row mb-2">
-    <div class="col-md-6">
         <!-- Button trigger modal -->
         <button
             id="openModalPublicity"
@@ -19,7 +20,9 @@
             data-target="#modalPublicity">
             <i class="fa fa-plus"></i> Agregar Publicidad
         </button>
+
     </div>
+
 </div>
 
 <!-- Create Modal -->
@@ -31,28 +34,36 @@
 <!-- Edit Modal Text-->
 @include('publicities.modals.modalEditText')
 
-<div class="card shadow mb-4">
-    <div class="card-body">
-        <div class="table-responsive p-4">
-            <table id="table-publicity"
-                class="display nowrap table table-bordered table-hover"
-                style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre de la Publicidad</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Descripcion</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Nombre de la empresa</th>
-                        <th scope="col">Fecha Inicio</th>
-                        <th scope="col">Fecha Final</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-            </table>
+<div class="row">
+    <div class="col">
+
+        <div class="card shadow mb-4 w-100">
+
+            <div class="p-4">
+
+                <table id="table-publicity" class="table table-hover" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre de la Publicidad</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Nombre de la empresa</th>
+                            <th scope="col">Fecha Inicio</th>
+                            <th scope="col">Fecha Final</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
         </div>
+
     </div>
 </div>
+
+
 @endsection
 @push('scripts')
 <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
@@ -76,7 +87,7 @@
             infoEmpty: "Mostrando 0 a 0 de 0 registros",
             infoFiltered: "(Filtrado de _MAX_ total registros)",
             lengthMenu:
-                "Mostrar <select>" +
+                `Mostrar <select class="form-control form-control-sm">` +
                 '<option value="5">5</option>' +
                 '<option value="10">10</option>' +
                 "</select> registros",
