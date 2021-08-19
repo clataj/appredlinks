@@ -14,22 +14,13 @@
         <h3 class="h3 text-gray-800">Listado de Usuarios</h3>
 
         <!-- Button trigger modal -->
-        <button
-            id="openModal"
-            type="button"
+        <a
             class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#modalUser"
+            href="{{ route('users.create') }}"
         >
             <i class="fa fa-user-plus"></i> Agregar Usuario
-        </button>
+        </a>
         
-    
-        <!-- Modal Create -->
-        @include('users.modalCreate')
-        
-        <!-- Modal Edit -->
-        @include('users.modalEdit')
     </div>
     
 </div>
