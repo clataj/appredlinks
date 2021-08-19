@@ -1,3 +1,9 @@
+@push('css')
+<link rel="stylesheet"
+    href="{{ asset('assets/lte/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet"
+    href="{{ asset('assets/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+@endpush
 @extends('layouts.app')
 @section('content')
 <div class="card shadow mb-4">
@@ -7,7 +13,6 @@
     <div class="card-body">
         <form method="POST" action="{{ route('users.store') }}">
             @csrf
-            {{-- <input type="hidden" id="empresa_id" name="enterprises[]"> --}}
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -70,28 +75,22 @@
                 </div>
             </div>
             <div id="searchShow" style="display: none">
-                <div class="col">
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <table id="table-enterprise" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nombre Compañia</th>
-                                        <th scope="col">Categoría</th>
-                                        <th scope="col">RUC</th>
-                                        <th scope="col">Razón Social</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Acciones</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="enterprises">Buscar empresa</label>
+                            <select id="enterprises" name="enterprises[]"  class="form-control"  multiple="multiple">
+                                @foreach($enterprises as $enterprise)
+                                    <option value="{{ $enterprise->id }}">{{$enterprise->nombre_comercial}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a href="{{ route('dashboard') }}" class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
                     <button id="save-button" type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </div>
@@ -100,70 +99,6 @@
 </div>
 @endsection
 @push('scripts')
-    <script type="text/javascript">
-        $("#table-enterprise").DataTable({
-        processing: true,
-        responsive: true,
-        serverSide: true,
-        pageLength: 5,
-        ajax: `{{ route('enterprises.data') }}`,
-        type: 'GET',
-        columnDefs: [ {
-            sortable: false,
-            targets: "_all"
-        } ],
-        language: {
-            emptyTable: "No hay información",
-            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-            infoEmpty: "Mostrando 0 a 0 de 0 registros",
-            infoFiltered: "(Filtrado de _MAX_ total registros)",
-            lengthMenu:
-                "Mostrar <select>" +
-                '<option value="5">5</option>' +
-                '<option value="10">10</option>' +
-                "</select> registros",
-            loadingRecords: "Cargando...",
-            processing: "<span class='fa-stack fa-lg'>\n\
-                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
-                       </span>&emsp;Procesando ...",
-            search: "Buscar:",
-            zeroRecords: "Sin resultados encontrados",
-            paginate: {
-                first: "Primero",
-                last: "Ultimo",
-                next: "Siguiente",
-                previous: "Anterior",
-            },
-        },
-        columns: [
-            {
-                data: "nombre_comercial"
-            },
-            {
-                data: 'categoria_id'
-            },
-            {
-                data: "ruc"
-            },
-            {
-                data: "razon_social"
-            },
-            {
-                data: "estado",
-                render: function(data, type, row) {
-                    return data==='Activo' ? `<span class="badge badge-success">${data}</span>` : `<span class="badge badge-danger">${data}</span>`;
-                }
-            },
-            {
-                data: "id",
-                render: function(data, type, row) {
-                    return `<div class="text-center">
-                                <input type="checkbox" name="enterprises[]" id="checkbox-${data}" class="check btn btn-sm" value="${data}">
-                            </div>`
-                }
-            }
-        ]
-    })
-    </script>
-    <script src="{{ asset('assets/js/users/users.js') }}" type="module"></script>
+    <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/js/users/create-user.js') }}"></script>
 @endpush
