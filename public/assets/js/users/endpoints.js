@@ -4,13 +4,16 @@ export async function getUser(id) {
 }
 
 export async function storeUser(form) {
+    let role_id = form['role_id'].value
+    let empresa_id = form['empresa_id'].value
     let name = form['name'].value;
     let email = form['email'].value;
     let password = form['password'].value;
     let repassword = form['password-confirm'].value
-    let token = form['token'].value;
 
     let object = {
+        role_id : role_id,
+        empresa_id : empresa_id,
         name : name,
         email : email,
         password : password,

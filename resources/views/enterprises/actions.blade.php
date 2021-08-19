@@ -27,12 +27,14 @@
                 class="edit btn btn-info btn-circle mr-1 mb-1">
                 <i class="fas fa-pen-square"></i>
             </button>
-            <button
-                title="Eliminar"
-                id="{{$id}}"
-                class="delete btn btn-danger btn-circle mr-1 mb-1">
-                <i class="fa fa-trash"></i>
-            </button>
+            @if (Auth::user()->role_id == 1)
+                <button
+                    title="Eliminar"
+                    id="{{$id}}"
+                    class="delete btn btn-danger btn-circle mr-1 mb-1">
+                    <i class="fa fa-trash"></i>
+                </button>
+            @endif
         </div>
     </div>
 </div>

@@ -35,6 +35,31 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="role_id">Rol *</label>
+                                <select name="role_id" id="role_id" class="form-control">
+                                    <option value="0" selected disabled>-- Seleccione --</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->id }}">{{ $role->descripcion }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="searchShow" class="row" style="display: none">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="empresa_id">Buscar</label>
+                                <select
+                                    id="empresa_id"
+                                    class="searchEnterprise form-control col-md-12"
+                                    name="empresa_id">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="password">Contraseña *</label>
