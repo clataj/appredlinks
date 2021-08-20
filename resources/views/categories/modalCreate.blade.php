@@ -7,8 +7,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="form-category" enctype="multipart/form-data">
+            <form id="form-category" enctype="multipart/form-data">
+                <div class="modal-body">
                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                     <div class="row">
                         <div class="col-md-12">
@@ -27,7 +27,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="status">Estado *</label>
-                                <select name="status" id="status" class="form-control">
+                                <select name="status" id="status" class="custom-select">
                                     <option value="0" selected disabled>-- Seleccione --</option>
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
@@ -38,25 +38,20 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <p><b>Imagen *</b></p>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="inputGroupFileAddon01">Subir</span>
-                                    </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="image_category" aria-describedby="inputGroupFileAddon01">
-                                        <label id="img_category" class="custom-file-label" for="image_category">Escoger archivo</label>
-                                    </div>
+                                <label for="img_category">Subir Imagen *</label>
+                                <div class="custom-file">
+                                    <input name="image_category" type="file" class="custom-file-input" id="image_category" aria-describedby="inputGroupFileAddon01">
+                                    <label id="img_category" class="custom-file-label" for="image_category">Escoger archivo</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button id="save-button" type="button" class="btn btn-primary">Guardar</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="save-button" type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

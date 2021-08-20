@@ -40,7 +40,7 @@ status.onchange = (event) => {
     statusSave = event.target.value
 }
 
-saveButtonCategory.onclick = () => {
+export function storeCategoryInit() {
     let form = document.forms['form-category']
     showAlertWaiting()
     storeCategory(form, statusSave).then(response => {
