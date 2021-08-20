@@ -127,6 +127,11 @@
     <script src="{{ asset('/assets/lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('/assets/lte/plugins/datatables-select/js/select.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('assets/lte/plugins/datatables-checkboxes/js/dataTables.checkboxes.min.js')}}"></script>
+
+    <!-- jQuery Validate -->
+    <script src="{{ asset('/assets/lte/plugins/jquery-validate/jquery.validate.js') }}"></script>
+    <script src="{{ asset('/assets/lte/plugins/jquery-validate/messages_es.js') }}"></script>
+
     <!-- Custom scripts for all pages -->
     <script src="{{ asset('/assets/lte/dist/js/sb-admin-2.js') }}"></script>
     {{-- App --}}

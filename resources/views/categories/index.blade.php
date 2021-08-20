@@ -53,7 +53,7 @@
     </div>
 </div>
 @endsection
-@push('scripts')
+@prepend('scripts')
 <script type="text/javascript">
     $("#table-category").DataTable({
         responsive: true,
@@ -102,4 +102,5 @@
     });
 </script>
 <script src="{{ asset('assets/js/categories/categories.js') }}" type="module"></script>
-@endpush
+<script src="{{ asset('assets/js/categories/forms.js') }}" type="module"></script>
+@endprepend
