@@ -54,6 +54,7 @@
                             <th scope="col">Beneficio</th>
                             <th scope="col">Beneficios</th>
                             <th scope="col">Sucursal</th>
+                            <th scope="col">Cupones</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Dirección</th>
                             <th scope="col">Telefono</th>
@@ -69,7 +70,7 @@
 
             </div>
 
-        </div>        
+        </div>
 
     </div>
 
@@ -133,6 +134,9 @@
             },
             {
                 data: "createBranchOffice"
+            },
+            {
+                data: "coupons"
             },
             {
                 data: "estado",

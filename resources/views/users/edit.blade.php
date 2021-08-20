@@ -28,7 +28,6 @@
                             @error('name')
                                 {{ 'is-invalid' }}
                             @enderror"
-                            value="{{ old('name') }}"
                             >
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
@@ -48,7 +47,6 @@
                             @error('email')
                                 {{ 'is-invalid' }}
                             @enderror"
-                            value="{{ old('email') }}"
                             >
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>

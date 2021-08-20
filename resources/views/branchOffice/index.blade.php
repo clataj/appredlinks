@@ -37,6 +37,9 @@
                         <th scope="col">Código QR</th>
                         <th scope="col">Nombre de sucursal</th>
                         <th scope="col">Dirección</th>
+                        <th scope="col">Horario de Lunes a Viernes</th>
+                        <th scope="col">Horario de Sábado</th>
+                        <th scope="col">Horario de Domingo</th>
                         <th scope="col">Teléfono</th>
                         <th scope="col">Ciudad</th>
                         <th scope="col">Estado</th>
@@ -95,6 +98,21 @@
             },
             {
                 data: "direccion"
+            },
+            {
+                data: "dias_laborales"
+            },
+            {
+                data: "dia_no_laboral_1",
+                render: function(data, type, row) {
+                    return data==='Sin atencion' ? `<span class="badge badge-danger">${data}</span>` : `${data}`;
+                }
+            },
+            {
+                data: "dia_no_laboral_2",
+                render: function(data, type, row) {
+                    return data==='Sin atencion' ? `<span class="badge badge-danger">${data}</span>` : `${data}`;
+                }
             },
             {
                 data: "telefono"

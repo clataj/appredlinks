@@ -27,6 +27,15 @@ class CouponController extends Controller
         return view('coupons.index', compact('user'));
     }
 
+    public function create($id)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        if($user->enterprises->contains($id)) {
+            return view('coupons.create', compact('id','user'));
+        }
+        return redirect('/enterprises');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -162,10 +171,23 @@ class CouponController extends Controller
         return $validator;
     }
 
-    public function findAll()
+    public function findAll($id = null)
     {
-        $coupons = Coupon::orderBy('estado', 'ASC')->get();
+        if(Auth::user()->role_id == 1) {
+            $coupons = Coupon::orderBy('estado', 'ASC')->get();
+            return $this->printDataTable($coupons);
+        }
 
+        if(Auth::user()->role_id == 2) {
+            $coupons = Coupon::where('empresa_id', $id)->orderBy('estado', 'ASC')->get();
+            return $this->printDataTable($coupons);
+        }
+
+
+    }
+
+    public function printDataTable($coupons)
+    {
         return DataTables::of($coupons)
             ->addColumn('empresa_id', function ($coupon) {
                 return $coupon->enterprise->nombre_comercial;

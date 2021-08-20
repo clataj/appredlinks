@@ -22,7 +22,14 @@
                             id="name"
                             name="name"
                             placeholder="Ingrese nombres"
-                            class="form-control">
+                            class="form-control
+                            @error('name')
+                                {{ 'is-invalid' }}
+                            @enderror"
+                            value="{{ old('name') }}">
+                        @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -33,7 +40,14 @@
                             id="email"
                             name="email"
                             placeholder="Ingrese correo electrónico"
-                            class="form-control">
+                            class="form-control
+                            @error('email')
+                                {{ 'is-invalid' }}
+                            @enderror"
+                            value="{{ old('email') }}">
+                        @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -46,7 +60,14 @@
                             id="password"
                             name="password"
                             placeholder="Ingrese contraseña"
-                            class="form-control">
+                            class="form-control
+                            @error('password')
+                                {{ 'is-invalid' }}
+                            @enderror"
+                            value="{{ old('password') }}">
+                        @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -54,23 +75,44 @@
                     <input
                         id="password-confirm"
                         type="password"
-                        class="form-control"
+                        class="form-control
+                            @error('password_confirmation')
+                                {{ 'is-invalid' }}
+                            @enderror"
                         name="password_confirmation"
                         required
                         placeholder="Repita la contraseña"
-                        autocomplete="new-password">
+                        autocomplete="new-password"
+                        value={{ old('password_confirmation') }}>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @error('password_confirmation')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="role_id">Rol *</label>
-                        <select name="role_id" id="role_id" class="form-control">
+                        <select
+                            name="role_id"
+                            id="role_id"
+                            class="form-control
+                                @error('role_id')
+                                    {{ 'is-invalid' }}
+                                @enderror"
+                            >
                             <option value="0" selected disabled>-- Seleccione --</option>
                             @foreach ($roles as $role)
                                 <option value="{{ $role->id }}">{{ $role->descripcion }}</option>
                             @endforeach
                         </select>
+                        @error('role_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -79,18 +121,28 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="enterprises">Buscar empresa</label>
-                            <select id="enterprises" name="enterprises[]"  class="form-control"  multiple="multiple">
+                            <select
+                                id="enterprises"
+                                name="enterprises[]"
+                                class="form-control
+                                    @error('enterprises')
+                                        {{ 'is-invalid' }}
+                                    @enderror"
+                                multiple="multiple">
                                 @foreach($enterprises as $enterprise)
                                     <option value="{{ $enterprise->id }}">{{$enterprise->nombre_comercial}}</option>
                                 @endforeach
                             </select>
+                            @error('enterprises')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <a href="{{ route('dashboard') }}" class="btn btn-secondary" data-dismiss="modal">Cancelar</a>
+                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancelar</a>
                     <button id="save-button" type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </div>
