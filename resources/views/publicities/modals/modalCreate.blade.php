@@ -7,14 +7,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="form-save-publicity">
+            <form id="form-save-publicity">
+                <div class="modal-body">
                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="sub_categoria">Buscar</label>
-                                <select id="sub_categoria" class="searchEnterprise form-control col-md-12" name="sub_categoria"></select>
+                                <select id="sub_categoria" class="searchEnterprise custom-select col-md-12" name="sub_categoria"></select>
                             </div>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="tipo">Tipo de publicidad *</label>
-                                    <select name="tipo" id="tipo" class="form-control">
+                                    <select name="tipo" id="tipo" class="custom-select">
                                         <option value="0" selected disabled>-- Seleccione --</option>
                                         <option value="P">Publicidad Destacada</option>
                                         <option value="C">Publicidad Secundaria</option>
@@ -43,7 +43,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="estado">Estado *</label>
-                                    <select name="estado" id="estado" class="form-control">
+                                    <select name="estado" id="estado" class="custom-select">
                                         <option value="0" selected disabled>-- Seleccione --</option>
                                         <option value="A">Activo</option>
                                         <option value="I">Inactivo</option>
@@ -75,25 +75,22 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <p><b>Imagen *</b></p>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="inputGroupFileAddon01">Subir</span>
-                                    </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="imagen" aria-describedby="inputGroupFileAddon01">
-                                        <label id="img_publicity" class="custom-file-label" for="imagen">Escoger archivo</label>
-                                    </div>
+                                <label for="img_publicity">Imagen *</label>
+                                
+                                <div class="custom-file">
+                                    <input name="img_publicity" type="file" class="custom-file-input" id="imagen" aria-describedby="inputGroupFileAddon01">
+                                    <label id="img_publicity" class="custom-file-label" for="imagen">Escoger archivo</label>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button id="save-button" type="button" class="btn btn-primary">Guardar</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="save-button" type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

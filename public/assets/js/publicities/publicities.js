@@ -58,7 +58,7 @@ imagen.onchange = () => {
     imgPublicity.textContent=form['imagen'].value.replace(/C:\\fakepath\\/i, '')
 }
 
-saveButton.onclick = () => {
+export function storePublicityInit() {
     let form = document.forms['form-save-publicity']
     showAlertWaiting()
     storePublicity(form).then(response => {
@@ -106,6 +106,14 @@ imageEdit.onchange = () => {
 }
 
 changeImageButton.onclick = () => {
+    // let form = document.forms['form-publicity-edit-image']
+    // showAlertWaiting()
+    // changeImage(form, id).then(response => {
+    //     responsePromise(response, "#table-publicity", "#modalImageEdit")
+    // })
+}
+
+export function changeImageInit() {
     let form = document.forms['form-publicity-edit-image']
     showAlertWaiting()
     changeImage(form, id).then(response => {
@@ -160,7 +168,7 @@ $("#table-publicity").DataTable().on('click', 'button.edit', async function() {
     $(".searchEnterpriseEdit").append(enterprise).trigger('change')
 })
 
-editButton.onclick = () => {
+export function updatePublicityInit() {
     let form = document.forms['form-edit-publicity']
     showAlertWaiting()
     updatePublicity(form, id).then(response => {

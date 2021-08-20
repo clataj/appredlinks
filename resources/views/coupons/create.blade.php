@@ -1,12 +1,5 @@
-@push('css')
-<link rel="stylesheet"
-    href="{{ asset('assets/lte/plugins/select2/css/select2.min.css') }}">
-<link rel="stylesheet"
-    href="{{ asset('assets/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-@endpush
 @extends('layouts.app')
 @section('content')
-
 <!-- Page Heading -->
 <div class="row mb-4">
     <div class="col d-flex flex-column flex-md-row justify-content-between">
@@ -46,7 +39,6 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Nombre de la empresa</th>
                             <th scope="col">Cantidad de cupones por Usuario</th>
                             <th scope="col">Limite de numero de cupones</th>
                             <th scope="col">Fecha Inicio</th>
@@ -63,10 +55,8 @@
     </div>
 
 </div>
-
 @endsection
 @push('scripts')
-<script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
 <script type="text/javascript">
     $("#table-coupons").DataTable({
         processing: true,
@@ -74,7 +64,7 @@
         serverSide: true,
         pageLength : 5,
         responsive : true,
-        ajax: `{{ route('coupons.data') }}`,
+        ajax: `{{ route('coupons.data', $id) }}`,
         type: 'GET',
         columnDefs : [
             {
@@ -116,9 +106,6 @@
                 data: "estado"
             },
             {
-                data: "empresa_id"
-            },
-            {
                 data : "cant_x_usua"
             },
             {
@@ -137,6 +124,4 @@
         ]
     })
 </script>
-<script src="{{ asset('assets/js/coupons/coupons.js') }}" type="module"></script>
-<script src="{{ asset('assets/js/coupons/forms.js') }}" type="module"></script>
 @endpush

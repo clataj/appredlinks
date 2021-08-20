@@ -9,7 +9,6 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -48,14 +47,16 @@ class EnterpriseController extends Controller
             'telefono' => 'required',
             'estado' => 'required|string|not_in:0',
             'ruta_fondo' => 'image',
-            'ruta_small_2' => 'image'
+            'ruta_small_2' => 'image',
+            'limite_cupon' => 'required'
         ], [], [
             'name' => 'nombre',
             'razon_social' => 'razón social',
             'nombre_comercial' => 'nombre comercial',
             'categoria_id' => 'categoria',
             'ruta_fondo' => 'imagen de fondo',
-            'ruta_small_2' => 'imagen del contenido'
+            'ruta_small_2' => 'imagen del contenido',
+            'limite_cupon' => 'limite del cupon'
         ]);
 
         if($validator->fails()) {
@@ -86,7 +87,8 @@ class EnterpriseController extends Controller
                 'estado' => $request->estado,
                 'ruta_small_2' => $ruta_small_2,
                 'ruta_large_2' => $ruta_small_2,
-                'ruta_fondo' => $ruta_fondo
+                'ruta_fondo' => $ruta_fondo,
+                'limite_cupon' => $request->limite_cupon
             ]);
 
             return response()->json([
@@ -109,7 +111,9 @@ class EnterpriseController extends Controller
             'direccion' => 'required',
             'telefono' => 'required',
             'estado' => 'required|string',
+            'limite_cupon' => 'required'
         ], [], [
+            'limite_cupon' => 'limite del cupon',
             'name' => 'nombre',
             'razon_social' => 'razón social',
             'nombre_comercial' => 'nombre comercial',
@@ -205,6 +209,13 @@ class EnterpriseController extends Controller
         $enterprise = Enterprise::findOrFail($id);
         FileImage::deleteImage($enterprise->ruta_small_2, 'enterprises');
         FileImage::deleteImage($enterprise->ruta_fondo, 'enterprises');
+
+        if(count($enterprise->users) > 0) {
+            $enterprise->delete();
+            $enterprise->users()->detach();
+            return $enterprise;
+        }
+
         $enterprise->delete();
         return $enterprise;
     }
@@ -248,6 +259,18 @@ class EnterpriseController extends Controller
                 ->addColumn('estado', function ($enterprise) {
                     return $enterprise->estado === 'A' ? 'Activo' : 'Inactivo';
                 })
+                ->addColumn('coupons', function($enterprise){
+                    if(Auth::user()->role_id == 1) {
+                        return $enterprise->limite_cupon;
+                    }
+                    if(Auth::user()->role_id == 2) {
+                        return '<a
+                            href="'. route("coupons.create", $enterprise->id) .'"
+                            class="btn btn-success">
+                            <i class="fas fa-gift"></i>
+                            </a>';
+                    }
+                })
                 ->addColumn('actions', 'enterprises.actions')
                 ->addColumn('createBranchOffice', function($enterprise) {
                     return '<a
@@ -263,7 +286,7 @@ class EnterpriseController extends Controller
                             <i class="fas fa-concierge-bell"></i>
                             </a>';
                 })
-                ->rawColumns(['actions', 'createBranchOffice', 'beneficios'])
+                ->rawColumns(['actions', 'createBranchOffice', 'beneficios','coupons'])
                 ->make(true);
     }
 }

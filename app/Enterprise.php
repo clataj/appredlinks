@@ -27,7 +27,8 @@ class Enterprise extends Model
         'estado',
         'ruta_small_2',
         'ruta_large_2',
-        'ruta_fondo'
+        'ruta_fondo',
+        'limite_cupon'
     ];
 
     /**
