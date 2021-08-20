@@ -30,6 +30,9 @@
                         </div>
                     </div>
                     @endif
+                    @if (Auth::user()->role_id == 2)
+                        <input type="hidden" name="empresa_id" id="empresa_id" value="{{ $id }}">
+                    @endif
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -63,7 +66,7 @@
                                     class="form-control"
                                     id="cant_x_usua"
                                     name="cant_x_usua"
-                                    placeholder="Numero de cupones">
+                                    placeholder="Cantidad de cupones por usuario">
                             </div>
                         </div>
                     </div>
