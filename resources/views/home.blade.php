@@ -55,6 +55,15 @@
 
 
 @push('scripts')
+@if (session('status'))
+<script type="text/javascript">
+    Swal.fire({
+        title: 'Exito',
+        text: `{{ session('status') }}`,
+        icon: 'success'
+    })
+</script>
+@endif
 <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
 <script type="text/javascript">
     $("#table-user").DataTable({
