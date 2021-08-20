@@ -133,17 +133,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="descripcion">Descripción *</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="descripcion"
-                        name="descripcion"
-                        placeholder="Descripción del cupon">
-                </div>
-            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 <button id="save-button" type="submit" class="btn btn-primary">Guardar</button>
