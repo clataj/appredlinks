@@ -172,5 +172,6 @@
     })
 </script>
 <script src="{{ asset('assets/js/enterprises/enterprises.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/enterprises/forms.js') }}" type="module"></script>
 
 @endpush
