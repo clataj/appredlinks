@@ -138,4 +138,5 @@
     })
 </script>
 <script src="{{ asset('assets/js/coupons/coupons.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/coupons/forms.js') }}" type="module"></script>
 @endpush

@@ -44,7 +44,7 @@ openModalCoupon.onclick = () => {
     form.reset()
 }
 
-saveButton.onclick = () => {
+export function storeCouponInit() {
     let form = document.forms['form-save-coupon']
     showAlertWaiting()
     storeCoupon(form).then(response => {
@@ -105,7 +105,7 @@ $("#table-coupons").DataTable().on('click', 'button.edit', async function() {
     $(".searchEnterpriseEdit").append(enterprise).trigger('change')
 });
 
-editButton.onclick = () => {
+export function updateCouponInit() {
     let form = document.forms['form-coupon-edit']
     showAlertWaiting()
     updateCoupon(form, id).then(response => {

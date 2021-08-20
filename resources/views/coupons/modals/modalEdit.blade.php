@@ -13,8 +13,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="form-coupon-edit">
+            <form id="form-coupon-edit">
+                <div class="modal-body">
                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                     <div class="row">
                         <div class="col-md-12">
@@ -67,7 +67,7 @@
                                 name="fecha_inicio"
                                 id="fecha_inicio"
                                 class="form-control"
-                                min="{{ date('Y-m-d') }}">
+                            >
                         </div>
                         <div class="col-md-6">
                             <label for="hora_inicio">Hora de inicio *</label>
@@ -86,7 +86,7 @@
                                 name="fecha_fin"
                                 id="fecha_fin"
                                 class="form-control"
-                                min="{{ date('Y-m-d') }}">
+                            >
                         </div>
                         <div class="col-md-6">
                             <label for="hora_final">Hora Final *</label>
@@ -108,12 +108,12 @@
                                 placeholder="Descripción del cupon">
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button id="edit-button" type="button" class="btn btn-primary">Guardar</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="edit-button" type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
