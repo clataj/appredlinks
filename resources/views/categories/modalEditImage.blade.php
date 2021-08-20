@@ -7,8 +7,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="form-category-edit-image" enctype="multipart/form-data">
+            <form id="form-category-edit-image" enctype="multipart/form-data">
+                <div class="modal-body">
                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                     <div class="row">
                         <div class="col-md-12">
@@ -19,24 +19,19 @@
                     <div class="row mt-5">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="inputGroupFileAddon01">Subir</span>
-                                    </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="image_category_edit" aria-describedby="inputGroupFileAddon01">
-                                        <label id="img_category_edit" class="custom-file-label" for="image_category_edit">Escoger archivo</label>
-                                    </div>
+                                <div class="custom-file">
+                                    <input name="image_category" type="file" class="custom-file-input" id="image_category_edit" aria-describedby="inputGroupFileAddon01">
+                                    <label id="img_category_edit" class="custom-file-label" for="image_category_edit">Escoger archivo</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button id="change-image-button" type="button" class="btn btn-primary">Editar</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="change-image-button" type="submit" class="btn btn-primary">Editar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

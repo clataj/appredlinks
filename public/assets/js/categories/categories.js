@@ -67,7 +67,7 @@ imageCategoryEdit.onchange = () => {
     imgCategoryEdit.textContent=form['image_category_edit'].value.replace(/C:\\fakepath\\/i, '')
 }
 
-changeImageButton.onclick = () => {
+export function changeImageInit() {
     let form = document.forms['form-category-edit-image']
     showAlertWaiting()
     changeImage(form, id).then(response => {
@@ -84,16 +84,17 @@ $("#table-category").DataTable().on('click', 'button.edit', async function() {
     const data = category.data
     Swal.close()
     let form = document.forms['form-category-edit'];
-    $("#modalCategoryEdit").modal('toggle')
-    form['name'].value=data.nombre;
-    form['status-edit'].value=data.estado;
+    $("#modalCategoryEdit").modal('toggle');
+
+    form['name'].value = data.nombre;
+    form['status'].value = data.estado;
 })
 
 statusEdit.onchange = (event) => {
     statusSaveEdit = event.target.value
 }
 
-editButtonCategory.onclick = () => {
+export function updateCategoryInit() {
     let form = document.forms['form-category-edit'];
     showAlertWaiting()
     updateCategory(form, statusSaveEdit, id).then(response => {
