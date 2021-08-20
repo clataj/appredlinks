@@ -64,7 +64,7 @@
         serverSide: true,
         pageLength : 5,
         responsive : true,
-        ajax: `{{ route('coupons.data', $id) }}`,
+        ajax: `{{ route('coupons.dataEnterprise', $id) }}`,
         type: 'GET',
         columnDefs : [
             {
