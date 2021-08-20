@@ -17,7 +17,10 @@ class BranchOffice extends Model
         'longitud_map',
         'latitud_map',
         'estado',
-        'ciudad_id'
+        'ciudad_id',
+        'dias_laborales',
+        'dia_no_laboral_1',
+        'dia_no_laboral_2',
     ];
 
     /**

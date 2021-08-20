@@ -97,8 +97,10 @@ class BranchOfficeController extends Controller
             'telefono' => 'required',
             'direccion' => 'required',
             'latitud_map' => 'required',
-            'longitud_map' => 'required'
+            'longitud_map' => 'required',
+            'dias_laborales' => 'required',
         ],[],[
+            'dias_laborales' => 'horario de la semana',
             'nombre' => 'nombre de la sucursal',
             'ciudad_id' => 'ciudad',
             'latitud_map' => 'latitud del mapa',
@@ -118,6 +120,12 @@ class BranchOfficeController extends Controller
         })
         ->addColumn('status', function($branchOffice) {
             return $branchOffice->estado=='A' ? 'Activo' : 'Inactivo';
+        })
+        ->addColumn('dia_no_laboral_1', function($branchOffice) {
+            return $branchOffice->dia_no_laboral_1!=null ? $branchOffice->dia_no_laboral_1 : 'Sin atencion';
+        })
+        ->addColumn('dia_no_laboral_2', function($branchOffice) {
+            return $branchOffice->dia_no_laboral_2!=null ? $branchOffice->dia_no_laboral_2 : 'Sin atencion';
         })
         ->addColumn('actions', 'branchOffice.actions')
         ->rawColumns(['actions'])

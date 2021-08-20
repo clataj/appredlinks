@@ -56,28 +56,55 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'role_id' => 'required|not_in:0',
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string',
-            'password_confirmation' => 'required|same:password',
-        ], [], [
-            'role_id' => 'rol',
-            'name' => 'nombre',
-            'email' => 'correo electrónico',
-            'password' => 'contraseña',
-            'password_confirmation' => 'confirmación de contraseña'
-        ]);
+        if(intval($request->role_id) == 1) {
+            $validator = Validator::make($request->all(),[
+                'role_id' => 'required|not_in:0',
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|string',
+                'password_confirmation' => 'required|same:password',
+            ], [], [
+                'role_id' => 'rol',
+                'name' => 'nombre',
+                'email' => 'correo electrónico',
+                'password' => 'contraseña',
+                'password_confirmation' => 'confirmación de contraseña'
+            ]);
 
-        if($validator->fails()) {
-            return response()->json([
-                'type' => 'validate',
-                'errors' => $validator->errors()
-            ], Response::HTTP_BAD_REQUEST);
+            if($validator->fails()) {
+                return back()->withErrors($validator->errors())->withInput($request->input());
+            }
+
+            $user = User::create([
+                'role_id' => $request->role_id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+            return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
         }
 
-        if(intval($request->role_id) == 2) {
+        if($request->role_id == 2) {
+            $validateEnterprise = Validator::make($request->all(),[
+                'enterprises' => 'required',
+                'role_id' => 'required|not_in:0',
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|string',
+                'password_confirmation' => 'required|same:password',
+            ], [], [
+                'enterprises' => 'empresa',
+                'role_id' => 'rol',
+                'name' => 'nombre',
+                'email' => 'correo electrónico',
+                'password' => 'contraseña',
+                'password_confirmation' => 'confirmación de contraseña'
+            ]);
+
+            if($validateEnterprise->fails()) {
+                return back()->withErrors($validateEnterprise->errors());
+            }
+
             $user = User::create([
                 'role_id' => $request->role_id,
                 'name' => $request->name,
@@ -87,20 +114,11 @@ class UserController extends Controller
             $user->enterprises()->sync($request->enterprises, false);
             return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
         }
-        if(intval($request->role_id) == 1) {
-            $user = User::create([
-                'role_id' => $request->role_id,
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ]);
-            return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
-        }
     }
 
     public function edit($id)
     {
-        $user = Cache::get('user');
+        $user = User::findOrFail(Auth::user()->id);
         $userEdit = User::findOrFail($id);
         $ids = $userEdit->enterprises()->pluck('empresas.id')->toArray();
         $enterprises = Enterprise::where('tipo','LA')->where('estado', 'A')->get();
@@ -117,23 +135,22 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $validator = Validator::make($request->all(), [
-            'role_id' => 'required|not_in:0',
-            'enterprises' => 'required',
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,'.$user->id,
-        ],[], [
-            'enterprises' => 'empresas',
-            'role_id' => 'rol',
-            'name' => 'nombre',
-            'email' => 'correo electrónico',
-        ]);
-
-        if($validator->fails()) {
-            return back()->withErrors($validator->errors());
-        }
-
         if(intval($request->role_id) == 1) {
+
+            $validator = Validator::make($request->all(), [
+                'role_id' => 'required|not_in:0',
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users,email,'.$user->id,
+            ],[], [
+                'role_id' => 'rol',
+                'name' => 'nombre',
+                'email' => 'correo electrónico',
+            ]);
+
+            if($validator->fails()) {
+                return back()->withErrors($validator->errors());
+            }
+
             if(count($user->enterprises) > 0) {
                 $user->update([
                     'role_id' => $request->role_id,
@@ -146,6 +163,22 @@ class UserController extends Controller
         }
 
         if(intval($request->role_id) == 2) {
+            $validateEnterprise = Validator::make($request->all(),[
+                'enterprises' => 'required',
+                'role_id' => 'required|not_in:0',
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users,email,'.$user->id,
+            ], [], [
+                'enterprises' => 'empresa',
+                'role_id' => 'rol',
+                'name' => 'nombre',
+                'email' => 'correo electrónico'
+            ]);
+
+            if($validateEnterprise->fails()) {
+                return back()->withErrors($validateEnterprise->errors());
+            }
+
             $user->update([
                 'role_id' => $request->role_id,
                 'name' => $request->name,

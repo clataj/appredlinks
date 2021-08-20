@@ -41,6 +41,10 @@ $("#table-branch-office").DataTable().on('click', 'button.edit', async function(
     form['telefono'].value=data.telefono;
     form['longitud_map'].value=data.longitud_map;
     form['latitud_map'].value=data.latitud_map;
+    form['dias_laborales'].value=data.dias_laborales;
+    form['dia_no_laboral_1'].value=data.dia_no_laboral_1;
+    form['dia_no_laboral_2'].value=data.dia_no_laboral_2;
+
 })
 
 // Update Info
