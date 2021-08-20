@@ -1,51 +1,6 @@
-export async function getUser(id) {
-    let data = await fetch(`/users/${id}/show`);
+export async function getUser(id, enterpriseId = null) {
+    let data = await fetch(`/users/${id}/show/${enterpriseId}`);
     return data.json();
-}
-
-export async function storeUser(form) {
-    let name = form['name'].value;
-    let email = form['email'].value;
-    let password = form['password'].value;
-    let repassword = form['password-confirm'].value
-    let token = form['token'].value;
-
-    let object = {
-        name : name,
-        email : email,
-        password : password,
-        password_confirmation : repassword
-    }
-
-    const response = await fetch(`/users`, {
-        method: 'POST',
-        headers: {
-            'Content-Type' : 'application/json',
-            'X-CSRF-TOKEN' : window.CSRF_TOKEN
-        },
-        body: JSON.stringify(object),
-    })
-    return response.json();
-}
-
-export async function updateUser(form, id) {
-    let name = form['name'].value;
-    let email = form['email'].value;
-
-    let object = {
-        name : name,
-        email : email,
-    }
-    const response = await fetch(`/users/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type' : 'application/json',
-            'X-CSRF-TOKEN' : window.CSRF_TOKEN
-        },
-        body: JSON.stringify(object),
-    })
-
-    return response.json()
 }
 
 export function deleteUser(id) {

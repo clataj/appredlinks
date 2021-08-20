@@ -1,5 +1,5 @@
-import { responsePromise, showAlertWaiting } from "../helpers.js";
-import { changeImage, getPublicity, storePublicity, updatePublicity } from "./endpoints.js";
+import { responsePromise, showAlertDelete, showAlertWaiting } from "../helpers.js";
+import { changeImage, deletePublicity, getPublicity, storePublicity, updatePublicity } from "./endpoints.js";
 // Post Publicity
 let openModalPublicity = document.getElementById('openModalPublicity')
 let saveButton = document.getElementById('save-button')
@@ -58,7 +58,7 @@ imagen.onchange = () => {
     imgPublicity.textContent=form['imagen'].value.replace(/C:\\fakepath\\/i, '')
 }
 
-saveButton.onclick = () => {
+export function storePublicityInit() {
     let form = document.forms['form-save-publicity']
     showAlertWaiting()
     storePublicity(form).then(response => {
@@ -106,6 +106,14 @@ imageEdit.onchange = () => {
 }
 
 changeImageButton.onclick = () => {
+    // let form = document.forms['form-publicity-edit-image']
+    // showAlertWaiting()
+    // changeImage(form, id).then(response => {
+    //     responsePromise(response, "#table-publicity", "#modalImageEdit")
+    // })
+}
+
+export function changeImageInit() {
     let form = document.forms['form-publicity-edit-image']
     showAlertWaiting()
     changeImage(form, id).then(response => {
@@ -160,7 +168,7 @@ $("#table-publicity").DataTable().on('click', 'button.edit', async function() {
     $(".searchEnterpriseEdit").append(enterprise).trigger('change')
 })
 
-editButton.onclick = () => {
+export function updatePublicityInit() {
     let form = document.forms['form-edit-publicity']
     showAlertWaiting()
     updatePublicity(form, id).then(response => {
@@ -168,3 +176,13 @@ editButton.onclick = () => {
     })
 }
 
+// Delete Enterprise
+$("#table-publicity").DataTable().on('click', 'button.delete', function() {
+    id = $(this).attr('id');
+    showAlertDelete().then((result) => {
+        if (result.isConfirmed) {
+            showAlertWaiting()
+            deletePublicity(id)
+        }
+    })
+})

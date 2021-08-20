@@ -3,9 +3,20 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-window.Swal = require('sweetalert2');
-require('./select2.min.js');
+import "moment/locale/es";
 
+window.Swal = require('sweetalert2');
+
+window.moment = require('moment');
+
+
+window.Vue = require('vue');
+
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+const app = new Vue({
+  el: '#app',
+});
 
 /**
  * The following block of code may be used to automatically register your

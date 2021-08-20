@@ -27,7 +27,8 @@ class Enterprise extends Model
         'estado',
         'ruta_small_2',
         'ruta_large_2',
-        'ruta_fondo'
+        'ruta_fondo',
+        'limite_cupon'
     ];
 
     /**
@@ -55,5 +56,28 @@ class Enterprise extends Model
     public function publicities(): HasMany
     {
         return $this->hasMany(Publicity::class, 'sub_categoria');
+    }
+
+    /**
+     * This method will be related with the model Coupon
+     * @return HasMany
+     */
+    public function coupons(): HasMany
+    {
+        return $this->hasMany(Coupon::class, 'empresa_id');
+    }
+
+    /**
+     * This method will be related with the model Benefit
+     * @return HasMany
+     */
+    public function benefits(): HasMany
+    {
+        return $this->hasMany(Benefit::class, 'empresa_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'empresas_users', 'user_id', 'empresas_id');
     }
 }

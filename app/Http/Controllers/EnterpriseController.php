@@ -47,14 +47,16 @@ class EnterpriseController extends Controller
             'telefono' => 'required',
             'estado' => 'required|string|not_in:0',
             'ruta_fondo' => 'image',
-            'ruta_small_2' => 'image'
+            'ruta_small_2' => 'image',
+            'limite_cupon' => 'required'
         ], [], [
             'name' => 'nombre',
             'razon_social' => 'razón social',
             'nombre_comercial' => 'nombre comercial',
             'categoria_id' => 'categoria',
             'ruta_fondo' => 'imagen de fondo',
-            'ruta_small_2' => 'imagen del contenido'
+            'ruta_small_2' => 'imagen del contenido',
+            'limite_cupon' => 'limite del cupon'
         ]);
 
         if($validator->fails()) {
@@ -85,7 +87,8 @@ class EnterpriseController extends Controller
                 'estado' => $request->estado,
                 'ruta_small_2' => $ruta_small_2,
                 'ruta_large_2' => $ruta_small_2,
-                'ruta_fondo' => $ruta_fondo
+                'ruta_fondo' => $ruta_fondo,
+                'limite_cupon' => $request->limite_cupon
             ]);
 
             return response()->json([
@@ -108,7 +111,9 @@ class EnterpriseController extends Controller
             'direccion' => 'required',
             'telefono' => 'required',
             'estado' => 'required|string',
+            'limite_cupon' => 'required'
         ], [], [
+            'limite_cupon' => 'limite del cupon',
             'name' => 'nombre',
             'razon_social' => 'razón social',
             'nombre_comercial' => 'nombre comercial',
@@ -204,44 +209,84 @@ class EnterpriseController extends Controller
         $enterprise = Enterprise::findOrFail($id);
         FileImage::deleteImage($enterprise->ruta_small_2, 'enterprises');
         FileImage::deleteImage($enterprise->ruta_fondo, 'enterprises');
+
+        if(count($enterprise->users) > 0) {
+            $enterprise->delete();
+            $enterprise->users()->detach();
+            return $enterprise;
+        }
+
         $enterprise->delete();
         return $enterprise;
     }
 
     public function findAll()
     {
-        $enterprises = Enterprise::where('tipo','LA')->orderBy('estado', 'ASC');
+        if(Auth::user()->role_id == 1) {
+
+            $enterprises = Enterprise::where('tipo','LA')->orderBy('estado', 'ASC');
+            return $this->printDataTable($enterprises);
+
+        }
+
+        if(Auth::user()->role_id == 2) {
+            $user = User::findOrFail(Auth::user()->id);
+            $enterprises = $user->enterprises;
+            return $this->printDataTable($enterprises);
+        }
+    }
+
+    public function printDataTable($enterprises) {
         return DataTables::of($enterprises)
-            ->addColumn('categoria_id', function($enterprise) {
-                return $enterprise->category->nombre;
-            })
-            ->addColumn('correo', function ($enterprise) {
-                return $enterprise->correo!=null ? $enterprise->correo : 'No dispone';
-            })
-            ->addColumn('website', function ($enterprise) {
-                return $enterprise->website!=null ? $enterprise->website : 'No dispone';
-            })
-            ->addColumn('facebook', function ($enterprise) {
-                return $enterprise->facebook!=null ? $enterprise->facebook : 'No dispone';
-            })
-            ->addColumn('twitter', function ($enterprise) {
-                return $enterprise->twitter!=null ? $enterprise->twitter : 'No dispone';
-            })
-            ->addColumn('instagram', function ($enterprise) {
-                return $enterprise->instagram!=null ? $enterprise->instagram : 'No dispone';
-            })
-            ->addColumn('estado', function ($enterprise) {
-                return $enterprise->estado === 'A' ? 'Activo' : 'Inactivo';
-            })
-            ->addColumn('actions', 'enterprises.actions')
-            ->addColumn('createBranchOffice', function($enterprise) {
-                return '<a
-                        href="'. route("branchOffices.createBranchOffice", $enterprise->id) .'"
-                        class="btn btn-success">
-                        <i class="fas fa-save"></i>
-                        </a>';
-            })
-            ->rawColumns(['actions', 'createBranchOffice'])
-            ->make(true);
+                ->addColumn('categoria_id', function($enterprise) {
+                    return $enterprise->category->nombre;
+                })
+                ->addColumn('correo', function ($enterprise) {
+                    return $enterprise->correo!=null ? $enterprise->correo : 'No dispone';
+                })
+                ->addColumn('website', function ($enterprise) {
+                    return $enterprise->website!=null ? $enterprise->website : 'No dispone';
+                })
+                ->addColumn('facebook', function ($enterprise) {
+                    return $enterprise->facebook!=null ? $enterprise->facebook : 'No dispone';
+                })
+                ->addColumn('twitter', function ($enterprise) {
+                    return $enterprise->twitter!=null ? $enterprise->twitter : 'No dispone';
+                })
+                ->addColumn('instagram', function ($enterprise) {
+                    return $enterprise->instagram!=null ? $enterprise->instagram : 'No dispone';
+                })
+                ->addColumn('estado', function ($enterprise) {
+                    return $enterprise->estado === 'A' ? 'Activo' : 'Inactivo';
+                })
+                ->addColumn('coupons', function($enterprise){
+                    if(Auth::user()->role_id == 1) {
+                        return $enterprise->limite_cupon;
+                    }
+                    if(Auth::user()->role_id == 2) {
+                        return '<a
+                            href="'. route("coupons.create", $enterprise->id) .'"
+                            class="btn btn-success">
+                            <i class="fas fa-gift"></i>
+                            </a>';
+                    }
+                })
+                ->addColumn('actions', 'enterprises.actions')
+                ->addColumn('createBranchOffice', function($enterprise) {
+                    return '<a
+                            href="'. route("branchOffices.createBranchOffice", $enterprise->id) .'"
+                            class="btn btn-success">
+                            <i class="fas fa-save"></i>
+                            </a>';
+                })
+                ->addColumn('beneficios', function($enterprise) {
+                    return '<a
+                            href="'. route("benefits.create", $enterprise->id) .'"
+                            class="btn btn-success">
+                            <i class="fas fa-concierge-bell"></i>
+                            </a>';
+                })
+                ->rawColumns(['actions', 'createBranchOffice', 'beneficios','coupons'])
+                ->make(true);
     }
 }

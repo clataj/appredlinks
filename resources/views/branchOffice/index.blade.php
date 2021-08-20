@@ -1,34 +1,34 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="row mb-2">
-        <div class="col-md-12">
-            <!-- Button trigger modal -->
+<div class="row mb-2">
+    <div class="col-md-12">
+        <!-- Button trigger modal -->
+        <button
+            id="openModalBranchOffice"
+            type="button"
+            class="btn btn-primary float-left"
+            data-toggle="modal"
+            data-target="#modalBranchOffice">
+            <i class="fa fa-plus"></i> Agregar Sucursal
+        </button>
+        <a href="{{ route('enterprises.index') }}">
             <button
-                id="openModalBranchOffice"
                 type="button"
-                class="btn btn-primary float-left"
-                data-toggle="modal"
-                data-target="#modalBranchOffice">
-                <i class="fa fa-plus"></i> Agregar Sucursal
+                class="btn btn-danger float-right">
+                <i class="fa fa-arrow-left"></i> Regresar
             </button>
-            <a href="{{ route('enterprises.index') }}">
-                <button
-                    type="button"
-                    class="btn btn-primary float-right">
-                    <i class="fa fa-arrow-left"></i> Regresar
-                </button>
-            </a>
-        </div>
+        </a>
     </div>
-    <!-- Create Modal -->
-    @include('branchOffice.modals.modalCreate')
+</div>
+<!-- Create Modal -->
+@include('branchOffice.modals.modalCreate')
 
-    <!-- Edit Modal -->
-    @include('branchOffice.modals.modalEdit')
+<!-- Edit Modal -->
+@include('branchOffice.modals.modalEdit')
 
-    <div class="card">
-        <div class="card-body">
+<div class="card shadow">
+    <div class="card-body">
+        <div class="table-responsive">
             <table id="table-branch-office"
                 class="display nowrap table table-bordered table-hover"
                 style="width: 100%;">
@@ -37,6 +37,9 @@
                         <th scope="col">Código QR</th>
                         <th scope="col">Nombre de sucursal</th>
                         <th scope="col">Dirección</th>
+                        <th scope="col">Horario de Lunes a Viernes</th>
+                        <th scope="col">Horario de Sábado</th>
+                        <th scope="col">Horario de Domingo</th>
                         <th scope="col">Teléfono</th>
                         <th scope="col">Ciudad</th>
                         <th scope="col">Estado</th>
@@ -95,6 +98,21 @@
             },
             {
                 data: "direccion"
+            },
+            {
+                data: "dias_laborales"
+            },
+            {
+                data: "dia_no_laboral_1",
+                render: function(data, type, row) {
+                    return data==='Sin atencion' ? `<span class="badge badge-danger">${data}</span>` : `${data}`;
+                }
+            },
+            {
+                data: "dia_no_laboral_2",
+                render: function(data, type, row) {
+                    return data==='Sin atencion' ? `<span class="badge badge-danger">${data}</span>` : `${data}`;
+                }
             },
             {
                 data: "telefono"

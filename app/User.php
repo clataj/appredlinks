@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','role_id'
     ];
 
     /**
@@ -44,5 +45,19 @@ class User extends Authenticatable
     public function getNameAttribute(): string
     {
         return ucwords($this->attributes['name']);
+    }
+
+    /**
+     * This method will be related with the model Role
+     * @return BelonsTo
+     */
+    public function rol(): BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function enterprises()
+    {
+        return $this->belongsToMany(Enterprise::class, 'empresas_users', 'user_id', 'empresa_id');
     }
 }

@@ -1,14 +1,7 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
 
-// Variables
-@import 'variables';
+@import "base/variables";
+@import "base/reset";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// utils
 
-// FontAwesome
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-
-// Select2
-@import './select2.min.css';
+@import "utils/images";

@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalCategoryEdit" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Editar Categoria</h5>
@@ -7,8 +7,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="form-category-edit">
+            <form id="form-category-edit">
+                <div class="modal-body">
                     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                     <div class="row">
                         <div class="col-md-12">
@@ -16,7 +16,7 @@
                                 <label for="name-edit">Nombre de categoria *</label>
                                 <input
                                     type="text"
-                                    id="name"
+                                    id="name-edit"
                                     name="name"
                                     placeholder="Ingrese nombre de categoria"
                                     value=""
@@ -28,7 +28,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="status-edit">Estado *</label>
-                                <select name="status" id="status-edit" class="form-control">
+                                <select name="status" id="status-edit" class="custom-select">
                                     <option value="0" selected disabled>-- Seleccione --</option>
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
@@ -36,12 +36,12 @@
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button id="edit-button" type="button" class="btn btn-primary">Editar</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button id="edit-button" type="submit" class="btn btn-primary">Editar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

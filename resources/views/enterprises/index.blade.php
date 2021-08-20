@@ -1,66 +1,81 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h3 class="m-0 text-dark">Listado de Empresas</h3>
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+<!-- Page Heading -->
+<div class="row mb-4">
+    <div class="col d-flex flex-column flex-md-row justify-content-between">
+        <h3 class="h3 text-gray-800">Listado de Empresas</h3>
 
-    <div class="row mb-2">
-        <div class="col-md-6">
-            <!-- Button trigger modal -->
-            <button
-                id="openModalEnterprise"
-                type="button"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#modalEnterprise">
-                <i class="fa fa-plus"></i> Agregar Empresa
-            </button>
-        </div>
+        <!-- Button trigger modal -->
+        <button
+            id="openModalEnterprise"
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#modalEnterprise">
+            <i class="fa fa-plus"></i> Agregar Empresa
+        </button>
+
     </div>
 
-    <!-- Create Modal -->
+</div>
 
-    @include('enterprises.modalCreate')
-
-    <!-- Edit Modal Text -->
-    @include('enterprises.modalEditText')
-
-    <!-- Show Image -->
-    @include('enterprises.modalImage')
-
-    <!-- Update Image -->
-    @include('enterprises.modalEditImage')
-
-    <div class="card">
-        <div class="card-body">
-            <table id="table-enterprise" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-                <thead>
-
-                    <tr>
-                        <th scope="col">Nombre de la compañia</th>
-                        <th scope="col">Categoría</th>
-                        <th scope="col">RUC</th>
-                        <th scope="col">Razón Social</th>
-                        <th scope="col">Beneficio</th>
-                        <th scope="col">Sucursal</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Correo electrónico</th>
-                        <th scope="col">Sitio Web</th>
-                        <th scope="col">Facebook</th>
-                        <th scope="col">Twitter</th>
-                        <th scope="col">Instagram</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+<div class="row mb-4">
+    <div class="col">
+        <span>* Seleccione un registro para visualizar más opciones</span>
     </div>
 </div>
+
+<!-- Create Modal -->
+
+@include('enterprises.modalCreate')
+
+<!-- Edit Modal Text -->
+@include('enterprises.modalEditText')
+
+<!-- Show Image -->
+@include('enterprises.modalImage')
+
+<!-- Update Image -->
+@include('enterprises.modalEditImage')
+<div class="row">
+    <div class="col">
+
+        <div class="card shadow mb-4 w-100">
+
+            <div class="p-4">
+
+                <table id="table-enterprise" class="table table-hover" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre de la compañia</th>
+                            <th scope="col">Categoría</th>
+                            <th scope="col">RUC</th>
+                            <th scope="col">Razón Social</th>
+                            <th scope="col">Beneficio</th>
+                            <th scope="col">Beneficios</th>
+                            <th scope="col">Sucursal</th>
+                            <th scope="col">Cupones</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Dirección</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Correo electrónico</th>
+                            <th scope="col">Sitio Web</th>
+                            <th scope="col">Facebook</th>
+                            <th scope="col">Twitter</th>
+                            <th scope="col">Instagram</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 @endsection
 @push('scripts')
 <script type="text/javascript">
@@ -81,7 +96,7 @@
             infoEmpty: "Mostrando 0 a 0 de 0 registros",
             infoFiltered: "(Filtrado de _MAX_ total registros)",
             lengthMenu:
-                "Mostrar <select>" +
+                `Mostrar <select class="form-control form-control-sm">` +
                 '<option value="5">5</option>' +
                 '<option value="10">10</option>' +
                 "</select> registros",
@@ -115,7 +130,13 @@
                 data: "beneficio"
             },
             {
+                data: "beneficios"
+            },
+            {
                 data: "createBranchOffice"
+            },
+            {
+                data: "coupons"
             },
             {
                 data: "estado",

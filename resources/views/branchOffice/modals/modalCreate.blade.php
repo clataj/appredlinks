@@ -59,33 +59,76 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="direccion">Dirección *</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="direccion"
-                                name="direccion"
-                                placeholder="Dirección de la sucursal">
+                            <div class="form-group">
+                                <label for="direccion">Dirección *</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="direccion"
+                                    name="direccion"
+                                    placeholder="Dirección de la sucursal">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="dias_laborales">Horario de Lunes a Viernes</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="dias_laborales"
+                                    name="dias_laborales"
+                                    placeholder="Horario de Lunes a Viernes">
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="latitud_map">Latitud *</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="latitud_map"
-                                name="latitud_map"
-                                placeholder="Latitud del mapa">
+                            <div class="form-group">
+                                <label for="dia_no_laboral_1">Horario del Sábado</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="dia_no_laboral_1"
+                                    name="dia_no_laboral_1"
+                                    placeholder="Horario del Sábado">
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="longitud_map">Longitud *</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="longitud_map"
-                                name="longitud_map"
-                                placeholder="Longitud del mapa">
+                            <div class="form-group">
+                                <label for="dia_no_laboral_2">Horario del Domingo</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="dia_no_laboral_2"
+                                    name="dia_no_laboral_2"
+                                    placeholder="Horario del Domingo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="latitud_map">Latitud *</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="latitud_map"
+                                    name="latitud_map"
+                                    placeholder="Latitud del mapa">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="longitud_map">Longitud *</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="longitud_map"
+                                    name="longitud_map"
+                                    placeholder="Longitud del mapa">
+                            </div>
                         </div>
                     </div>
                 </form>
