@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Coupon;
+use App\Enterprise;
 use App\Traits\FormatDate;
 use App\User;
 use Carbon\Carbon;
@@ -31,7 +32,8 @@ class CouponController extends Controller
     {
         $user = User::findOrFail(Auth::user()->id);
         if($user->enterprises->contains($id)) {
-            return view('coupons.create', compact('id','user'));
+            $enterprise = Enterprise::findOrFail($id);
+            return view('coupons.create', compact('id','enterprise','user'));
         }
         return redirect('/enterprises');
     }
@@ -71,6 +73,11 @@ class CouponController extends Controller
             'fecha_inicio' => $request->fecha_inicio,
             'fecha_fin' => $request->fecha_fin,
             'descripcion' => $request->descripcion
+        ]);
+
+        $enterprise = Enterprise::findOrFail($request->empresa_id);
+        $enterprise->update([
+            'limite_cupon' => $enterprise->limite_cupon - 1
         ]);
 
         return response()->json([
