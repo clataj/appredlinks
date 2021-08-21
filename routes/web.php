@@ -94,6 +94,7 @@ Route::middleware(['auth', 'administrator'])->group(function () {
     Route::get('coupons/{coupon}/show', 'CouponController@show')->name('coupons.show');
     Route::get('coupons/all', 'CouponController@findAll')->name('coupons.data');
 
+
 });
 
 Route::middleware(['auth', 'enterprise'])->group(function () {

@@ -5,15 +5,19 @@
     <div class="col d-flex flex-column flex-md-row justify-content-between">
         <h3 class="h3 text-gray-800">Listado de Cupones</h3>
 
-        <!-- Button trigger modal -->
-        <button
-            id="openModalCoupon"
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#modalCoupon">
-            <i class="fa fa-plus"></i> Agregar Cupon
-        </button>
+        @if ($enterprise->limite_cupon > 0)
+            <!-- Button trigger modal -->
+            <button
+                id="openModalCoupon"
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#modalCoupon">
+                <i class="fa fa-plus"></i> Agregar Cupon
+            </button>
+            @else
+            <h3>Se han agotado los cupones</h3>
+        @endif
 
     </div>
 
@@ -25,6 +29,13 @@
 <!-- Edit Modal Text-->
 @include('coupons.modals.modalEdit')
 
+@if ($enterprise->limite_cupon > 0)
+<div class="row">
+    <div class="col">
+        <span>Usted tiene {{ $enterprise->limite_cupon }} cupones por registrar</span>
+    </div>
+</div>
+@endif
 
 <div class="row">
     <div class="col">

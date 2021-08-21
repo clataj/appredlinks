@@ -45,7 +45,7 @@ imageSmall.onchange = () => {
     imgSmall.textContent=form['ruta_small_2'].value.replace(/C:\\fakepath\\/i, '')
 }
 
-saveButtonEnterprise.onclick = () => {
+export function storeEnterpriseInit() {
     let form = document.forms['form-enterprise']
     showAlertWaiting()
     storeEnterprise(form).then(response => {
@@ -94,8 +94,7 @@ function showImage(data) {
     $("#image_content").attr("src", data.ruta_small_2)
 }
 
-// Update Text
-editButtonTextEnterprise.onclick = () => {
+export function updateEnterpriseInit() {
     let form = document.forms['form-enterprise-edit'];
     showAlertWaiting()
     updateEnterprise(form, id)
@@ -104,6 +103,7 @@ editButtonTextEnterprise.onclick = () => {
     })
     .catch(err => console.log(err))
 }
+
 
 // Show Image Background for Edit
 imageEnterpriseEdit.onchange = () => {
@@ -126,7 +126,7 @@ $("#table-enterprise").DataTable().on('click', 'button.change-image-background',
     imgEnterpriseEdit.textContent='Escoger una imagen'
 })
 
-changeImageButton.onclick = () => {
+export function changeImageBackgroundInit() {
     let form = document.forms['form-enterprise-edit-image']
     showAlertWaiting()
     changeImageBackground(form, id).then(response => {
@@ -154,7 +154,15 @@ $("#table-enterprise").DataTable().on('click', 'button.change-image-content', as
     imgContentEnterpriseEdit.textContent='Escoger una imagen'
 })
 
-changeImageContentButton.onclick = () => {
+// changeImageContentButton.onclick = () => {
+//     let form = document.forms['form-enterprise-edit-image-content']
+//     showAlertWaiting()
+//     changeImageContent(form, id).then(response => {
+//         responsePromise(response, "#table-enterprise", "#modalImageEditContent")
+//     })
+// }
+
+export function changeImageContentInit() {
     let form = document.forms['form-enterprise-edit-image-content']
     showAlertWaiting()
     changeImageContent(form, id).then(response => {
