@@ -1,3 +1,5 @@
+import templateButton from "./coupons/templateButton.js"
+
 export function responsePromise(response, table, modal) {
     if (response.type === "validate") {
         let array = [];
@@ -93,4 +95,9 @@ export function jqValidationDefaultOptions() {
         highlight,
         unhighlight
     }
+}
+
+export function chargeInfo() {
+    let showButtonAdd = document.getElementById('showButtonAdd')
+    showButtonAdd.insertAdjacentHTML('beforeend', templateButton())
 }

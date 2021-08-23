@@ -132,25 +132,6 @@ export function updateCouponInit() {
     let form = document.forms['form-coupon-edit']
     showAlertWaiting()
     updateCoupon(form, id).then(response => {
-        if(empresaId !== null) {
-            getEnterprise(empresaId.value).then(response => {
-                const { data } = response
-                if(data.limite_cupon > 0) {
-                    if(data.limite_cupon == 1) {
-                        limiteCupones.innerText = `Usted tiene ${data.limite_cupon} un cupon`
-                    } else {
-                        limiteCupones.innerText = `Usted tiene ${data.limite_cupon} cupones `
-                    }
-                    chargeInfo()
-                } else {
-                    let showButtonAdd = document.getElementById('showButtonAdd')
-                    showButtonAdd.parentNode.removeChild(showButtonAdd)
-                    infoCupon.style.display = ''
-                    limiteCupones.innerText = ''
-                    infoCupon.innerText = 'Se han agotado los cupones'
-                }
-            })
-        }
         responsePromise(response, "#table-coupons", "#modalEditCoupon")
     })
 }
@@ -189,7 +170,9 @@ window.addEventListener('load', async function(){
             chargeInfo()
         } else {
             let showButtonAdd = document.getElementById('showButtonAdd')
-            showButtonAdd.parentNode.removeChild(showButtonAdd)
+            if(showButtonAdd !== null) {
+                showButtonAdd.parentNode.removeChild(showButtonAdd)
+            }
             limiteCupones.innerText = ''
             infoCupon.style.display = ''
             infoCupon.innerText = 'Se han agotado los cupones'
