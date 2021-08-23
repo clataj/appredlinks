@@ -14,7 +14,7 @@ trait FileImage {
      * @param string $nameImage name of image example 'myImage'
      * @return string url of image
      */
-    public static function uploadImageAndGetUrl(Request $request, string $folder, string $nameImage): string
+    public function uploadImageAndGetUrl(Request $request, string $folder, string $nameImage): string
     {
         $file = $request->file($nameImage);
         $token = sha1(time());
@@ -29,7 +29,7 @@ trait FileImage {
      * @param string $path A path
      * @param string $folder Name of folder
      */
-    public static function deleteImage(string $path, string $folder)
+    public function deleteImage(string $path, string $folder)
     {
         $file = basename($path);
         Storage::disk('public')->delete($folder.'/'.$file);

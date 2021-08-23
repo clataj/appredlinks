@@ -6,7 +6,6 @@ use App\Coupon;
 use App\Enterprise;
 use App\Traits\FormatDate;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -203,10 +202,10 @@ class CouponController extends Controller
                 return $coupon->state->nombre;
             })
             ->addColumn('fecha_inicio', function ($coupon) {
-                return FormatDate::convertStringToDate($coupon->fecha_inicio);
+                return $this->convertStringToDate($coupon->fecha_inicio);
             })
             ->addColumn('fecha_fin', function ($coupon) {
-                return FormatDate::convertStringToDate($coupon->fecha_fin);
+                return $this->convertStringToDate($coupon->fecha_fin);
             })
             ->addColumn('actions', 'coupons.actions')
             ->rawColumns(['actions'])
