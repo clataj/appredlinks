@@ -22,7 +22,7 @@
                             <label for="empresa_id">Buscar</label>
                             <select
                                 id="empresa_id"
-                                class="searchEnterprise form-control col-md-12"
+                                class="searchEnterprise custom-select col-md-12"
                                 name="empresa_id">
                             </select>
                         </div>
@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="nombre">Nombre del Cupon*</label>
+                            <label for="nombre">Nombre del Cupon *</label>
                             <input
                                 type="text"
                                 class="form-control"

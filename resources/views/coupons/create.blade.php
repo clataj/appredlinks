@@ -4,21 +4,9 @@
 <div class="row mb-4">
     <div class="col d-flex flex-column flex-md-row justify-content-between">
         <h3 class="h3 text-gray-800">Listado de Cupones</h3>
-
-        @if ($enterprise->limite_cupon > 0)
-            <!-- Button trigger modal -->
-            <button
-                id="openModalCoupon"
-                type="button"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#modalCoupon">
-                <i class="fa fa-plus"></i> Agregar Cupon
-            </button>
-            @else
-            <h3>Se han agotado los cupones</h3>
-        @endif
-
+        <div id="showButtonAdd"></div>
+        <h3 id="infoCupon" style="display: none"></h3>
+        <input type="hidden" id="empresaId" value="{{ $id }}">
     </div>
 
 </div>
@@ -29,13 +17,12 @@
 <!-- Edit Modal Text-->
 @include('coupons.modals.modalEdit')
 
-@if ($enterprise->limite_cupon > 0)
+<div id="showText"></div>
 <div class="row">
     <div class="col">
-        <span>Usted tiene {{ $enterprise->limite_cupon }} cupones por registrar</span>
+        <span id="limite_cupones">
     </div>
 </div>
-@endif
 
 <div class="row">
     <div class="col">
@@ -68,6 +55,7 @@
 </div>
 @endsection
 @push('scripts')
+<script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
 <script type="text/javascript">
     $("#table-coupons").DataTable({
         processing: true,
@@ -135,4 +123,6 @@
         ]
     })
 </script>
+<script src="{{ asset('assets/js/coupons/coupons.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/coupons/forms.js') }}" type="module"></script>
 @endpush
