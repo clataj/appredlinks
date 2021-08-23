@@ -91,6 +91,12 @@ class EnterpriseController extends Controller
                 'limite_cupon' => $request->limite_cupon
             ]);
 
+            if(Auth::user()->role_id == 2) {
+                $user = User::findOrFail(Auth::user()->id);
+                $user->enterprises()->sync([$enterprise->id], false);
+            }
+
+
             return response()->json([
                 'data' => $enterprise,
                 'message' => '!Empresa creada exitosamente!'

@@ -75,6 +75,9 @@ $("#table-enterprise").DataTable().on('click', 'button.edit', async function() {
     form['instagram'].value=data.instagram
     form['website'].value=data.website
     form['estado'].value=data.estado
+    if(form['limite_cupon'] !== undefined) {
+        form['limite_cupon'].value=data.limite_cupon
+    }
 })
 
 // Show Image
