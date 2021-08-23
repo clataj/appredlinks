@@ -69,7 +69,7 @@
 
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="ui-avatar" src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ $user->name }}&size=32" alt="Avatar usuario.">
+                                <img class="ui-avatar" src="https://ui-avatars.com/api/?background=3A61D0&color=fff&name={{ $user->name }}&size=32" alt="Avatar usuario.">
                                 <span class="ml-2 d-none d-lg-inline text-gray-600 small">{{ $user->name }}</span>
                             </a>
 
