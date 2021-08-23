@@ -67,8 +67,8 @@ class EnterpriseController extends Controller
         }
 
         if($request->hasFile('ruta_fondo') && $request->hasFile('ruta_small_2')){
-            $ruta_fondo = FileImage::uploadImageAndGetUrl($request, 'enterprises', 'ruta_fondo');
-            $ruta_small_2 = FileImage::uploadImageAndGetUrl($request, 'enterprises', 'ruta_small_2');
+            $ruta_fondo = $this->uploadImageAndGetUrl($request, 'enterprises', 'ruta_fondo');
+            $ruta_small_2 = $this->uploadImageAndGetUrl($request, 'enterprises', 'ruta_small_2');
 
             $enterprise = Enterprise::create([
                 'ruc' => $request->ruc,
@@ -90,6 +90,12 @@ class EnterpriseController extends Controller
                 'ruta_fondo' => $ruta_fondo,
                 'limite_cupon' => $request->limite_cupon
             ]);
+
+            if(Auth::user()->role_id == 2) {
+                $user = User::findOrFail(Auth::user()->id);
+                $user->enterprises()->sync([$enterprise->id], false);
+            }
+
 
             return response()->json([
                 'data' => $enterprise,
@@ -154,9 +160,9 @@ class EnterpriseController extends Controller
 
         if ($request->hasFile('image_enterprise')) {
 
-            FileImage::deleteImage($enterprise->ruta_fondo, 'enterprises');
+            $this->deleteImage($enterprise->ruta_fondo, 'enterprises');
 
-            $ruta_fondo = FileImage::uploadImageAndGetUrl($request, 'enterprises', 'image_enterprise');
+            $ruta_fondo = $this->uploadImageAndGetUrl($request, 'enterprises', 'image_enterprise');
 
             $enterprise->update([
                 'ruta_fondo' => $ruta_fondo
@@ -188,9 +194,9 @@ class EnterpriseController extends Controller
 
         if ($request->hasFile('image_enterprise')) {
 
-            FileImage::deleteImage($enterprise->ruta_small_2, 'enterprises');
+            $this->deleteImage($enterprise->ruta_small_2, 'enterprises');
 
-            $ruta_small_2 = FileImage::uploadImageAndGetUrl($request, 'enterprises', 'image_enterprise');
+            $ruta_small_2 = $this->uploadImageAndGetUrl($request, 'enterprises', 'image_enterprise');
 
             $enterprise->update([
                 'ruta_small_2' => $ruta_small_2,
@@ -207,8 +213,8 @@ class EnterpriseController extends Controller
     public function destroy($id)
     {
         $enterprise = Enterprise::findOrFail($id);
-        FileImage::deleteImage($enterprise->ruta_small_2, 'enterprises');
-        FileImage::deleteImage($enterprise->ruta_fondo, 'enterprises');
+        $this->deleteImage($enterprise->ruta_small_2, 'enterprises');
+        $this->deleteImage($enterprise->ruta_fondo, 'enterprises');
 
         if(count($enterprise->users) > 0) {
             $enterprise->delete();

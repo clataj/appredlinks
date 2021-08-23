@@ -20,6 +20,10 @@ export async function storeEnterprise(form) {
     let estado = form['estado'].value
     let ruta_small_2 = form['ruta_small_2'].files[0]
     let ruta_fondo = form['ruta_fondo'].files[0]
+    let limite_cupon = 0
+    if(form['limite_cupon'] !== undefined) {
+        limite_cupon = form['limite_cupon'].value
+    }
     formData.append("ruc", ruc)
     formData.append("razon_soscial", razon_social)
     formData.append("beneficio", beneficio)
@@ -35,6 +39,7 @@ export async function storeEnterprise(form) {
     formData.append("estado", estado)
     formData.append("ruta_small_2", ruta_small_2)
     formData.append("ruta_fondo", ruta_fondo)
+    formData.append("limite_cupon", limite_cupon)
 
     let response = await fetch('/enterprises', {
         method: 'POST',
@@ -61,6 +66,13 @@ export async function updateEnterprise(form, id) {
     let website = form['website'].value
     let estado = form['estado'].value
 
+    let { data } = await getEnterprise(id)
+
+    let limite_cupon = data.limite_cupon
+    if(form['limite_cupon'] !== undefined) {
+        limite_cupon = form['limite_cupon'].value
+    }
+
     let object = {
         ruc: ruc,
         razon_social : razon_social,
@@ -74,7 +86,8 @@ export async function updateEnterprise(form, id) {
         facebook: facebook,
         instagram: instagram,
         website: website,
-        estado: estado
+        estado: estado,
+        limite_cupon: limite_cupon
     }
 
     let response = await fetch(`/enterprises/${id}`, {
@@ -85,6 +98,7 @@ export async function updateEnterprise(form, id) {
         },
         body: JSON.stringify(object),
     })
+    debugger
     return response.json()
 }
 
