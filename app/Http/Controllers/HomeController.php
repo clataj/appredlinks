@@ -26,8 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = User::findOrFail(Auth::user()->id);
         $roles = Role::all();
-        return view('home', compact('user', 'roles'));
+        return view('home', compact('roles'));
     }
 }

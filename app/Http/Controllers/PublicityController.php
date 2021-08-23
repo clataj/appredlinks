@@ -8,7 +8,6 @@ use App\Traits\FileImage;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,8 +17,7 @@ class PublicityController extends Controller
 
     public function index()
     {
-        $user = User::findOrFail(Auth::user()->id);
-        return view('publicities.index', compact('user'));
+        return view('publicities.index');
     }
 
     public function store(Request $request)
@@ -33,7 +31,7 @@ class PublicityController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $imagen = FileImage::uploadImageAndGetUrl($request, 'publicities', 'imagen');
+        $imagen = $this->uploadImageAndGetUrl($request, 'publicities', 'imagen');
 
         $publicity = Publicity::create([
             'nombre' => $request->nombre,
@@ -114,9 +112,9 @@ class PublicityController extends Controller
 
         if($request->hasFile('imagen')) {
 
-            FileImage::deleteImage($publicity->imagen, 'publicities');
+            $this->deleteImage($publicity->imagen, 'publicities');
 
-            $imagen = FileImage::uploadImageAndGetUrl($request, 'publicities', 'imagen');
+            $imagen = $this->uploadImageAndGetUrl($request, 'publicities', 'imagen');
 
             $publicity->update([
                 'imagen' => $imagen
@@ -134,7 +132,7 @@ class PublicityController extends Controller
     {
         $publicity = Publicity::findOrFail($id);
 
-        FileImage::deleteImage($publicity->imagen, 'publicities');
+        $this->deleteImage($publicity->imagen, 'publicities');
 
         $publicity->delete();
 

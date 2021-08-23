@@ -14,7 +14,7 @@
 
         <!-- Button trigger modal -->
         <button
-            id="openModalCoupon"
+            id="openModalCouponByUser"
             type="button"
             class="btn btn-primary"
             data-toggle="modal"

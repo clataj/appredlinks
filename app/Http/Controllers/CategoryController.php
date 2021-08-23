@@ -20,8 +20,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $user = User::findOrFail(Auth::user()->id);
-        return view('categories.index', compact('user'));
+        return view('categories.index');
     }
 
     public function store(Request $request)

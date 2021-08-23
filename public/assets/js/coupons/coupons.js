@@ -1,53 +1,76 @@
-import { responsePromise, showAlertDisabled, showAlertEnabled, showAlertWaiting } from "../helpers.js";
+import { chargeInfo, responsePromise, showAlertDisabled, showAlertEnabled, showAlertWaiting } from "../helpers.js";
 import { couponDisabled, couponEnabled, getCoupon, storeCoupon, updateCoupon } from "./endpoints.js";
-
+import { getEnterprise } from "../enterprises/endpoints.js";
+let limiteCupones = document.getElementById('limite_cupones')
+let openModalCouponByUser = document.getElementById('openModalCouponByUser');
+let infoCupon = document.getElementById('infoCupon')
 // Post Coupon
-let openModalCoupon = document.getElementById('openModalCoupon')
-let saveButton = document.getElementById('save-button')
 
 // Edit Coupon
-let editButton = document.getElementById('edit-button')
 let id = null
+let empresaId = document.getElementById('empresaId')
 
 // Post Coupon
-openModalCoupon.onclick = () => {
-    let form = document.forms['form-save-coupon']
-    $('.searchEnterprise').empty()
-    $('.searchEnterprise').select2({
-        theme: 'bootstrap4',
-        placeholder: 'Busque una empresa',
-        language:{
-            noResults: function(){
-                return "No hay resultados";
+if(openModalCouponByUser !== null) {
+
+    openModalCouponByUser.onclick = () => {
+        let form = document.forms['form-save-coupon']
+        $('.searchEnterprise').empty()
+        $('.searchEnterprise').select2({
+            theme: 'bootstrap4',
+            placeholder: 'Busque una empresa',
+            language:{
+                noResults: function(){
+                    return "No hay resultados";
+                },
+                searching: function(){
+                    return "Buscando..";
+                },
             },
-            searching: function(){
-                return "Buscando..";
+            ajax: {
+                url: '/publicities/enterprises',
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.nombre_comercial,
+                                id:item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
             },
-        },
-        ajax: {
-            url: '/publicities/enterprises',
-            dataType: 'json',
-            delay: 250,
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.nombre_comercial,
-                            id:item.id
-                        }
-                    })
-                };
-            },
-            cache: true
-        },
-    });
-    form.reset()
+        });
+        form.reset()
+    }
 }
 
 export function storeCouponInit() {
     let form = document.forms['form-save-coupon']
     showAlertWaiting()
     storeCoupon(form).then(response => {
+        if(empresaId !== null) {
+            getEnterprise(empresaId.value).then(response => {
+                const { data } = response
+                if(data.limite_cupon > 0) {
+                    if(data.limite_cupon == 1) {
+                        limiteCupones.innerText = `Usted tiene ${data.limite_cupon} un cupon`
+                    } else {
+                        limiteCupones.innerText = `Usted tiene ${data.limite_cupon} cupones `
+                    }
+                    chargeInfo()
+                } else {
+                    let showButtonAdd = document.getElementById('showButtonAdd')
+                    showButtonAdd.parentNode.removeChild(showButtonAdd)
+                    infoCupon.style.display = ''
+                    limiteCupones.innerText = ''
+                    infoCupon.innerText = 'Se han agotado los cupones'
+                }
+            })
+        }
         responsePromise(response, "#table-coupons", "#modalCoupon")
     })
 }
@@ -109,6 +132,25 @@ export function updateCouponInit() {
     let form = document.forms['form-coupon-edit']
     showAlertWaiting()
     updateCoupon(form, id).then(response => {
+        if(empresaId !== null) {
+            getEnterprise(empresaId.value).then(response => {
+                const { data } = response
+                if(data.limite_cupon > 0) {
+                    if(data.limite_cupon == 1) {
+                        limiteCupones.innerText = `Usted tiene ${data.limite_cupon} un cupon`
+                    } else {
+                        limiteCupones.innerText = `Usted tiene ${data.limite_cupon} cupones `
+                    }
+                    chargeInfo()
+                } else {
+                    let showButtonAdd = document.getElementById('showButtonAdd')
+                    showButtonAdd.parentNode.removeChild(showButtonAdd)
+                    infoCupon.style.display = ''
+                    limiteCupones.innerText = ''
+                    infoCupon.innerText = 'Se han agotado los cupones'
+                }
+            })
+        }
         responsePromise(response, "#table-coupons", "#modalEditCoupon")
     })
 }
@@ -133,4 +175,24 @@ $("#table-coupons").DataTable().on('click', 'button.activate', async function() 
             couponEnabled(id)
         }
     })
+})
+
+window.addEventListener('load', async function(){
+    if(empresaId !== null) {
+        const { data } = await getEnterprise(empresaId.value)
+        if(data.limite_cupon > 0) {
+            if(data.limite_cupon == 1) {
+                limiteCupones.innerText = `Usted tiene ${data.limite_cupon} un cupon`
+            } else {
+                limiteCupones.innerText = `Usted tiene ${data.limite_cupon} cupones `
+            }
+            chargeInfo()
+        } else {
+            let showButtonAdd = document.getElementById('showButtonAdd')
+            showButtonAdd.parentNode.removeChild(showButtonAdd)
+            limiteCupones.innerText = ''
+            infoCupon.style.display = ''
+            infoCupon.innerText = 'Se han agotado los cupones'
+        }
+    }
 })

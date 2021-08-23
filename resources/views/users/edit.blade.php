@@ -11,7 +11,7 @@
         <h3 class="m-0 font-weight-bold text-primary">Datos del usuario</h3>
     </div>
     <div class="card-body">
-        <form method="POST" action="{{ route('users.update', $userEdit->id) }}">
+        <form method="POST" action="{{ route('users.update', $user->id) }}">
             @method('PUT')
             @csrf
             <div class="row">
@@ -22,7 +22,7 @@
                             type="text"
                             id="name"
                             name="name"
-                            value="{{ $userEdit->name }}"
+                            value="{{ $user->name }}"
                             placeholder="Ingrese nombres"
                             class="form-control
                             @error('name')
@@ -41,7 +41,7 @@
                             type="text"
                             id="email"
                             name="email"
-                            value="{{ $userEdit->email }}"
+                            value="{{ $user->email }}"
                             placeholder="Ingrese correo electrónico"
                             class="form-control
                             @error('email')
@@ -70,7 +70,7 @@
                             @foreach ($roles as $role)
                                 <option
                                     value="{{ $role->id }}"
-                                    {{ $userEdit->role_id === $role->id ? 'selected' : '' }}>
+                                    {{ $user->role_id === $role->id ? 'selected' : '' }}>
                                     {{ $role->descripcion }}
                                 </option>
                             @endforeach
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            @if ($userEdit->role_id == 2)
+            @if ($user->role_id == 2)
                 <div id="searchShow">
                     <div class="row">
                         <div class="col-md-12">

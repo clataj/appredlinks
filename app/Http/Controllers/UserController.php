@@ -22,10 +22,9 @@ class UserController extends Controller
 
     public function create()
     {
-        $user = User::findOrFail(Auth::user()->id);
         $roles = Role::all();
         $enterprises = Enterprise::where('tipo','LA')->where('estado','A')->get();
-        return view('users.create', compact('user','roles','enterprises'));
+        return view('users.create', compact('roles','enterprises'));
     }
 
     /**
@@ -84,7 +83,7 @@ class UserController extends Controller
             return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
         }
 
-        if($request->role_id == 2) {
+        if(intval($request->role_id) == 2) {
             $validateEnterprise = Validator::make($request->all(),[
                 'enterprises' => 'required',
                 'role_id' => 'required|not_in:0',
@@ -118,12 +117,11 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::findOrFail(Auth::user()->id);
-        $userEdit = User::findOrFail($id);
-        $ids = $userEdit->enterprises()->pluck('empresas.id')->toArray();
+        $user = User::findOrFail($id);
+        $ids = $user->enterprises()->pluck('empresas.id')->toArray();
         $enterprises = Enterprise::where('tipo','LA')->where('estado', 'A')->get();
         $roles = Role::all();
-        return view('users.edit', compact('user','userEdit','roles', 'ids', 'enterprises'));
+        return view('users.edit', compact('user','roles', 'ids', 'enterprises'));
     }
 
     /**

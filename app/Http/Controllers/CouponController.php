@@ -23,8 +23,7 @@ class CouponController extends Controller
      */
     public function index()
     {
-        $user = User::findOrFail(Auth::user()->id);
-        return view('coupons.index', compact('user'));
+        return view('coupons.index');
     }
 
     public function create($id)
