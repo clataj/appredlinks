@@ -21,7 +21,7 @@ class BranchOfficeController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $cities = City::all();
 
-        if(Auth::user()->role_id == 2) {
+        if($user->role_id == 2) {
             if($user->enterprises->contains($id)) {
                 return view('branchOffice.index', compact('id','user','cities'));
             }

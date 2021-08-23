@@ -21,9 +21,8 @@ class EnterpriseController extends Controller
 
     public function index()
     {
-        $user = User::findOrFail(Auth::user()->id);
         $categories = Category::all(['id','nombre']);
-        return view('enterprises.index', compact('user','categories'));
+        return view('enterprises.index', compact('categories'));
     }
 
     public function show($id)

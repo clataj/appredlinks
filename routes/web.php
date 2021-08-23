@@ -51,6 +51,13 @@ Route::middleware(['auth'])->group(function () {
     Route::put('benefits/{benefit}', 'BenefitController@update')->name('benefits.update');
     Route::delete('benefits/{benefit}', 'BenefitController@destroy')->name('benefits.destroy');
 
+    // Cupones
+    Route::post('coupons', 'CouponController@store')->name('coupons.store');
+    Route::put('coupons/{coupon}', 'CouponController@update')->name('coupons.update');
+    Route::get('coupons/{coupon}/show', 'CouponController@show')->name('coupons.show');
+
+
+
 });
 
 Route::middleware(['auth', 'administrator'])->group(function () {
@@ -87,11 +94,8 @@ Route::middleware(['auth', 'administrator'])->group(function () {
 
     // Cupones
     Route::get('coupons', 'CouponController@index')->name('coupons.index');
-    Route::post('coupons', 'CouponController@store')->name('coupons.store');
-    Route::put('coupons/{coupon}', 'CouponController@update')->name('coupons.update');
     Route::put('coupons/{coupon}/disabled', 'CouponController@disabled')->name('coupons.disabled');
     Route::put('coupons/{coupon}/enabled', 'CouponController@enabled')->name('coupons.enabled');
-    Route::get('coupons/{coupon}/show', 'CouponController@show')->name('coupons.show');
     Route::get('coupons/all', 'CouponController@findAll')->name('coupons.data');
 
 });
