@@ -82,6 +82,21 @@
                         </div>
                     </div>
                 </div>
+                @if (Auth::user()->role_id == 1)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="limite_cupon">Limite de Cupones *</label>
+                            <input
+                                id="limite_cupon"
+                                name="limite_cupon"
+                                type="text"
+                                class="form-control"
+                                placeholder="Limite de Cupones">
+                        </div>
+                    </div>
+                </div>
+                @endif
                 <p class="text-purple text-bold">Información de contacto</p>
                 <hr>
                 <div class="row">

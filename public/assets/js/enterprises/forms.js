@@ -1,11 +1,11 @@
 import { storeEnterpriseInit, updateEnterpriseInit, changeImageBackgroundInit, changeImageContentInit } from './enterprises.js';
 
-function highlight( element, errorClass, validClass ) { 
+function highlight( element, errorClass, validClass ) {
   $( element ).removeClass(errorClass);
   $( element ).addClass('is-invalid');
 }
 
-function unhighlight(element, errorClass, validClass) { 
+function unhighlight(element, errorClass, validClass) {
   $( element ).removeClass('is-invalid');
 }
 
@@ -27,6 +27,10 @@ const createEnterpriseValidator = $('#form-enterprise').validate({
       beneficio: 'required',
       estado: 'required',
       direccion: 'required',
+      limite_cupon: {
+        required: true,
+        digits: true,
+      },
       telefono: 'required',
       correo: {
         required: false,
@@ -68,6 +72,10 @@ const editEnterpriseValidator = $('#form-enterprise-edit').validate({
       razon_social: 'required',
       beneficio: 'required',
       estado: 'required',
+      limite_cupon: {
+        required: true,
+        digits: true,
+      },
       direccion: 'required',
       telefono: 'required',
       correo: {
