@@ -8,10 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 /**
@@ -49,7 +46,7 @@ class CategoryController extends Controller
         if ($request->hasFile('image_category')) {
 
 
-            $ruta_img = FileImage::uploadImageAndGetUrl($request, 'categories', 'image_category');
+            $ruta_img = $this->uploadImageAndGetUrl($request, 'categories', 'image_category');
 
             $category = Category::create([
                 'nombre' => $request->name,
@@ -123,9 +120,9 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image_category')) {
 
-            FileImage::deleteImage($category->ruta_img, 'categories');
+            $this->deleteImage($category->ruta_img, 'categories');
 
-            $ruta_img = FileImage::uploadImageAndGetUrl($request, 'categories', 'image_category');
+            $ruta_img = $this->uploadImageAndGetUrl($request, 'categories', 'image_category');
 
             $category->update([
                 'ruta_img' => $ruta_img,
@@ -141,7 +138,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        FileImage::deleteImage($category->ruta_img, 'categories');
+        $this->deleteImage($category->ruta_img, 'categories');
         $category->delete();
         return $category;
     }

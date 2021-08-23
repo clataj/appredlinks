@@ -9,7 +9,7 @@ trait FormatDate {
      * @param string $date A date in format string
      * @return string|false Returns a date to the language spanish in format string or return false
      */
-    public static function convertStringToDate(string $date)
+    public function convertStringToDate(string $date)
     {
         setLocale(LC_ALL, 'spanish_ecuador.utf-8');
         $myDate = str_replace("/", "-", $date);
