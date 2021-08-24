@@ -82,7 +82,6 @@ export async function updateBranchOffice(form, id) {
         },
         body: JSON.stringify(object)
     })
-
     return response.json()
 }
 

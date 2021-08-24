@@ -1,22 +1,24 @@
 @extends('layouts.app')
 @section('content')
-<div class="row mb-2">
-    <div class="col-md-12">
+<!-- Page Heading -->
+<div class="row mb-4">
+    <div class="col d-flex flex-column flex-md-row justify-content-between">
+        <h3 class="h3 text-gray-800">Listado de Sucursales</h3>
+    </div>
+</div>
+<div class="row mb-4">
+    <div class="col d-flex flex-column flex-md-row justify-content-between">
         <!-- Button trigger modal -->
         <button
             id="openModalBranchOffice"
             type="button"
-            class="btn btn-primary float-left"
+            class="btn btn-primary mt-1"
             data-toggle="modal"
             data-target="#modalBranchOffice">
             <i class="fa fa-plus"></i> Agregar Sucursal
         </button>
-        <a href="{{ route('enterprises.index') }}">
-            <button
-                type="button"
-                class="btn btn-danger float-right">
-                <i class="fa fa-arrow-left"></i> Regresar
-            </button>
+        <a href="{{ route('enterprises.index') }}" class="btn btn-danger mt-1">
+            <i class="fa fa-arrow-left"></i> Regresar
         </a>
     </div>
 </div>
@@ -26,29 +28,34 @@
 <!-- Edit Modal -->
 @include('branchOffice.modals.modalEdit')
 
-<div class="card shadow">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="table-branch-office"
-                class="display nowrap table table-bordered table-hover"
-                style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th scope="col">Código QR</th>
-                        <th scope="col">Nombre de sucursal</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Horario de Lunes a Viernes</th>
-                        <th scope="col">Horario de Sábado</th>
-                        <th scope="col">Horario de Domingo</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Ciudad</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Longitud del mapa</th>
-                        <th scope="col">Latitud del mapa</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-            </table>
+<div class="row">
+    <div class="col">
+
+        <div class="card shadow mb-4 w-100">
+
+            <div class="p-4">
+
+                <table id="table-branch-office" class="table table-hover" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código QR</th>
+                            <th scope="col">Nombre de sucursal</th>
+                            <th scope="col">Dirección</th>
+                            <th scope="col">Horario de Lunes a Viernes</th>
+                            <th scope="col">Horario de Sábado</th>
+                            <th scope="col">Horario de Domingo</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Longitud del mapa</th>
+                            <th scope="col">Latitud del mapa</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
         </div>
     </div>
 </div>
@@ -72,7 +79,7 @@
             infoEmpty: "Mostrando 0 a 0 de 0 registros",
             infoFiltered: "(Filtrado de _MAX_ total registros)",
             lengthMenu:
-                "Mostrar <select>" +
+                `Mostrar <select class="form-control form-control-sm">` +
                 '<option value="5">5</option>' +
                 '<option value="10">10</option>' +
                 "</select> registros",
@@ -139,4 +146,5 @@
     });
 </script>
 <script src="{{ asset('assets/js/branchOffice/branchOffice.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/branchOffice/forms.js') }}" type="module"></script>
 @endpush

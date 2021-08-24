@@ -1,12 +1,19 @@
-import { responsePromise, showAlertDelete, showAlertWaiting } from "../helpers.js";
-import { deleteBranchOffice, getBranchOffice, storeBranchOffice, updateBranchOffice } from "./endpoints.js";
+import {
+    responsePromise,
+    showAlertDelete,
+    showAlertWaiting,
+} from "../helpers.js";
+import {
+    deleteBranchOffice,
+    getBranchOffice,
+    storeBranchOffice,
+    updateBranchOffice
+} from "./endpoints.js";
 
 // Post
 let openModalBranchOffice = document.getElementById('openModalBranchOffice');
-let saveButton = document.getElementById('save-button');
 
 // Update
-let editButton = document.getElementById('edit-button');
 let id = null;
 
 
@@ -16,7 +23,7 @@ openModalBranchOffice.onclick = () => {
     form.reset()
 }
 
-saveButton.onclick = () => {
+export function storeBranchOfficeInit() {
     let form = document.forms['form-save-branch-office']
     showAlertWaiting()
     storeBranchOffice(form).then(response => {
@@ -44,11 +51,10 @@ $("#table-branch-office").DataTable().on('click', 'button.edit', async function(
     form['dias_laborales'].value=data.dias_laborales;
     form['dia_no_laboral_1'].value=data.dia_no_laboral_1;
     form['dia_no_laboral_2'].value=data.dia_no_laboral_2;
-
 })
 
 // Update Info
-editButton.onclick = () => {
+export function updateBranchOfficeInit() {
     let form = document.forms['form-edit-branch-office']
     showAlertWaiting()
     updateBranchOffice(form, id).then(response => {

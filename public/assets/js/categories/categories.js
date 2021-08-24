@@ -7,18 +7,15 @@ let id = null
 let imgCategory = document.getElementById('img_category')
 let openModalCreateCategory = document.getElementById('openModalCategory');
 let imageCategory = document.getElementById('image_category');
-let saveButtonCategory = document.getElementById('save-button');
 let status = document.getElementById('status');
 let statusSave = ''
 
 // Edit Category Image
 let imageCategoryEdit = document.getElementById('image_category_edit')
-let changeImageButton = document.getElementById('change-image-button');
 let imgCategoryEdit = document.getElementById('img_category_edit')
 
 
 // Edit Text Category
-let editButtonCategory = document.getElementById('edit-button');
 let statusEdit = document.getElementById('status-edit');
 let statusSaveEdit = statusEdit.value
 
