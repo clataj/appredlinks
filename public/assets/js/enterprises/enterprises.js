@@ -1,5 +1,12 @@
 import { responsePromise, showAlertDelete, showAlertWaiting } from '../helpers.js';
-import { changeImageBackground, changeImageContent, deleteEnterprise, getEnterprise, storeEnterprise, updateEnterprise } from './endpoints.js'
+import {
+    changeImageBackground,
+    changeImageContent,
+    deleteEnterprise,
+    getEnterprise,
+    storeEnterprise,
+    updateEnterprise
+} from './endpoints.js'
 
 let id = null
 
@@ -9,20 +16,14 @@ let imgSmall = document.getElementById('img_small')
 let openModalCreateEnterprise = document.getElementById('openModalEnterprise');
 let imageFondo = document.getElementById('ruta_fondo');
 let imageSmall = document.getElementById('ruta_small_2');
-let saveButtonEnterprise = document.getElementById('save-button');
 
 // Change Image Background
 let imageEnterpriseEdit = document.getElementById('image_enterprise_edit')
-let changeImageButton = document.getElementById('change-image-button');
 let imgEnterpriseEdit = document.getElementById('img_enterprise_edit')
 
 // Change Image Content
 let imageContentEnterpriseEdit = document.getElementById('image_enterprise_edit_content')
-let imgContentEnterpriseEdit = document.getElementById('img_enterprise_edit_content')
-let changeImageContentButton = document.getElementById('change-image-content-button');
-
-// Update text
-let editButtonTextEnterprise = document.getElementById('edit-button');
+let imgContentEnterpriseEdit = document.getElementById('img_enterprise_edit_content');
 
 // Post Enterprise
 
@@ -156,14 +157,6 @@ $("#table-enterprise").DataTable().on('click', 'button.change-image-content', as
     form['img-enterprise'].src=data.ruta_small_2;
     imgContentEnterpriseEdit.textContent='Escoger una imagen'
 })
-
-// changeImageContentButton.onclick = () => {
-//     let form = document.forms['form-enterprise-edit-image-content']
-//     showAlertWaiting()
-//     changeImageContent(form, id).then(response => {
-//         responsePromise(response, "#table-enterprise", "#modalImageEditContent")
-//     })
-// }
 
 export function changeImageContentInit() {
     let form = document.forms['form-enterprise-edit-image-content']
