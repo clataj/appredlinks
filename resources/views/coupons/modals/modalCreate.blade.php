@@ -30,7 +30,7 @@
                 </div>
                 @endif
                 @if (Auth::user()->role_id == 2)
-                    <input type="hidden" name="empresa_id" id="empresa_id" value="{{ $id }}">
+                    <input type="hidden" name="empresa_id" id="empresa_id2" value="{{ $id }}">
                 @endif
                 <div class="row">
                     <div class="col-md-12">
@@ -49,12 +49,22 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="num_cupon">Número de cupones *</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="num_cupon"
-                                name="num_cupon"
-                                placeholder="Numero de cupones">
+                            @if (Auth::user()->role_id == 1)
+                                <span
+                                    type="text"
+                                    class="form-control"
+                                    id="num_cupon"
+                                    name="num_cupon"
+                                    placeholder="Numero de cupones"></span>
+                            @endif
+                            @if (Auth::user()->role_id == 2)
+                                <span
+                                    type="text"
+                                    class="form-control"
+                                    id="num_cupon2"
+                                    name="num_cupon"
+                                    placeholder="Numero de cupones"></span>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -66,6 +76,19 @@
                                 id="cant_x_usua"
                                 name="cant_x_usua"
                                 placeholder="Cantidad de cupones por usuario">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <span
+                                class="text-danger">
+                                <em>Nota: </em>
+                            </span>
+                            <span>
+                                La cantidad de cupones no debe ser superior al numero de cupones
+                            </span>
                         </div>
                     </div>
                 </div>

@@ -1,3 +1,5 @@
+import { getEnterprise } from "../enterprises/endpoints.js"
+
 export async function getCoupon(id) {
     let data = await fetch(`/coupons/${id}/show`)
     return data.json()
@@ -5,10 +7,10 @@ export async function getCoupon(id) {
 
 export async function storeCoupon(form) {
     let texto = form['nombre'].value
-    let empresa_id = form['empresa_id'].value
-    let num_cupon = form['num_cupon'].value
-    let cant_x_usua = form['cant_x_usua'].value
 
+    let empresa_id = form['empresa_id'].value
+
+    let cant_x_usua = form['cant_x_usua'].value
 
     let fechaInicio = form['fecha_inicio'].value
 
@@ -36,7 +38,6 @@ export async function storeCoupon(form) {
         body: JSON.stringify({
             texto : texto,
             empresa_id : empresa_id,
-            num_cupon : num_cupon,
             cant_x_usua : cant_x_usua,
             fecha_inicio : fecha_inicio,
             fecha_fin : fecha_fin,
@@ -48,8 +49,9 @@ export async function storeCoupon(form) {
 
 export async function updateCoupon(form, id) {
     let texto = form['nombre'].value
+
     let empresa_id = form['empresa_id'].value
-    let num_cupon = form['num_cupon'].value
+
     let cant_x_usua = form['cant_x_usua'].value
 
 
@@ -79,7 +81,6 @@ export async function updateCoupon(form, id) {
         body: JSON.stringify({
             texto : texto,
             empresa_id : empresa_id,
-            num_cupon : num_cupon,
             cant_x_usua : cant_x_usua,
             fecha_inicio : fecha_inicio,
             fecha_fin : fecha_fin,

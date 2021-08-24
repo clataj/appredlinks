@@ -1,6 +1,20 @@
-import { chargeInfo, responsePromise, showAlertDisabled, showAlertEnabled, showAlertWaiting } from "../helpers.js";
-import { couponDisabled, couponEnabled, getCoupon, storeCoupon, updateCoupon } from "./endpoints.js";
+import {
+    loadDataEnterprise,
+    responsePromise,
+    showAlertDisabled,
+    showAlertEnabled,
+    showAlertWaiting
+} from "../helpers.js";
+
+import {
+    couponDisabled,
+    couponEnabled,
+    getCoupon,
+    storeCoupon,
+    updateCoupon
+} from "./endpoints.js";
 import { getEnterprise } from "../enterprises/endpoints.js";
+
 let limiteCupones = document.getElementById('limite_cupones')
 let openModalCouponByUser = document.getElementById('openModalCouponByUser');
 let infoCupon = document.getElementById('infoCupon')
@@ -28,7 +42,7 @@ if(openModalCouponByUser !== null) {
                 },
             },
             ajax: {
-                url: '/publicities/enterprises',
+                url: '/enterprises/search',
                 dataType: 'json',
                 delay: 250,
                 processResults: function (data) {
@@ -44,6 +58,16 @@ if(openModalCouponByUser !== null) {
                 cache: true
             },
         });
+        $(".searchEnterprise").on('select2:select', async function(e) {
+            var enterprise = e.params.data
+            showAlertWaiting()
+            const { data } = await getEnterprise(enterprise.id)
+            let numCupon = document.getElementById('num_cupon')
+            numCupon.innerText = data.limite_cupon
+            Swal.close()
+        })
+        let numCupon = document.getElementById('num_cupon')
+        numCupon.innerText = ''
         form.reset()
     }
 }
@@ -55,20 +79,7 @@ export function storeCouponInit() {
         if(empresaId !== null) {
             getEnterprise(empresaId.value).then(response => {
                 const { data } = response
-                if(data.limite_cupon > 0) {
-                    if(data.limite_cupon == 1) {
-                        limiteCupones.innerText = `Usted tiene ${data.limite_cupon} un cupon`
-                    } else {
-                        limiteCupones.innerText = `Usted tiene ${data.limite_cupon} cupones `
-                    }
-                    chargeInfo()
-                } else {
-                    let showButtonAdd = document.getElementById('showButtonAdd')
-                    showButtonAdd.parentNode.removeChild(showButtonAdd)
-                    infoCupon.style.display = ''
-                    limiteCupones.innerText = ''
-                    infoCupon.innerText = 'Se han agotado los cupones'
-                }
+                loadDataEnterprise(data, limiteCupones, infoCupon);
             })
         }
         responsePromise(response, "#table-coupons", "#modalCoupon")
@@ -85,7 +96,19 @@ $("#table-coupons").DataTable().on('click', 'button.edit', async function() {
     let form = document.forms['form-coupon-edit'];
     $("#modalEditCoupon").modal('toggle')
     form['nombre'].value = data.texto
-    form['num_cupon'].value = data.num_cupon
+
+    // Numero de cupones de rol administrador
+    let numCupon3 = document.getElementById('num_cupon3')
+    if(numCupon3 !== null) {
+        numCupon3.innerText = data.num_cupon
+    }
+
+    // Numero de cupones de rol Empresa
+    let numCupon4 = document.getElementById('num_cupon4')
+    if(numCupon4 !== null) {
+        numCupon4.innerText = data.num_cupon
+    }
+
     form['cant_x_usua'].value = data.cant_x_usua
 
     form['fecha_inicio'].value = moment(data.fecha_inicio).format('YYYY-MM-DD')
@@ -108,7 +131,7 @@ $("#table-coupons").DataTable().on('click', 'button.edit', async function() {
             },
         },
         ajax: {
-            url: '/publicities/enterprises',
+            url: '/enterprises/search',
             dataType: 'json',
             delay: 250,
             processResults: function (data) {
@@ -126,31 +149,21 @@ $("#table-coupons").DataTable().on('click', 'button.edit', async function() {
     });
     var enterprise = new Option(data.enterprise.nombre_comercial, data.empresa_id, true, true)
     $(".searchEnterpriseEdit").append(enterprise).trigger('change')
+
+    $(".searchEnterpriseEdit").on('select2:select', async function(e) {
+        var enterprise = e.params.data
+        showAlertWaiting()
+        const { data } = await getEnterprise(enterprise.id)
+        let numCupon = document.getElementById('num_cupon')
+        numCupon.innerText = data.limite_cupon
+        Swal.close()
+    })
 });
 
 export function updateCouponInit() {
     let form = document.forms['form-coupon-edit']
     showAlertWaiting()
     updateCoupon(form, id).then(response => {
-        if(empresaId !== null) {
-            getEnterprise(empresaId.value).then(response => {
-                const { data } = response
-                if(data.limite_cupon > 0) {
-                    if(data.limite_cupon == 1) {
-                        limiteCupones.innerText = `Usted tiene ${data.limite_cupon} un cupon`
-                    } else {
-                        limiteCupones.innerText = `Usted tiene ${data.limite_cupon} cupones `
-                    }
-                    chargeInfo()
-                } else {
-                    let showButtonAdd = document.getElementById('showButtonAdd')
-                    showButtonAdd.parentNode.removeChild(showButtonAdd)
-                    infoCupon.style.display = ''
-                    limiteCupones.innerText = ''
-                    infoCupon.innerText = 'Se han agotado los cupones'
-                }
-            })
-        }
         responsePromise(response, "#table-coupons", "#modalEditCoupon")
     })
 }
@@ -180,19 +193,6 @@ $("#table-coupons").DataTable().on('click', 'button.activate', async function() 
 window.addEventListener('load', async function(){
     if(empresaId !== null) {
         const { data } = await getEnterprise(empresaId.value)
-        if(data.limite_cupon > 0) {
-            if(data.limite_cupon == 1) {
-                limiteCupones.innerText = `Usted tiene ${data.limite_cupon} un cupon`
-            } else {
-                limiteCupones.innerText = `Usted tiene ${data.limite_cupon} cupones `
-            }
-            chargeInfo()
-        } else {
-            let showButtonAdd = document.getElementById('showButtonAdd')
-            showButtonAdd.parentNode.removeChild(showButtonAdd)
-            limiteCupones.innerText = ''
-            infoCupon.style.display = ''
-            infoCupon.innerText = 'Se han agotado los cupones'
-        }
+        loadDataEnterprise(data, limiteCupones, infoCupon);
     }
 })

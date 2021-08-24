@@ -47,8 +47,8 @@
                             <th scope="col">Descripcion</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Nombre de la empresa</th>
-                            <th scope="col">Cantidad de cupones por Usuario</th>
                             <th scope="col">Limite de numero de cupones</th>
+                            <th scope="col">Cantidad de cupones por Usuario</th>
                             <th scope="col">Fecha Inicio</th>
                             <th scope="col">Fecha Final</th>
                             <th scope="col">Acciones</th>
@@ -119,10 +119,10 @@
                 data: "empresa_id"
             },
             {
-                data : "cant_x_usua"
+                data: "num_cupon"
             },
             {
-                data: "num_cupon"
+                data : "cant_x_usua"
             },
             {
                 data : "fecha_inicio"
