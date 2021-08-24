@@ -4,7 +4,7 @@
 <div class="row mb-4">
     <div class="col d-flex flex-column flex-md-row justify-content-between">
         <h3 class="h3 text-gray-800">Listado de Cupones</h3>
-        <div id="showButtonAdd"></div>
+
         <h3 id="infoCupon" style="display: none"></h3>
         <input type="hidden" id="empresaId" value="{{ $id }}">
     </div>
@@ -12,8 +12,12 @@
 </div>
 <div class="row mb-4">
     <div class="col d-flex flex-column flex-md-row justify-content-between">
-        <div></div>
-        <a href="{{ route('enterprises.index') }}" class="btn btn-danger"><i class="fa fa-arrow-left"></i> Regresar</a>
+        <div id="showButtonAdd"></div>
+        <a
+            href="{{ route('enterprises.index') }}"
+            class="btn btn-danger float-right mt-1">
+            <i class="fa fa-arrow-left"></i> Regresar
+        </a>
     </div>
 </div>
 
