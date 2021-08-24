@@ -44,6 +44,8 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
+        $enterprise = Enterprise::findOrFail($request->empresa_id);
+
         $validator = $this->validator($request);
 
         if($validator->fails()) {
@@ -53,7 +55,7 @@ class CouponController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        if(intval($request->cant_x_usua) > intval($request->num_cupon)) {
+        if(intval($request->cant_x_usua) > intval($enterprise->limite_cupon)) {
             return response()->json([
                 'type' => 'validate',
                 'errors' => [
@@ -62,18 +64,18 @@ class CouponController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
+
         $coupon = Coupon::create([
             'empresa_id' => $request->empresa_id,
             'estado' => 2,
             'texto' => $request->texto,
-            'num_cupon' => $request->num_cupon,
+            'num_cupon' => $enterprise->limite_cupon,
             'cant_x_usua' => $request->cant_x_usua,
             'fecha_inicio' => $request->fecha_inicio,
             'fecha_fin' => $request->fecha_fin,
             'descripcion' => $request->descripcion
         ]);
 
-        $enterprise = Enterprise::findOrFail($request->empresa_id);
         $enterprise->update([
             'limite_cupon' => $enterprise->limite_cupon - 1
         ]);
@@ -115,7 +117,7 @@ class CouponController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        if(intval($request->cant_x_usua) > intval($request->num_cupon)) {
+        if(intval($request->cant_x_usua) > intval($coupon->num_cupon)) {
             return response()->json([
                 'type' => 'validate',
                 'errors' => [
@@ -160,7 +162,6 @@ class CouponController extends Controller
         $validator = Validator::make($request->all(), [
             'empresa_id' => 'required',
             'texto' => 'required',
-            'num_cupon' => 'required|integer',
             'cant_x_usua' => 'required|integer',
             'fecha_inicio' => 'required',
             'fecha_fin' => 'required',
@@ -168,7 +169,6 @@ class CouponController extends Controller
         ], [], [
             'empresa_id' => 'la empresa',
             'texto' => 'nombre del cupon',
-            'num_cupon' => 'numero de cupones',
             'cant_x_usua' => 'cantidad de cupones',
             'fecha_inicio' => 'fecha de inicio',
             'fecha_fin' => 'fecha de culminacion'

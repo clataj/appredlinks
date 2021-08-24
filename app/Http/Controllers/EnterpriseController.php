@@ -174,6 +174,23 @@ class EnterpriseController extends Controller
         }
     }
 
+    public function searchEnterprise(Request $request)
+    {
+        $enterprises = [];
+
+        if ($request->has('q')) {
+            $search = $request->q;
+            $enterprises = Enterprise::select('empresas.id', 'empresas.nombre_comercial')
+                ->where('tipo', 'LA')
+                ->where('estado', 'A')
+                ->where('limite_cupon', '>', 0)
+                ->where('empresas.nombre_comercial', 'LIKE', "%$search%")
+                ->orderBy('empresas.nombre_comercial', 'ASC')
+                ->get();
+        }
+        return response()->json($enterprises);
+    }
+
     public function updateImageContent(Request $request, $id)
     {
         $enterprise = Enterprise::findOrFail($id);
@@ -284,14 +301,14 @@ class EnterpriseController extends Controller
                             <i class="fas fa-save"></i>
                             </a>';
                 })
-                ->addColumn('beneficios', function($enterprise) {
-                    return '<a
-                            href="'. route("benefits.create", $enterprise->id) .'"
-                            class="btn btn-success">
-                            <i class="fas fa-concierge-bell"></i>
-                            </a>';
-                })
-                ->rawColumns(['actions', 'createBranchOffice', 'beneficios','coupons'])
+                // ->addColumn('beneficios', function($enterprise) {
+                //     return '<a
+                //             href="'. route("benefits.create", $enterprise->id) .'"
+                //             class="btn btn-success">
+                //             <i class="fas fa-concierge-bell"></i>
+                //             </a>';
+                // })
+                ->rawColumns(['actions', 'createBranchOffice', /*'beneficios',*/'coupons'])
                 ->make(true);
     }
 }

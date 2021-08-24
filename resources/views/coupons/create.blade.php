@@ -10,6 +10,12 @@
     </div>
 
 </div>
+<div class="row mb-4">
+    <div class="col d-flex flex-column flex-md-row justify-content-between">
+        <div></div>
+        <a href="{{ route('enterprises.index') }}" class="btn btn-danger"><i class="fa fa-arrow-left"></i> Regresar</a>
+    </div>
+</div>
 
 <!-- Create Modal -->
 @include('coupons.modals.modalCreate')
@@ -37,8 +43,8 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Cantidad de cupones por Usuario</th>
                             <th scope="col">Limite de numero de cupones</th>
+                            <th scope="col">Cantidad de cupones por Usuario</th>
                             <th scope="col">Fecha Inicio</th>
                             <th scope="col">Fecha Final</th>
                             <th scope="col">Acciones</th>
@@ -105,10 +111,10 @@
                 data: "estado"
             },
             {
-                data : "cant_x_usua"
+                data: "num_cupon"
             },
             {
-                data: "num_cupon"
+                data : "cant_x_usua"
             },
             {
                 data : "fecha_inicio"

@@ -97,7 +97,31 @@ export function jqValidationDefaultOptions() {
     }
 }
 
-export function chargeInfo() {
-    let showButtonAdd = document.getElementById('showButtonAdd')
-    showButtonAdd.insertAdjacentHTML('beforeend', templateButton())
+export function chargeInfo(html) {
+    html.insertAdjacentHTML('beforeend', templateButton())
+}
+
+export function loadDataEnterprise(data, limiteCupones, infoCupon) {
+    if(data.limite_cupon > 0) {
+        if(data.limite_cupon == 1) {
+            limiteCupones.innerText = `Usted tiene ${data.limite_cupon} un cupon`
+        } else {
+            limiteCupones.innerText = `Usted tiene ${data.limite_cupon} cupones `
+        }
+        let showButtonAdd = document.getElementById('showButtonAdd')
+        showButtonAdd.innerHTML = ''
+        chargeInfo(showButtonAdd)
+        let numCupon = document.getElementById('num_cupon2')
+        if(numCupon !== null) {
+            numCupon.innerText = data.limite_cupon
+        }
+    } else {
+        let showButtonAdd = document.getElementById('showButtonAdd')
+        if(showButtonAdd !== null) {
+            showButtonAdd.parentNode.removeChild(showButtonAdd)
+        }
+        limiteCupones.innerText = ''
+        infoCupon.style.display = ''
+        infoCupon.innerText = 'Se han agotado los cupones'
+    }
 }

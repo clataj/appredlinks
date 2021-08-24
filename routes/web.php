@@ -55,9 +55,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('coupons', 'CouponController@store')->name('coupons.store');
     Route::put('coupons/{coupon}', 'CouponController@update')->name('coupons.update');
     Route::get('coupons/{coupon}/show', 'CouponController@show')->name('coupons.show');
-
-
-
 });
 
 Route::middleware(['auth', 'administrator'])->group(function () {
@@ -81,6 +78,7 @@ Route::middleware(['auth', 'administrator'])->group(function () {
 
     // Empresas
     Route::delete('enterprises/{enterprise}', 'EnterpriseController@destroy')->name('enterprise.destroy');
+    Route::get('enterprises/search', 'EnterpriseController@searchEnterprise')->name('enterprises.search');
 
     // Publicidades
     Route::get('publicities', 'PublicityController@index')->name('publicities.index');

@@ -6,10 +6,6 @@ const createCouponValidator = $("#form-save-coupon").validate({
     rules: {
         empresa_id: "required",
         nombre: "required",
-        num_cupon: {
-            required: true,
-            number: true
-        },
         cant_x_usua: {
             required: true,
             number: true
@@ -30,10 +26,6 @@ const editCouponValidator = $("#form-coupon-edit").validate({
     rules: {
         empresa_id: "required",
         nombre: "required",
-        num_cupon: {
-            required: true,
-            number: true
-        },
         cant_x_usua: {
             required: true,
             number: true

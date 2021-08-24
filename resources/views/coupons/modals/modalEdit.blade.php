@@ -16,6 +16,7 @@
 
             <div class="modal-body">
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                @if (Auth::user()->role_id == 1)
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -28,6 +29,10 @@
                         </div>
                     </div>
                 </div>
+                @endif
+                @if (Auth::user()->role_id == 2)
+                    <input type="hidden" name="empresa_id" id="empresa_id3" value="{{ $id }}">
+                @endif
                 <div class="row">
                     <div class="col-md-12">
                         <label for="nombre">Nombre del Cupon*</label>
@@ -42,12 +47,22 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="num_cupon">Número de cupones *</label>
-                        <input
+                        @if (Auth::user()->role_id == 1)
+                        <span
                             type="text"
                             class="form-control"
-                            id="num_cupon"
+                            id="num_cupon3"
                             name="num_cupon"
-                            placeholder="Numero de cupones">
+                            placeholder="Numero de cupones"></span>
+                        @endif
+                        @if (Auth::user()->role_id == 2)
+                        <span
+                            type="text"
+                            class="form-control"
+                            id="num_cupon4"
+                            name="num_cupon"
+                            placeholder="Numero de cupones"></span>
+                        @endif
                     </div>
                     <div class="col-md-6">
                         <label for="cant_x_usua">Cantidad de cupones por usuario *</label>
@@ -57,6 +72,19 @@
                             id="cant_x_usua"
                             name="cant_x_usua"
                             placeholder="Numero de cupones">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <span
+                                class="text-danger">
+                                <em>Nota: </em>
+                            </span>
+                            <span>
+                                La cantidad de cupones no debe ser superior al numero de cupones
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -113,7 +141,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 <button id="edit-button" type="submit" class="btn btn-primary">Guardar</button>
             </div>
-            
+
         </form>
     </div>
 </div>

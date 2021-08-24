@@ -52,9 +52,14 @@
                             <th scope="col">RUC</th>
                             <th scope="col">Razón Social</th>
                             <th scope="col">Beneficio</th>
-                            <th scope="col">Beneficios</th>
+                            {{-- <th scope="col">Beneficios</th> --}}
                             <th scope="col">Sucursal</th>
-                            <th scope="col">Cupones</th>
+                            @if (Auth::user()->role_id == 1)
+                                <th scope="col">Limite de Cupones</th>
+                            @endif
+                            @if (Auth::user()->role_id == 2)
+                                <th scope="col">Cupones</th>
+                            @endif
                             <th scope="col">Estado</th>
                             <th scope="col">Dirección</th>
                             <th scope="col">Telefono</th>
@@ -129,9 +134,9 @@
             {
                 data: "beneficio"
             },
-            {
-                data: "beneficios"
-            },
+            // {
+            //     data: "beneficios"
+            // },
             {
                 data: "createBranchOffice"
             },
