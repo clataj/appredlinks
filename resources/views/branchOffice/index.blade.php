@@ -22,6 +22,7 @@
         </a>
     </div>
 </div>
+<input type="hidden" name="empresa_id" id="empresa_id" value="{{ $id }}">
 <!-- Create Modal -->
 @include('branchOffice.modals.modalCreate')
 

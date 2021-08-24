@@ -9,7 +9,6 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-                <input type="hidden" name="empresa_id" id="empresa_id" value="{{ $id }}">
                 <div class="row">
                     <div class="col-md-12">
                         <label for="nombre">Nombre de la sucursal *</label>

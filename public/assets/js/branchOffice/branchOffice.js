@@ -12,6 +12,7 @@ import {
 
 // Post
 let openModalBranchOffice = document.getElementById('openModalBranchOffice');
+let empresaId = document.getElementById('empresa_id').value
 
 // Update
 let id = null;
@@ -26,7 +27,7 @@ openModalBranchOffice.onclick = () => {
 export function storeBranchOfficeInit() {
     let form = document.forms['form-save-branch-office']
     showAlertWaiting()
-    storeBranchOffice(form).then(response => {
+    storeBranchOffice(form, empresaId).then(response => {
         responsePromise(response, "#table-branch-office", "#modalBranchOffice")
     })
 }
@@ -57,7 +58,7 @@ $("#table-branch-office").DataTable().on('click', 'button.edit', async function(
 export function updateBranchOfficeInit() {
     let form = document.forms['form-edit-branch-office']
     showAlertWaiting()
-    updateBranchOffice(form, id).then(response => {
+    updateBranchOffice(form, id, empresaId).then(response => {
         responsePromise(response, "#table-branch-office", "#modalEditBranchOffice")
     })
 }
