@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Traits\FileImage;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -44,7 +42,6 @@ class CategoryController extends Controller
 
         if ($request->hasFile('image_category')) {
 
-
             $ruta_img = $this->uploadImageAndGetUrl($request, 'categories', 'image_category');
 
             $category = Category::create([
@@ -75,18 +72,14 @@ class CategoryController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'status' => 'required|string'
-        ],[], [
-            'name' => 'nombre',
-            'status' => 'estado'
+            'status' => 'required|not_in:0'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'request' => $request->all(),
                 'type' => 'validate',
                 'errors' => $validator->errors()
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         $category->update([

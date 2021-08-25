@@ -64,7 +64,6 @@ class CouponController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-
         $coupon = Coupon::create([
             'empresa_id' => $request->empresa_id,
             'estado' => 2,
@@ -84,7 +83,6 @@ class CouponController extends Controller
             'data' => $coupon,
             'message' => "!Cupon creado éxitosamente!"
         ], Response::HTTP_CREATED);
-
 
     }
 

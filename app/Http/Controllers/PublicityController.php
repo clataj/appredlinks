@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enterprise;
+use App\Http\Requests\PublicityEditRequest;
+use App\Http\Requests\PublicitySaveRequest;
 use App\Publicity;
 use App\Traits\FileImage;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;

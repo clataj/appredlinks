@@ -14,11 +14,11 @@ const createBranchOfficeValidate = $("#form-save-branch-office").validate({
         dias_laborales: 'required',
         latitud_map: {
             required: true,
-            digits: true
+            number: true
         },
         longitud_map: {
             required: true,
-            digits: true
+            number: true
         }
     },
     submitHandler: function() {

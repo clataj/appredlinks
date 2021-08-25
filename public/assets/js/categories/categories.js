@@ -7,17 +7,11 @@ let id = null
 let imgCategory = document.getElementById('img_category')
 let openModalCreateCategory = document.getElementById('openModalCategory');
 let imageCategory = document.getElementById('image_category');
-let status = document.getElementById('status');
-let statusSave = ''
 
 // Edit Category Image
 let imageCategoryEdit = document.getElementById('image_category_edit')
 let imgCategoryEdit = document.getElementById('img_category_edit')
 
-
-// Edit Text Category
-let statusEdit = document.getElementById('status-edit');
-let statusSaveEdit = statusEdit.value
 
 // Post Category
 
@@ -33,14 +27,10 @@ imageCategory.onchange = () => {
     imgCategory.textContent=form['image_category'].value.replace(/C:\\fakepath\\/i, '')
 }
 
-status.onchange = (event) => {
-    statusSave = event.target.value
-}
-
 export function storeCategoryInit() {
     let form = document.forms['form-category']
     showAlertWaiting()
-    storeCategory(form, statusSave).then(response => {
+    storeCategory(form).then(response => {
         responsePromise(response, "#table-category", "#modalCategory")
     })
 }
@@ -82,19 +72,14 @@ $("#table-category").DataTable().on('click', 'button.edit', async function() {
     Swal.close()
     let form = document.forms['form-category-edit'];
     $("#modalCategoryEdit").modal('toggle');
-
-    form['name'].value = data.nombre;
-    form['status'].value = data.estado;
+    form['name-edit'].value = data.nombre;
+    form['status-edit'].value = data.estado;
 })
-
-statusEdit.onchange = (event) => {
-    statusSaveEdit = event.target.value
-}
 
 export function updateCategoryInit() {
     let form = document.forms['form-category-edit'];
     showAlertWaiting()
-    updateCategory(form, statusSaveEdit, id).then(response => {
+    updateCategory(form, id).then(response => {
         responsePromise(response, "#table-category", "#modalCategoryEdit")
     })
 }

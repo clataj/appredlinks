@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Enterprise;
+use App\Http\Requests\EnterpriseEditRequest;
+use App\Http\Requests\EnterpriseSaveRequest;
 use App\Traits\FileImage;
 use App\User;
 use Illuminate\Http\Request;
