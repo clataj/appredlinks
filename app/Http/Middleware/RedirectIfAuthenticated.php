@@ -19,9 +19,19 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/dashboard');
+            $role = Auth::user()->role_id;
+            switch($role) {
+                case 1:
+                    return redirect('/dashboard');
+                break;
+                case 2:
+                    return redirect('/enterprises');
+                break;
+                default:
+                    return redirect('/');
+                break;
+            }
         }
-
         return $next($request);
     }
 }

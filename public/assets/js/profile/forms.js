@@ -1,5 +1,5 @@
 import { jqValidationDefaultOptions } from "../helpers.js";
-import { storeProfileInit } from "./profile.js";
+import { storeProfileInit, updateProfileCredentialsInit } from "./profile.js";
 
 const updateProfileValidator = $("#form-profile").validate({
     ...jqValidationDefaultOptions(),
@@ -12,5 +12,20 @@ const updateProfileValidator = $("#form-profile").validate({
     },
     submitHandler: function(){
         storeProfileInit()
+    }
+})
+
+const updateCredentialsValidator = $("#form-credentials").validate({
+    ...jqValidationDefaultOptions(),
+    rules: {
+        password: 'required',
+        newpassword: 'required',
+        repassword: {
+            required: true,
+            equalTo: "#newpassword"
+        },
+    },
+    submitHandler: function() {
+        updateProfileCredentialsInit()
     }
 })

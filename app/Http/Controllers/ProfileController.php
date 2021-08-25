@@ -60,15 +60,27 @@ class ProfileController extends Controller
         ]);
 
         if ($validateCredentials->fails()) {
-            return redirect()->route('settings')->withErrors($validateCredentials->errors());
+            return response()->json([
+                'type' => 'validate',
+                'errors' => $validateCredentials->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
         if (Hash::check($request->password, Auth::user()->password, ['rounds' => 10])) {
             $user->update([
                 'password' => Hash::make($request->newpassword, ['rounds' => 10])
             ]);
-            return redirect()->route('dashboard')->with('status', 'Datos actualizados correctamente');
+            return response()->json([
+                'message' => '!Credenciales Actualizadas!'
+            ], Response::HTTP_OK);
+        } else {
+            return response()->json([
+                'type' => 'validate',
+                'errors' => [
+                    'error' => 'La contraseña no coincide con su contraseña actual'
+                ]
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
     }
 
 }

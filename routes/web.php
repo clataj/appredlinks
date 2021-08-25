@@ -24,12 +24,9 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-
     // Settings
     Route::get('/settings', 'ProfileController@index')->name('settings');
-    Route::post('/profile/{user}/credentials', 'ProfileController@updateCredentials')->name('profile.updateCredentials');
-    // Perfil
+    Route::post('profile/{user}/credentials', 'ProfileController@updateCredentials')->name('profile.updateCredentials');
     Route::put('profile/{user}', 'ProfileController@update')->name('profile.update');
 
     // Empresa
@@ -66,6 +63,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'administrator'])->group(function () {
+    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
     // Users
     Route::get('users', 'UserController@index')->name('users.index');
     Route::post('users', 'UserController@store')->name('users.store');

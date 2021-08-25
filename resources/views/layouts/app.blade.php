@@ -104,7 +104,7 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="{{ route('settings') }}">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    Configuraciones
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a
