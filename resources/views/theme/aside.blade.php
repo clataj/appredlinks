@@ -1,12 +1,16 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <a class="sidebar-brand d-flex align-items-center justify-content-center"
-        href="{{ route('dashboard') }}">
+            href="{{ route('dashboard') }}">
         <div class="sidebar-brand-icon">
             <img width="48" src="{{ asset('images/redlinks-white-logo.png') }}">
         </div>
         <div class="sidebar-brand-text ml-2">RedLinks</div>
+        <!-- Sidebar Toggler (Sidebar) -->
     </a>
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -16,10 +20,11 @@
         Mantenimiento
     </div>
 
+
     @if (Auth::user()->role_id == 1)
         <!-- Nav Item - Usuarios -->
-        <li class="{{ Request::path() === 'dashboard' ? 'nav-item active' : 'nav-item' }}">
-            <a class="nav-link" href="{{ route('dashboard') }}">
+        <li class="{{ Request::path() === 'users' ? 'nav-item active' : 'nav-item' }}">
+            <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-id-badge"></i>
             <span>Usuarios</span>
             </a>

@@ -3,9 +3,10 @@ export async function getCategory(id) {
     return data.json();
 }
 
-export async function storeCategory(form, status) {
+export async function storeCategory(form) {
 
     let name = form['name'].value;
+    let status = form['status'].value;
     let image_category = form['image_category'].files[0]
     var formData = new FormData()
     formData.append("name", name);
@@ -22,8 +23,9 @@ export async function storeCategory(form, status) {
 
 }
 
-export async function updateCategory(form, status, id) {
-    let name = form['name'].value;
+export async function updateCategory(form, id) {
+    let name = form['name-edit'].value;
+    let status = form['status-edit'].value
 
     let object = {
         name : name,

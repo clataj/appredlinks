@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -56,6 +58,7 @@ class Handler extends ExceptionHandler
                 return redirect('/');
             }
         }
+
         return parent::render($request, $exception);
     }
 }

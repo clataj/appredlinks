@@ -8,8 +8,6 @@ use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -19,6 +17,11 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class UserController extends Controller
 {
+
+    public function index()
+    {
+        return view('users.index');
+    }
 
     public function create()
     {
@@ -80,7 +83,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
-            return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
+            return redirect()->route('users.index')->with('status', '!Usuario registrado!');
         }
 
         if(intval($request->role_id) == 2) {
@@ -111,7 +114,7 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
             $user->enterprises()->sync($request->enterprises, false);
-            return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
+            return redirect()->route('users.index')->with('status', '!Usuario registrado!');
         }
     }
 
@@ -156,8 +159,14 @@ class UserController extends Controller
                     'email' => $request->email,
                 ]);
                 $user->enterprises()->detach();
+            } else {
+                $user->update([
+                    'role_id' => $request->role_id,
+                    'name' => $request->name,
+                    'email' => $request->email,
+                ]);
             }
-            return redirect()->route('dashboard')->with('status', '!Usuario actualizado correctamente!');
+            return redirect()->route('users.index')->with('status', '!Usuario actualizado correctamente!');
         }
 
         if(intval($request->role_id) == 2) {
@@ -184,7 +193,7 @@ class UserController extends Controller
             ]);
 
             $user->enterprises()->sync($request->enterprises);
-            return redirect()->route('dashboard')->with('status', '!Usuario actualizado correctamente!');
+            return redirect()->route('users.index')->with('status', '!Usuario actualizado correctamente!');
         }
     }
 

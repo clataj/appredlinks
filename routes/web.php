@@ -26,6 +26,12 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
+    // Settings
+    Route::get('/settings', 'ProfileController@index')->name('settings');
+    Route::post('/profile/{user}/credentials', 'ProfileController@updateCredentials')->name('profile.updateCredentials');
+    // Perfil
+    Route::put('profile/{user}', 'ProfileController@update')->name('profile.update');
+
     // Empresa
     Route::get('enterprises', 'EnterpriseController@index')->name('enterprises.index');
     Route::get('enterprises/all', 'EnterpriseController@findAll')->name('enterprises.data');
@@ -61,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'administrator'])->group(function () {
     // Users
+    Route::get('users', 'UserController@index')->name('users.index');
     Route::post('users', 'UserController@store')->name('users.store');
     Route::get('users/create', 'UserController@create')->name('users.create');
     Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
