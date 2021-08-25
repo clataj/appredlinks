@@ -19,6 +19,9 @@ class Empresa
         if(Auth::user()->role_id == 2) {
             return $next($request);
         }
-        return redirect('/dashboard');
+        if(Auth::user()->role_id == 1) {
+            return redirect('/dashboard');
+        }
+        return redirect('/enterprises');
     }
 }
