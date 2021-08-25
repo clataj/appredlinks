@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Enterprise extends Model
@@ -76,7 +77,11 @@ class Enterprise extends Model
         return $this->hasMany(Benefit::class, 'empresa_id');
     }
 
-    public function users()
+    /**
+     * This method will be related with the model User
+     * @return BelongsToMany
+     */
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'empresas_users', 'user_id', 'empresas_id');
     }
