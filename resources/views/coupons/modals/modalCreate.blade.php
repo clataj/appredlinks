@@ -113,7 +113,7 @@
                                 name="hora_inicio"
                                 id="hora_inicio"
                                 class="form-control"
-                                min="{{ date('H:m:i') }}"
+                                min="{{ date('H:i:s') }}"
                                 >
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                                 name="hora_final"
                                 id="hora_final"
                                 class="form-control"
-                                min="{{ date('H:m:i') }}">
+                                min="{{ date('H:i:s') }}">
                         </div>
                     </div>
                 </div>
