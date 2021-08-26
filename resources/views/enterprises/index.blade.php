@@ -82,6 +82,15 @@
 </div>
 
 @endsection
+@if (session('status'))
+<script type="text/javascript">
+    Swal.fire({
+        title: 'Exito',
+        text: `{{ session('status') }}`,
+        icon: 'success'
+    })
+</script>
+@endif
 @push('scripts')
 <script type="text/javascript">
     $("#table-enterprise").DataTable({
