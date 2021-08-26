@@ -134,7 +134,7 @@
             @endif
             <div class="row">
                 <div class="col">
-                    <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancelar</a>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </div>

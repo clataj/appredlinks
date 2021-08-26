@@ -83,7 +83,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
-            return redirect()->route('users.index')->with('status', '!Usuario registrado!');
+            return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
         }
 
         if(intval($request->role_id) == 2) {
@@ -114,7 +114,7 @@ class UserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
             $user->enterprises()->sync($request->enterprises, false);
-            return redirect()->route('users.index')->with('status', '!Usuario registrado!');
+            return redirect()->route('dashboard')->with('status', '!Usuario registrado!');
         }
     }
 
@@ -166,7 +166,7 @@ class UserController extends Controller
                     'email' => $request->email,
                 ]);
             }
-            return redirect()->route('users.index')->with('status', '!Usuario actualizado correctamente!');
+            return redirect()->route('dashboard')->with('status', '!Usuario actualizado correctamente!');
         }
 
         if(intval($request->role_id) == 2) {
@@ -193,7 +193,7 @@ class UserController extends Controller
             ]);
 
             $user->enterprises()->sync($request->enterprises);
-            return redirect()->route('users.index')->with('status', '!Usuario actualizado correctamente!');
+            return redirect()->route('dashboard')->with('status', '!Usuario actualizado correctamente!');
         }
     }
 
