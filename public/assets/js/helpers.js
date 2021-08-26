@@ -125,3 +125,16 @@ export function loadDataEnterprise(data, limiteCupones, infoCupon) {
         infoCupon.innerText = 'Se han agotado los cupones'
     }
 }
+
+export function showImage(data) {
+    console.log(data.imagen);
+    Swal.fire({
+        title:
+            data.tipo == "P" ? "Publicidad Destacada" : "Publicidad Secundaria",
+        text: data.nombre,
+        imageUrl: data.imagen,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: data.nombre
+    });
+}

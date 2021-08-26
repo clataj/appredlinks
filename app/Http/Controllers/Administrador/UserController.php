@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrador;
 
 use App\Enterprise;
+use App\Http\Controllers\Controller;
 use App\Role;
 use App\User;
 use Illuminate\Http\JsonResponse;
@@ -12,17 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-/**
- * Controller of 'Users'
- */
 class UserController extends Controller
 {
-
-    public function index()
-    {
-        return view('users.index');
-    }
-
     public function create()
     {
         $roles = Role::all();

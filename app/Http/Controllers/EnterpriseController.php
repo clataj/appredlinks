@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Coupon;
 use App\Enterprise;
-use App\Http\Requests\EnterpriseEditRequest;
-use App\Http\Requests\EnterpriseSaveRequest;
 use App\Traits\FileImage;
 use App\User;
 use Illuminate\Http\Request;
@@ -176,23 +175,6 @@ class EnterpriseController extends Controller
         }
     }
 
-    public function searchEnterprise(Request $request)
-    {
-        $enterprises = [];
-
-        if ($request->has('q')) {
-            $search = $request->q;
-            $enterprises = Enterprise::select('empresas.id', 'empresas.nombre_comercial')
-                ->where('tipo', 'LA')
-                ->where('estado', 'A')
-                ->where('limite_cupon', '>', 0)
-                ->where('empresas.nombre_comercial', 'LIKE', "%$search%")
-                ->orderBy('empresas.nombre_comercial', 'ASC')
-                ->get();
-        }
-        return response()->json($enterprises);
-    }
-
     public function updateImageContent(Request $request, $id)
     {
         $enterprise = Enterprise::findOrFail($id);
@@ -226,22 +208,6 @@ class EnterpriseController extends Controller
                 'message' => '!Cambio de imagen exitosamente!'
             ], Response::HTTP_OK);
         }
-    }
-
-    public function destroy($id)
-    {
-        $enterprise = Enterprise::findOrFail($id);
-        $this->deleteImage($enterprise->ruta_small_2, 'enterprises');
-        $this->deleteImage($enterprise->ruta_fondo, 'enterprises');
-
-        if(count($enterprise->users) > 0) {
-            $enterprise->delete();
-            $enterprise->users()->detach();
-            return $enterprise;
-        }
-
-        $enterprise->delete();
-        return $enterprise;
     }
 
     public function findAll()

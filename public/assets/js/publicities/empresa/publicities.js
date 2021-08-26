@@ -1,16 +1,6 @@
-import {
-    changeImage,
-    deletePublicity,
-    getPublicity,
-    storePublicity,
-    updatePublicity
-} from "./endpoints.js";
-import {
-    responsePromise,
-    showAlertDelete,
-    showAlertWaiting,
-    showImage
-} from "../helpers.js";
+import { responsePromise, showAlertDelete, showAlertWaiting, showImage } from "../../helpers.js";
+import { changeImage, deletePublicity, getPublicity } from "../endpoints.js";
+import { storePublicity, updatePublicity } from "./endpoints.js";
 
 // Post Publicity
 let openModalPublicity = document.getElementById("openModalPublicity");
@@ -26,35 +16,20 @@ openModalPublicity.onclick = () => {
     let form = document.forms["form-save-publicity"];
     var imgPublicity = document.getElementById("img_publicity");
     imgPublicity.textContent = "Escoger una imagen";
-    $(".searchEnterprise").empty();
-    $(".searchEnterprise").select2({
-        theme: "bootstrap4",
-        placeholder: "Busque una empresa",
-        language: {
-            noResults: function() {
-                return "No hay resultados";
+    if($(".subCategoria")) {
+        $(".subCategoria").select2({
+            theme: "bootstrap4",
+            placeholder: "Busque una empresa",
+            language: {
+                noResults: function() {
+                    return "No hay resultados";
+                },
+                searching: function() {
+                    return "Buscando..";
+                }
             },
-            searching: function() {
-                return "Buscando..";
-            }
-        },
-        ajax: {
-            url: "/publicities/enterprises",
-            dataType: "json",
-            delay: 250,
-            processResults: function(data) {
-                return {
-                    results: $.map(data, function(item) {
-                        return {
-                            text: item.nombre_comercial,
-                            id: item.id
-                        };
-                    })
-                };
-            },
-            cache: true
-        }
-    });
+        });
+    }
     form.reset();
 };
 
@@ -118,6 +93,7 @@ export function changeImageInit() {
     });
 }
 
+
 // Update Text
 $("#table-publicity")
     .DataTable()
@@ -131,46 +107,23 @@ $("#table-publicity")
         $("#modalEditPublicity").modal("toggle");
         form["nombre"].value = data.nombre;
         form["tipo"].value = data.tipo;
-        form["estado"].value = data.estado;
-        form["fecha_inicio"].value = data.fecha_inicio;
-        form["fecha_fin"].value = data.fecha_fin;
         form["descripcion"].value = data.descripcion;
-        $(".searchEnterpriseEdit").select2({
-            theme: "bootstrap4",
-            placeholder: "Busque una empresa",
-            language: {
-                noResults: function() {
-                    return "No hay resultados";
+        if($(".subCategoriaEdit")) {
+            $(".subCategoriaEdit").select2({
+                theme: "bootstrap4",
+                placeholder: "Busque una empresa",
+                language: {
+                    noResults: function() {
+                        return "No hay resultados";
+                    },
+                    searching: function() {
+                        return "Buscando..";
+                    }
                 },
-                searching: function() {
-                    return "Buscando..";
-                }
-            },
-            ajax: {
-                url: "/publicities/enterprises",
-                dataType: "json",
-                delay: 250,
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-                            return {
-                                text: item.nombre_comercial,
-                                id: item.id
-                            };
-                        })
-                    };
-                },
-                cache: true
-            }
-        });
-        var enterprise = new Option(
-            data.enterprise.nombre_comercial,
-            data.sub_categoria,
-            true,
-            true
-        );
-        $(".searchEnterpriseEdit")
-            .append(enterprise)
+            });
+        }
+        $(".subCategoriaEdit")
+            .val(data.sub_categoria)
             .trigger("change");
     });
 
@@ -194,3 +147,6 @@ $("#table-publicity")
             }
         });
     });
+
+
+

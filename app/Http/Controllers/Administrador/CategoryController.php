@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrador;
 
 use App\Category;
+use App\Http\Controllers\Controller;
 use App\Traits\FileImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-/**
- * Controller of 'Categorias'
- */
 class CategoryController extends Controller
 {
     use FileImage;

@@ -49,10 +49,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('branchOffices', 'BranchOfficeController@store')->name('branchOffices.store');
 
     // Beneficios
+    /*
     Route::post('benefits', 'BenefitController@store')->name('benefits.store');
     Route::get('benefits/{benefit}', 'BenefitController@show')->name('benefits.show');
     Route::put('benefits/{benefit}', 'BenefitController@update')->name('benefits.update');
     Route::delete('benefits/{benefit}', 'BenefitController@destroy')->name('benefits.destroy');
+    */
 
     // Cupones
     Route::post('coupons', 'CouponController@store')->name('coupons.store');
@@ -60,52 +62,63 @@ Route::middleware(['auth'])->group(function () {
     Route::get('coupons/{coupon}/show', 'CouponController@show')->name('coupons.show');
     Route::put('coupons/{coupon}/disabled', 'CouponController@disabled')->name('coupons.disabled');
     Route::put('coupons/{coupon}/enabled', 'CouponController@enabled')->name('coupons.enabled');
+
+    // Publicidades
+    Route::get('publicities/{publicity}/show', 'PublicityController@show')->name('publicities.show');
+    Route::post('publicities/{publicity}/image', 'PublicityController@updateImage')->name('publicities.updateImage');
+    Route::put('publicities/{publicity}', 'PublicityController@update')->name('publicities.update');
+    Route::delete('publicities/{publicity}', 'PublicityController@destroy')->name('publicities.destroy');
+
 });
 
 Route::middleware(['auth', 'administrator'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
     // Users
-    Route::get('users', 'UserController@index')->name('users.index');
-    Route::post('users', 'UserController@store')->name('users.store');
-    Route::get('users/create', 'UserController@create')->name('users.create');
-    Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
-    Route::get('users/{user}/show/{enterprise?}', 'UserController@show')->name('users.show');
-    Route::put('users/{user}', 'UserController@update')->name('users.update');
-    Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
-    Route::get('users/all', 'UserController@findAll')->name('users.data');
+    Route::post('users', 'Administrador\UserController@store')->name('users.store');
+    Route::get('users/create', 'Administrador\UserController@create')->name('users.create');
+    Route::get('users/{user}/edit', 'Administrador\UserController@edit')->name('users.edit');
+    Route::get('users/{user}/show/{enterprise?}', 'Administrador\UserController@show')->name('users.show');
+    Route::put('users/{user}', 'Administrador\UserController@update')->name('users.update');
+    Route::delete('users/{user}', 'Administrador\UserController@destroy')->name('users.destroy');
+    Route::get('users/all', 'Administrador\UserController@findAll')->name('users.data');
 
     // Categories
-    Route::get('categories', 'CategoryController@index')->name('categories.index');
-    Route::post('categories', 'CategoryController@store')->name('categories.store');
-    Route::get('categories/{category}/show', 'CategoryController@show')->name('categories.show');
-    Route::put('categories/{category}', 'CategoryController@update')->name('categories.update');
-    Route::post('categories/{category}/image', 'CategoryController@updateImage')->name('categories.updateImage');
-    Route::delete('categories/{category}', 'CategoryController@destroy')->name('categories.destroy');
-    Route::get('categories/all', 'CategoryController@findAll')->name('categories.data');
+    Route::get('categories', 'Administrador\CategoryController@index')->name('categories.index');
+    Route::post('categories', 'Administrador\CategoryController@store')->name('categories.store');
+    Route::get('categories/{category}/show', 'Administrador\CategoryController@show')->name('categories.show');
+    Route::put('categories/{category}', 'Administrador\CategoryController@update')->name('categories.update');
+    Route::post('categories/{category}/image', 'Administrador\CategoryController@updateImage')->name('categories.updateImage');
+    Route::delete('categories/{category}', 'Administrador\CategoryController@destroy')->name('categories.destroy');
+    Route::get('categories/all', 'Administrador\CategoryController@findAll')->name('categories.data');
 
     // Empresas
-    Route::delete('enterprises/{enterprise}', 'EnterpriseController@destroy')->name('enterprise.destroy');
-    Route::get('enterprises/search', 'EnterpriseController@searchEnterprise')->name('enterprises.search');
+    Route::delete('enterprises/{enterprise}', 'Administrador\EnterpriseController@destroy')->name('enterprise.destroy');
+    Route::get('enterprises/search', 'Administrador\EnterpriseController@searchEnterprise')->name('enterprises.search');
 
     // Publicidades
-    Route::get('publicities', 'PublicityController@index')->name('publicities.index');
-    Route::get('publicities/{publicity}/show', 'PublicityController@show')->name('publicities.show');
-    Route::post('publicities/{publicity}/image', 'PublicityController@updateImage')->name('enterprises.updateImage');
-    Route::put('publicities/{publicity}', 'PublicityController@update')->name('enterprises.update');
-    Route::delete('publicities/{publicity}', 'PublicityController@destroy')->name('enterprises.destroy');
-    Route::post('publicities', 'PublicityController@store')->name('publicities.store');
-    Route::get('publicities/enterprises', 'PublicityController@searchEnterprise')->name('publicities.enterprises');
-    Route::get('publicities/all', 'PublicityController@findAll')->name('publicities.data');
+    Route::get('publicities', 'Administrador\PublicityController@index')->name('publicities.index');
+    Route::get('publicities/enterprises', 'Administrador\PublicityController@searchEnterprise')->name('publicities.enterprises');
+    Route::get('publicities/all', 'Administrador\PublicityController@findAll')->name('publicities.data');
 
     // Cupones
-    Route::get('coupons', 'CouponController@index')->name('coupons.index');
-    Route::get('coupons/all', 'CouponController@findAll')->name('coupons.data');
+    Route::get('coupons', 'Administrador\CouponController@index')->name('coupons.index');
+    Route::get('coupons/all', 'Administrador\CouponController@findAll')->name('coupons.data');
 
 });
 
 Route::middleware(['auth', 'enterprise'])->group(function () {
+    // Empresas
+    Route::get('my/{user}/enterprises', 'Empresa\EnterpriseController@index')->name('users.enterprises.index');
+    Route::get('my/{user}/enterprises/all', 'Empresa\EnterpriseController@findAll')->name('users.enterprises.data');
+
+    // Publicidades
+    Route::get('my/{user}/publicities', 'Empresa\PublicityController@index')->name('publicities.enterprise.index');
+    Route::get('my/{user}/publicities/all', 'Empresa\PublicityController@findAll')->name('publicities.enterprise.data');
+    Route::post('my/publicities', 'Empresa\PublicityController@store')->name('publicities.enterprise.store');
+    Route::put('my/publicities/{publicity}', 'Empresa\PublicityController@update')->name('enterprises.enterprise.update');
+
     // Cupones
-    Route::get('coupons/{enterprise?}/all', 'CouponController@findAll')->name('coupons.dataEnterprise');
-    Route::get('coupons/{enterprise}/create', 'CouponController@create')->name('coupons.create');
+    Route::get('coupons/{enterprise}/all', 'Empresa\CouponController@findAll')->name('coupons.dataEnterprise');
+    Route::get('coupons/{enterprise}/create', 'Empresa\CouponController@create')->name('coupons.create');
 });

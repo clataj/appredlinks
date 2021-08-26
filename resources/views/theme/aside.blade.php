@@ -71,10 +71,17 @@
     @endif
     @if (Auth::user()->role_id == 2)
         <!-- Nav Item - Empresas -->
-        <li class="{{ Request::path() === 'enterprises' ? 'nav-item active' : 'nav-item' }}">
-            <a class="nav-link" href="{{ route('enterprises.index') }}">
+        <li class="{{ Request::path() === 'my/'.Auth::user()->id.'/enterprises' ? 'nav-item active' : 'nav-item' }}">
+            <a class="nav-link" href="{{ route('users.enterprises.index', Auth::user()->id) }}">
                 <i class="fas fa-building"></i>
                 <span>Empresas</span>
+            </a>
+        </li>
+        <!-- Nav Item - Publicidades -->
+        <li class="{{ Request::path() === 'my/'.Auth::user()->id.'/publicities' ? 'nav-item active' : 'nav-item' }}">
+            <a class="nav-link" href="{{ route('publicities.enterprise.index', Auth::user()->id) }}">
+                <i class="fas fa-bullhorn"></i>
+                <span>Publicidades</span>
             </a>
         </li>
     @endif

@@ -20,7 +20,7 @@ class Administrator
             return $next($request);
         }
         if(Auth::user()->role_id == 2) {
-            return redirect('/enterprises');
+            return redirect()->route('users.enterprises.index', Auth::user()->id);
         }
         return redirect('/dashboard');
     }

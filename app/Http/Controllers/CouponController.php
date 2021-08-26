@@ -5,36 +5,13 @@ namespace App\Http\Controllers;
 use App\Coupon;
 use App\Enterprise;
 use App\Traits\FormatDate;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Yajra\DataTables\Facades\DataTables;
 
 class CouponController extends Controller
 {
     use FormatDate;
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('coupons.index');
-    }
-
-    public function create($id)
-    {
-        $user = User::findOrFail(Auth::user()->id);
-        if($user->enterprises->contains($id)) {
-            $enterprise = Enterprise::findOrFail($id);
-            return view('coupons.create', compact('id','enterprise','user'));
-        }
-        return redirect('/enterprises');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -172,40 +149,5 @@ class CouponController extends Controller
             'fecha_fin' => 'fecha de culminacion'
         ]);
         return $validator;
-    }
-
-    public function findAll($id = null)
-    {
-        if(Auth::user()->role_id == 1) {
-            $coupons = Coupon::orderBy('estado', 'ASC')->get();
-            return $this->printDataTable($coupons);
-        }
-
-        if(Auth::user()->role_id == 2) {
-            $coupons = Coupon::where('empresa_id', $id)->orderBy('estado', 'ASC')->get();
-            return $this->printDataTable($coupons);
-        }
-
-
-    }
-
-    public function printDataTable($coupons)
-    {
-        return DataTables::of($coupons)
-            ->addColumn('empresa_id', function ($coupon) {
-                return $coupon->enterprise->nombre_comercial;
-            })
-            ->addColumn('estado', function ($coupon) {
-                return $coupon->state->nombre;
-            })
-            ->addColumn('fecha_inicio', function ($coupon) {
-                return $this->convertStringToDate($coupon->fecha_inicio);
-            })
-            ->addColumn('fecha_fin', function ($coupon) {
-                return $this->convertStringToDate($coupon->fecha_fin);
-            })
-            ->addColumn('actions', 'coupons.actions')
-            ->rawColumns(['actions'])
-            ->make(true);
     }
 }

@@ -2,6 +2,7 @@ export async function getPublicity(id) {
     let data = await fetch(`/publicities/${id}/show`)
     return data.json()
 }
+
 export async function storePublicity(form) {
     let nombre = form['nombre'].value;
     let descripcion = form['descripcion'].value;
