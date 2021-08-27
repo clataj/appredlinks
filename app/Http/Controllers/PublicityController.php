@@ -2,25 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Enterprise;
 use App\Publicity;
 use App\Traits\FileImage;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Yajra\DataTables\Facades\DataTables;
 
 class PublicityController extends Controller
 {
     use FileImage;
-
-    public function index()
-    {
-        $user = User::findOrFail(Auth::user()->id);
-        return view('publicities.index', compact('user'));
-    }
 
     public function store(Request $request)
     {
@@ -33,7 +23,7 @@ class PublicityController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $imagen = FileImage::uploadImageAndGetUrl($request, 'publicities', 'imagen');
+        $imagen = $this->uploadImageAndGetUrl($request, 'publicities', 'imagen');
 
         $publicity = Publicity::create([
             'nombre' => $request->nombre,
@@ -114,9 +104,9 @@ class PublicityController extends Controller
 
         if($request->hasFile('imagen')) {
 
-            FileImage::deleteImage($publicity->imagen, 'publicities');
+            $this->deleteImage($publicity->imagen, 'publicities');
 
-            $imagen = FileImage::uploadImageAndGetUrl($request, 'publicities', 'imagen');
+            $imagen = $this->uploadImageAndGetUrl($request, 'publicities', 'imagen');
 
             $publicity->update([
                 'imagen' => $imagen
@@ -134,7 +124,7 @@ class PublicityController extends Controller
     {
         $publicity = Publicity::findOrFail($id);
 
-        FileImage::deleteImage($publicity->imagen, 'publicities');
+        $this->deleteImage($publicity->imagen, 'publicities');
 
         $publicity->delete();
 
@@ -158,42 +148,5 @@ class PublicityController extends Controller
             'sub_categoria' => 'de la empresa',
         ]);
         return $validator;
-    }
-
-    public function searchEnterprise(Request $request)
-    {
-        $enterprises = [];
-
-        if ($request->has('q')) {
-            $search = $request->q;
-            $enterprises = Enterprise::select('empresas.id', 'empresas.nombre_comercial')
-                ->where('tipo', 'LA')
-                ->where('estado', 'A')
-                ->where('empresas.nombre_comercial', 'LIKE', "%$search%")
-                ->orderBy('empresas.nombre_comercial', 'ASC')
-                ->get();
-        }
-        return response()->json($enterprises);
-    }
-
-    public function findAll()
-    {
-        $publicities = Publicity::where('tipo', 'P')
-            ->orWhere('tipo','C')
-            ->orderBy('tipo', 'DESC')
-            ->get();
-        return DataTables::of($publicities)
-            ->addColumn('tipo', function($publicity) {
-                return $publicity->tipo==='P' ? 'Publicidad Destacada' : 'Publicidad Secundaria';
-            })
-            ->addColumn('estado', function($publicity) {
-                return $publicity->estado=='A' ? 'Activo' : 'Inactivo';
-            })
-            ->addColumn('sub_categoria', function($publicity) {
-                return $publicity->enterprise->nombre_comercial;
-            })
-            ->addColumn('actions', 'publicities.actions')
-            ->rawColumns(['actions'])
-            ->make(true);
     }
 }

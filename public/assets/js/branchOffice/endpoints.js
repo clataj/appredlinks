@@ -3,8 +3,8 @@ export async function getBranchOffice(id) {
     return data.json()
 }
 
-export async function storeBranchOffice(form) {
-    let empresa_id = form['empresa_id'].value;
+export async function storeBranchOffice(form, empresaId) {
+    let empresa_id = empresaId;
     let ciudad_id = form['ciudad_id'].value;
     let estado = form['estado'].value;
     let qr = form['qr'].value;
@@ -45,8 +45,8 @@ export async function storeBranchOffice(form) {
     return response.json()
 }
 
-export async function updateBranchOffice(form, id) {
-    let empresa_id = form['empresa_id'].value;
+export async function updateBranchOffice(form, id, empresaId) {
+    let empresa_id = empresaId;
     let ciudad_id = form['ciudad_id'].value;
     let estado = form['estado'].value;
     let qr = form['qr'].value;
@@ -82,7 +82,6 @@ export async function updateBranchOffice(form, id) {
         },
         body: JSON.stringify(object)
     })
-
     return response.json()
 }
 

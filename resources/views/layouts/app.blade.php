@@ -62,23 +62,49 @@
                     </div>
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <!-- Nav Item - Alerts -->
+
+                        {{-- <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Alerts Center
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 12, 2019</div>
+                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </li> --}}
                         <!-- Nav Item - User Information -->
-                        <!-- <div class="d-flex align-items-center">
-                        </div> -->
                         <li class="nav-item dropdown no-arrow">
 
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="ui-avatar" src="https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={{ $user->name }}&size=32" alt="Avatar usuario.">
-                                <span class="ml-2 d-none d-lg-inline text-gray-600 small">{{ $user->name }}</span>
+                                <img id="profile-image" class="ui-avatar" src="https://ui-avatars.com/api/?background=3A61D0&color=fff&name={{ Auth::user()->name }}&size=32" alt="Avatar usuario.">
+                                <span id="profile-text" class="ml-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                             </a>
 
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('settings') }}">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    Configuraciones
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a

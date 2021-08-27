@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@if (Auth::user()->role_id == 1)
 @push('css')
 <link rel="stylesheet"
     href="{{ asset('assets/lte/plugins/select2/css/select2.min.css') }}">
@@ -111,9 +110,3 @@
 </script>
 <script src="{{ asset('assets/js/users/users.js') }}" type="module"></script>
 @endpush
-@endif
-@if (Auth::user()->role_id == 2)
-@section('content')
-asdas
-@endsection
-@endif

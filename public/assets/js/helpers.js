@@ -1,22 +1,25 @@
-export function responsePromise(response, table, modal) {
+import templateButton from "./empresa/coupons/templateButton.js"
 
-    if(response.type === 'validate') {
-        let array = []
+export function responsePromise(response, table, modal) {
+    if (response.type === "validate") {
+        let array = [];
         for (const errors in response.errors) {
-            array.push(response.errors[errors])
+            array.push(response.errors[errors]);
         }
-        let list = '';
+        let list = "";
         array.map(error => {
-            list += "* " + error + '<br>'
-        })
+            list += "* " + error + "<br>";
+        });
         Swal.fire({
             title: "!Error!",
             html: list,
-            icon : "error"
-        })
+            icon: "error"
+        });
     } else {
-        $(table).DataTable().ajax.reload(null,false);
-        $(modal).modal('toggle')
+        $(table)
+            .DataTable()
+            .ajax.reload(null, false);
+        $(modal).modal("toggle");
         Swal.fire({
             title: "!Éxito!",
             text: response.message,
@@ -27,50 +30,111 @@ export function responsePromise(response, table, modal) {
 
 export function showAlertWaiting() {
     Swal.fire({
-        title: '¡Espere, Por favor!',
-        html: 'Cargando informacion...',
+        title: "¡Espere, Por favor!",
+        html: "Cargando informacion...",
         allowOutsideClick: false,
         didOpen: () => {
-            Swal.showLoading()
+            Swal.showLoading();
         }
     });
 }
 
 export async function showAlertDelete() {
     let result = await Swal.fire({
-        title: 'Estas seguro?',
+        title: "Estas seguro?",
         text: "No podrás revertir esto!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, eliminar!'
-    })
-    return result
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar!"
+    });
+    return result;
 }
 
 export async function showAlertDisabled() {
     let result = await Swal.fire({
-        title: 'Estas seguro?',
+        title: "Estas seguro?",
         text: "Se desactivara el cupon!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, desactivar!'
-    })
-    return result
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, desactivar!"
+    });
+    return result;
 }
 
 export async function showAlertEnabled() {
     let result = await Swal.fire({
-        title: 'Estas seguro?',
+        title: "Estas seguro?",
         text: "Se activara el cupon!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, activar!'
-    })
-    return result
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, activar!"
+    });
+    return result;
+}
+
+export function highlight(element, errorClass) {
+    $(element).removeClass(errorClass);
+    $(element).addClass("is-invalid");
+}
+
+export function unhighlight(element) {
+    $(element).removeClass("is-invalid");
+}
+
+export function jqValidationDefaultOptions() {
+    return {
+        errorElement: 'div',
+        lang: 'es',
+        errorClass: "invalid-feedback",
+        highlight,
+        unhighlight
+    }
+}
+
+export function chargeInfo(html) {
+    html.insertAdjacentHTML('beforeend', templateButton())
+}
+
+export function loadDataEnterprise(data, limiteCupones, infoCupon) {
+    if(data.limite_cupon > 0) {
+        if(data.limite_cupon == 1) {
+            limiteCupones.innerText = `Usted tiene ${data.limite_cupon} un cupon`
+        } else {
+            limiteCupones.innerText = `Usted tiene ${data.limite_cupon} cupones `
+        }
+        let showButtonAdd = document.getElementById('showButtonAdd')
+        showButtonAdd.innerHTML = ''
+        chargeInfo(showButtonAdd)
+        let numCupon = document.getElementById('num_cupon2')
+        if(numCupon !== null) {
+            numCupon.innerText = data.limite_cupon
+        }
+    } else {
+        let showButtonAdd = document.getElementById('showButtonAdd')
+        if(showButtonAdd !== null) {
+            showButtonAdd.parentNode.removeChild(showButtonAdd)
+        }
+        limiteCupones.innerText = ''
+        infoCupon.style.display = ''
+        infoCupon.innerText = 'Se han agotado los cupones'
+    }
+}
+
+export function showImage(data) {
+    console.log(data.imagen);
+    Swal.fire({
+        title:
+            data.tipo == "P" ? "Publicidad Destacada" : "Publicidad Secundaria",
+        text: data.nombre,
+        imageUrl: data.imagen,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: data.nombre
+    });
 }

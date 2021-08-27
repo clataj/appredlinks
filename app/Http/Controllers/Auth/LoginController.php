@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,15 +50,10 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
 
-        $userFound = Auth::attempt([
+        Auth::attempt([
             'email' => $request->email,
             'password' => $request->password
         ]);
-
-        if ($userFound) {
-            return redirect()->route('dashboard');
-        }
-
 
         return back()->withErrors([
             'email' => trans('auth.failed'),
