@@ -2,24 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Enterprise;
-use App\Http\Requests\PublicityEditRequest;
-use App\Http\Requests\PublicitySaveRequest;
 use App\Publicity;
 use App\Traits\FileImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
-use Yajra\DataTables\Facades\DataTables;
 
 class PublicityController extends Controller
 {
     use FileImage;
-
-    public function index()
-    {
-        return view('publicities.index');
-    }
 
     public function store(Request $request)
     {
@@ -157,42 +148,5 @@ class PublicityController extends Controller
             'sub_categoria' => 'de la empresa',
         ]);
         return $validator;
-    }
-
-    public function searchEnterprise(Request $request)
-    {
-        $enterprises = [];
-
-        if ($request->has('q')) {
-            $search = $request->q;
-            $enterprises = Enterprise::select('empresas.id', 'empresas.nombre_comercial')
-                ->where('tipo', 'LA')
-                ->where('estado', 'A')
-                ->where('empresas.nombre_comercial', 'LIKE', "%$search%")
-                ->orderBy('empresas.nombre_comercial', 'ASC')
-                ->get();
-        }
-        return response()->json($enterprises);
-    }
-
-    public function findAll()
-    {
-        $publicities = Publicity::where('tipo', 'P')
-            ->orWhere('tipo','C')
-            ->orderBy('tipo', 'DESC')
-            ->get();
-        return DataTables::of($publicities)
-            ->addColumn('tipo', function($publicity) {
-                return $publicity->tipo==='P' ? 'Publicidad Destacada' : 'Publicidad Secundaria';
-            })
-            ->addColumn('estado', function($publicity) {
-                return $publicity->estado=='A' ? 'Activo' : 'Inactivo';
-            })
-            ->addColumn('sub_categoria', function($publicity) {
-                return $publicity->enterprise->nombre_comercial;
-            })
-            ->addColumn('actions', 'publicities.actions')
-            ->rawColumns(['actions'])
-            ->make(true);
     }
 }

@@ -22,6 +22,6 @@ class Empresa
         if(Auth::user()->role_id == 1) {
             return redirect('/dashboard');
         }
-        return redirect('/enterprises');
+        return redirect()->route('users.enterprises.index', Auth::user()->id);
     }
 }

@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
                     return redirect('/dashboard');
                 break;
                 case 2:
-                    return redirect('/enterprises');
+                    return redirect()->route('users.enterprises.index', Auth::user()->id);
                 break;
                 default:
                     return redirect('/');
