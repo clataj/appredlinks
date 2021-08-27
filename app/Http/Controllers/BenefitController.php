@@ -20,7 +20,13 @@ class BenefitController extends Controller
     public function showViewOfBenefitByEnterprises($id)
     {
         $user = User::findOrFail(Auth::user()->id);
-        return view('benefits.index', compact('id','user'));
+        if($user->role_id == 2) {
+            if($user->enterprises->contains($id)) {
+                return view('benefits.index', compact('id'));
+            }
+            return redirect('/enterprises');
+        }
+        return view('benefits.index', compact('id'));
     }
 
     /**

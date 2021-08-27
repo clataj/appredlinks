@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\BranchOffice;
-use App\City;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -16,13 +13,6 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class BranchOfficeController extends Controller
 {
-    public function showViewOfBranchOfficeByEnterprises($id)
-    {
-        $user = User::findOrFail(Auth::user()->id);
-        $cities = City::all();
-        return view('branchOffice.index', compact('id','user','cities'));
-    }
-
     public function store(Request $request)
     {
         $validator = $this->validation($request);
@@ -89,29 +79,15 @@ class BranchOfficeController extends Controller
             'telefono' => 'required',
             'direccion' => 'required',
             'latitud_map' => 'required',
-            'longitud_map' => 'required'
+            'longitud_map' => 'required',
+            'dias_laborales' => 'required',
         ],[],[
+            'dias_laborales' => 'horario de la semana',
             'nombre' => 'nombre de la sucursal',
             'ciudad_id' => 'ciudad',
             'latitud_map' => 'latitud del mapa',
             'longitud_map' => 'longitud del mapa'
         ]);
         return $validator;
-    }
-
-    public function findAllBranchOfficeByEnterprise($id) {
-        $branchOffices = BranchOffice::where('sucursales.empresa_id', $id)
-                            ->orderBy('sucursales.nombre', 'ASC')
-                            ->get();
-        return DataTables::of($branchOffices)
-            ->addColumn('city', function($branchOffice) {
-                return $branchOffice->city!=null ? $branchOffice->city->ciudDesc : 'Sin ciudad';
-            })
-            ->addColumn('status', function($branchOffice) {
-                return $branchOffice->estado=='A' ? 'Activo' : 'Inactivo';
-            })
-            ->addColumn('actions', 'branchOffice.actions')
-            ->rawColumns(['actions'])
-            ->make(true);
     }
 }

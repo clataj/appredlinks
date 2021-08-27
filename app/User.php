@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -38,6 +40,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
+    }
+
     /**
      * This method will convert in uppercase every word
      * @return string
@@ -49,15 +56,19 @@ class User extends Authenticatable
 
     /**
      * This method will be related with the model Role
-     * @return BelonsTo
+     * @return BelongsTo
      */
     public function rol(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    public function enterprises()
+    /**
+     * This method will be related with the model Enterprise
+     * @return BelongsToMany
+     */
+    public function enterprises(): BelongsToMany
     {
-        return $this->belongsToMany(Enterprise::class, 'empresas_users', 'user_id', 'empresa_id');
+        return $this->belongsToMany(Enterprise::class, 'empresas_users', 'user_id', 'empresas_id');
     }
 }

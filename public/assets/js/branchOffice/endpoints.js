@@ -3,8 +3,8 @@ export async function getBranchOffice(id) {
     return data.json()
 }
 
-export async function storeBranchOffice(form) {
-    let empresa_id = form['empresa_id'].value;
+export async function storeBranchOffice(form, empresaId) {
+    let empresa_id = empresaId;
     let ciudad_id = form['ciudad_id'].value;
     let estado = form['estado'].value;
     let qr = form['qr'].value;
@@ -13,6 +13,10 @@ export async function storeBranchOffice(form) {
     let telefono = form['telefono'].value;
     let longitud_map = form['longitud_map'].value;
     let latitud_map = form['latitud_map'].value;
+    let dias_laborales = form['dias_laborales'].value;
+    let dia_no_laboral_1 = form['dia_no_laboral_1'].value;
+    let dia_no_laboral_2 = form['dia_no_laboral_2'].value;
+
 
     let object = {
         empresa_id : empresa_id,
@@ -23,7 +27,10 @@ export async function storeBranchOffice(form) {
         direccion : direccion,
         telefono : telefono,
         longitud_map : longitud_map,
-        latitud_map : latitud_map
+        latitud_map : latitud_map,
+        dias_laborales : dias_laborales,
+        dia_no_laboral_1 : dia_no_laboral_1,
+        dia_no_laboral_2 : dia_no_laboral_2
     }
 
     let response = await fetch('/branchOffices', {
@@ -38,8 +45,8 @@ export async function storeBranchOffice(form) {
     return response.json()
 }
 
-export async function updateBranchOffice(form, id) {
-    let empresa_id = form['empresa_id'].value;
+export async function updateBranchOffice(form, id, empresaId) {
+    let empresa_id = empresaId;
     let ciudad_id = form['ciudad_id'].value;
     let estado = form['estado'].value;
     let qr = form['qr'].value;
@@ -48,6 +55,9 @@ export async function updateBranchOffice(form, id) {
     let telefono = form['telefono'].value;
     let longitud_map = form['longitud_map'].value;
     let latitud_map = form['latitud_map'].value;
+    let dias_laborales = form['dias_laborales'].value;
+    let dia_no_laboral_1 = form['dia_no_laboral_1'].value;
+    let dia_no_laboral_2 = form['dia_no_laboral_2'].value;
 
     let object = {
         empresa_id : empresa_id,
@@ -58,7 +68,10 @@ export async function updateBranchOffice(form, id) {
         direccion : direccion,
         telefono : telefono,
         longitud_map : longitud_map,
-        latitud_map : latitud_map
+        latitud_map : latitud_map,
+        dias_laborales : dias_laborales,
+        dia_no_laboral_1 : dia_no_laboral_1,
+        dia_no_laboral_2 : dia_no_laboral_2
     }
 
     let response = await fetch(`/branchOffices/${id}`, {
@@ -69,7 +82,6 @@ export async function updateBranchOffice(form, id) {
         },
         body: JSON.stringify(object)
     })
-
     return response.json()
 }
 

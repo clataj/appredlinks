@@ -3,29 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Coupon;
+use App\Enterprise;
 use App\Traits\FormatDate;
-use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Yajra\DataTables\Facades\DataTables;
 
 class CouponController extends Controller
 {
     use FormatDate;
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $user = User::findOrFail(Auth::user()->id);
-        return view('coupons.index', compact('user'));
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,6 +21,8 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
+        $enterprise = Enterprise::findOrFail($request->empresa_id);
+
         $validator = $this->validator($request);
 
         if($validator->fails()) {
@@ -44,7 +32,7 @@ class CouponController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        if(intval($request->cant_x_usua) > intval($request->num_cupon)) {
+        if(intval($request->cant_x_usua) > intval($enterprise->limite_cupon)) {
             return response()->json([
                 'type' => 'validate',
                 'errors' => [
@@ -57,18 +45,21 @@ class CouponController extends Controller
             'empresa_id' => $request->empresa_id,
             'estado' => 2,
             'texto' => $request->texto,
-            'num_cupon' => $request->num_cupon,
+            'num_cupon' => $enterprise->limite_cupon,
             'cant_x_usua' => $request->cant_x_usua,
             'fecha_inicio' => $request->fecha_inicio,
             'fecha_fin' => $request->fecha_fin,
             'descripcion' => $request->descripcion
         ]);
 
+        $enterprise->update([
+            'limite_cupon' => $enterprise->limite_cupon - 1
+        ]);
+
         return response()->json([
             'data' => $coupon,
             'message' => "!Cupon creado éxitosamente!"
         ], Response::HTTP_CREATED);
-
 
     }
 
@@ -101,7 +92,7 @@ class CouponController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        if(intval($request->cant_x_usua) > intval($request->num_cupon)) {
+        if(intval($request->cant_x_usua) > intval($coupon->num_cupon)) {
             return response()->json([
                 'type' => 'validate',
                 'errors' => [
@@ -118,35 +109,11 @@ class CouponController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function disabled($id)
-    {
-        $coupon = Coupon::findOrFail($id);
-
-        $coupon->update([
-            'estado' => 5
-        ]);
-
-        return $coupon;
-
-    }
-
-    public function enabled($id)
-    {
-        $coupon = Coupon::findOrFail($id);
-
-        $coupon->update([
-            'estado' => 2
-        ]);
-
-        return $coupon;
-    }
-
     public function validator(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'empresa_id' => 'required',
             'texto' => 'required',
-            'num_cupon' => 'required|integer',
             'cant_x_usua' => 'required|integer',
             'fecha_inicio' => 'required',
             'fecha_fin' => 'required',
@@ -154,33 +121,10 @@ class CouponController extends Controller
         ], [], [
             'empresa_id' => 'la empresa',
             'texto' => 'nombre del cupon',
-            'num_cupon' => 'numero de cupones',
             'cant_x_usua' => 'cantidad de cupones',
             'fecha_inicio' => 'fecha de inicio',
             'fecha_fin' => 'fecha de culminacion'
         ]);
         return $validator;
-    }
-
-    public function findAll()
-    {
-        $coupons = Coupon::orderBy('estado', 'ASC')->get();
-
-        return DataTables::of($coupons)
-            ->addColumn('empresa_id', function ($coupon) {
-                return $coupon->enterprise->nombre_comercial;
-            })
-            ->addColumn('estado', function ($coupon) {
-                return $coupon->state->nombre;
-            })
-            ->addColumn('fecha_inicio', function ($coupon) {
-                return FormatDate::convertStringToDate($coupon->fecha_inicio);
-            })
-            ->addColumn('fecha_fin', function ($coupon) {
-                return FormatDate::convertStringToDate($coupon->fecha_fin);
-            })
-            ->addColumn('actions', 'coupons.actions')
-            ->rawColumns(['actions'])
-            ->make(true);
     }
 }
