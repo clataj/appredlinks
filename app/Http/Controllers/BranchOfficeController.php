@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\BranchOffice;
-use App\City;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -16,21 +13,6 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class BranchOfficeController extends Controller
 {
-    public function showViewOfBranchOfficeByEnterprises($id)
-    {
-        $user = User::findOrFail(Auth::user()->id);
-        $cities = City::all();
-
-        if($user->role_id == 2) {
-            if($user->enterprises->contains($id)) {
-                return view('branchOffice.index', compact('id','user','cities'));
-            }
-            return redirect('/enterprises');
-        }
-
-        return view('branchOffice.index', compact('id','user','cities'));
-    }
-
     public function store(Request $request)
     {
         $validator = $this->validation($request);
@@ -107,29 +89,5 @@ class BranchOfficeController extends Controller
             'longitud_map' => 'longitud del mapa'
         ]);
         return $validator;
-    }
-
-    public function findAllBranchOfficeByEnterprise($id) {
-        $branchOffices = BranchOffice::where('sucursales.empresa_id', $id)
-                            ->orderBy('sucursales.nombre', 'ASC')
-                            ->get();
-
-        return DataTables::of($branchOffices)
-        ->addColumn('city', function($branchOffice) {
-            return $branchOffice->city!=null ? $branchOffice->city->ciudDesc : 'Sin ciudad';
-        })
-        ->addColumn('status', function($branchOffice) {
-            return $branchOffice->estado=='A' ? 'Activo' : 'Inactivo';
-        })
-        ->addColumn('dia_no_laboral_1', function($branchOffice) {
-            return $branchOffice->dia_no_laboral_1!=null ? $branchOffice->dia_no_laboral_1 : 'Sin atencion';
-        })
-        ->addColumn('dia_no_laboral_2', function($branchOffice) {
-            return $branchOffice->dia_no_laboral_2!=null ? $branchOffice->dia_no_laboral_2 : 'Sin atencion';
-        })
-        ->addColumn('actions', 'branchOffice.actions')
-        ->rawColumns(['actions'])
-        ->make(true);
-
     }
 }

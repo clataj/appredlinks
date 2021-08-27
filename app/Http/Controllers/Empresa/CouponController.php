@@ -20,9 +20,9 @@ class CouponController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         if($user->enterprises->contains($id)) {
             $enterprise = Enterprise::findOrFail($id);
-            return view('coupons.create', compact('id','enterprise','user'));
+            return view('empresa.coupons.create', compact('id','enterprise','user'));
         }
-        return redirect('/enterprises');
+        return redirect()->route('users.enterprises.index', Auth::user()->id);
     }
 
     public function findAll($id)
@@ -41,7 +41,7 @@ class CouponController extends Controller
             ->addColumn('fecha_fin', function ($coupon) {
                 return $this->convertStringToDate($coupon->fecha_fin);
             })
-            ->addColumn('actions', 'coupons.actions')
+            ->addColumn('actions', 'empresa.coupons.actions')
             ->rawColumns(['actions'])
             ->make(true);
     }

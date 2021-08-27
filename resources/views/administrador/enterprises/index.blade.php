@@ -27,10 +27,10 @@
 
 <!-- Create Modal -->
 
-@include('empresa.enterprises.modals.modalCreate')
+@include('administrador.enterprises.modals.modalCreate')
 
 <!-- Edit Modal Text -->
-@include('empresa.enterprises.modals.modalEditText')
+@include('administrador.enterprises.modals.modalEditText')
 
 <!-- Show Image -->
 @include('modals.enterprises.modalImage')
@@ -54,8 +54,12 @@
                             <th scope="col">Beneficio</th>
                             {{-- <th scope="col">Beneficios</th> --}}
                             <th scope="col">Sucursal</th>
-                            <th scope="col">Numero de Cupones</th>
-                            <th scope="col">Cupones</th>
+                            @if (Auth::user()->role_id == 1)
+                                <th scope="col">Limite de Cupones</th>
+                            @endif
+                            @if (Auth::user()->role_id == 2)
+                                <th scope="col">Cupones</th>
+                            @endif
                             <th scope="col">Estado</th>
                             <th scope="col">Dirección</th>
                             <th scope="col">Telefono</th>
@@ -94,7 +98,7 @@
         responsive: true,
         serverSide: true,
         pageLength: 5,
-        ajax: `{{ route('users.enterprises.data', $id) }}`,
+        ajax: `{{ route('enterprises.data') }}`,
         type: 'GET',
         columnDefs: [ {
             sortable: false,
@@ -146,12 +150,6 @@
                 data: "createBranchOffice"
             },
             {
-                data: "limite_cupon",
-                render: function(data, type, row) {
-                    return data > 0 ? data : 'Sin cupones';
-                }
-            },
-            {
                 data: "coupons"
             },
             {
@@ -187,6 +185,7 @@
         ]
     })
 </script>
-<script src="{{ asset('assets/js/empresa/enterprises/enterprises.js') }}" type="module"></script>
-<script src="{{ asset('assets/js/empresa/enterprises/forms.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/administrador/enterprises/enterprises.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/administrador/enterprises/forms.js') }}" type="module"></script>
+
 @endpush

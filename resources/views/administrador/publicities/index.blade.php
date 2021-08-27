@@ -26,13 +26,13 @@
 </div>
 
 <!-- Create Modal -->
-@include('empresa.publicities.modals.modalCreate')
+@include('administrador.publicities.modals.modalCreate')
 
 <!-- Edit Modal Image-->
 @include('modals.publicities.modalEditImage')
 
 <!-- Edit Modal Text-->
-@include('empresa.publicities.modals.modalEditText')
+@include('administrador.publicities.modals.modalEditText')
 
 <div class="row">
     <div class="col">
@@ -62,6 +62,8 @@
 
     </div>
 </div>
+
+
 @endsection
 @push('scripts')
 <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
@@ -71,7 +73,7 @@
         responsive: true,
         serverSide: true,
         pageLength: 5,
-        ajax: `{{ route('publicities.enterprise.data', $id) }}`,
+        ajax: `{{ route('publicities.data') }}`,
         type: 'GET',
         columnDefs: [
             {
@@ -142,6 +144,6 @@
         ]
     })
 </script>
-<script src="{{ asset('assets/js/empresa/publicities/publicities.js') }}" type="module"></script>
-<script src="{{ asset('assets/js/empresa/publicities/forms.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/administrador/publicities/publicities.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/administrador/publicities/forms.js') }}" type="module"></script>
 @endpush

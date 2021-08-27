@@ -12,7 +12,7 @@ class PublicityController extends Controller
 {
     public function index()
     {
-        return view('publicities.index');
+        return view('administrador.publicities.index');
     }
 
     public function searchEnterprise(Request $request)
@@ -53,7 +53,7 @@ class PublicityController extends Controller
             ->addColumn('sub_categoria', function($publicity) {
                 return $publicity->enterprise->nombre_comercial;
             })
-            ->addColumn('actions', 'publicities.actions')
+            ->addColumn('actions', 'administrador.publicities.actions')
             ->rawColumns(['actions'])
             ->make(true);
     }

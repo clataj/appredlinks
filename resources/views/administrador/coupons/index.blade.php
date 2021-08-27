@@ -6,19 +6,20 @@
 @endpush
 @extends('layouts.app')
 @section('content')
+
 <!-- Page Heading -->
 <div class="row mb-4">
     <div class="col d-flex flex-column flex-md-row justify-content-between">
-        <h3 class="h3 text-gray-800">Listado de Publicidades</h3>
+        <h3 class="h3 text-gray-800">Listado de Cupones</h3>
 
         <!-- Button trigger modal -->
         <button
-            id="openModalPublicity"
+            id="openModalCoupon"
             type="button"
             class="btn btn-primary"
             data-toggle="modal"
-            data-target="#modalPublicity">
-            <i class="fa fa-plus"></i> Agregar Publicidad
+            data-target="#modalCoupon">
+            <i class="fa fa-plus"></i> Agregar Cupon
         </button>
 
     </div>
@@ -26,13 +27,11 @@
 </div>
 
 <!-- Create Modal -->
-@include('empresa.publicities.modals.modalCreate')
-
-<!-- Edit Modal Image-->
-@include('modals.publicities.modalEditImage')
+@include('administrador.coupons.modals.modalCreate')
 
 <!-- Edit Modal Text-->
-@include('empresa.publicities.modals.modalEditText')
+@include('administrador.coupons.modals.modalEdit')
+
 
 <div class="row">
     <div class="col">
@@ -41,14 +40,15 @@
 
             <div class="p-4">
 
-                <table id="table-publicity" class="table table-hover" style="width: 100%;">
+                <table id="table-coupons" class="table table-hover" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th scope="col">Nombre de la Publicidad</th>
-                            <th scope="col">Tipo</th>
+                            <th scope="col">Nombre</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Nombre de la empresa</th>
+                            <th scope="col">Limite de numero de cupones</th>
+                            <th scope="col">Cantidad de cupones por Usuario</th>
                             <th scope="col">Fecha Inicio</th>
                             <th scope="col">Fecha Final</th>
                             <th scope="col">Acciones</th>
@@ -61,22 +61,25 @@
         </div>
 
     </div>
+
 </div>
+
 @endsection
 @push('scripts')
 <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
 <script type="text/javascript">
-    $("#table-publicity").DataTable({
+    $("#table-coupons").DataTable({
         processing: true,
         responsive: true,
         serverSide: true,
-        pageLength: 5,
-        ajax: `{{ route('publicities.enterprise.data', $id) }}`,
+        pageLength : 5,
+        responsive : true,
+        ajax: `{{ route('coupons.data') }}`,
         type: 'GET',
-        columnDefs: [
+        columnDefs : [
             {
-                sortable: false,
-                targets: "_all"
+                targets : "_all",
+                sortable : false
             }
         ],
         language: {
@@ -104,44 +107,36 @@
         },
         columns: [
             {
-                data: "nombre"
+                data : "texto"
             },
             {
-                data: "tipo",
-                render: function(data, row, type) {
-                    return data==='Publicidad Destacada' ? `<span class="badge badge-success">${data}</span>` : `<span class="badge badge-info">${data}</span>`;
-                }
+                data : "descripcion"
             },
             {
-                data: "descripcion"
+                data: "estado"
             },
             {
-                data: "estado",
-                render: function(data, row, type) {
-                    if(data === 'Activo') {
-                        return `<span class="badge badge-success">${data}</span>`;
-                    }
-                    if(data === 'Inactivo') {
-                        return `<span class="badge badge-danger">${data}</span>`;
-                    }
-                    return `<span class="badge badge-warning">${data}</span>`;
-                }
+                data: "empresa_id"
             },
             {
-                data: "sub_categoria"
+                data: "num_cupon"
             },
             {
-                data: "fecha_inicio"
+                data : "cant_x_usua"
             },
             {
-                data: "fecha_fin"
+                data : "fecha_inicio"
             },
             {
-                data: "actions",
+                data : "fecha_fin"
+            },
+            {
+                data : "actions"
             }
+
         ]
     })
 </script>
-<script src="{{ asset('assets/js/empresa/publicities/publicities.js') }}" type="module"></script>
-<script src="{{ asset('assets/js/empresa/publicities/forms.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/administrador/coupons/coupons.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/administrador/coupons/forms.js') }}" type="module"></script>
 @endpush

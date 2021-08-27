@@ -1,4 +1,4 @@
-import templateButton from "./coupons/templateButton.js"
+import templateButton from "./empresa/coupons/templateButton.js"
 
 export function responsePromise(response, table, modal) {
     if (response.type === "validate") {

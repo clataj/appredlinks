@@ -17,7 +17,30 @@ class CouponController extends Controller
      */
     public function index()
     {
-        return view('coupons.index');
+        return view('administrador.coupons.index');
+    }
+
+    public function disabled($id)
+    {
+        $coupon = Coupon::findOrFail($id);
+
+        $coupon->update([
+            'estado' => 5
+        ]);
+
+        return $coupon;
+
+    }
+
+    public function enabled($id)
+    {
+        $coupon = Coupon::findOrFail($id);
+
+        $coupon->update([
+            'estado' => 2
+        ]);
+
+        return $coupon;
     }
 
     public function findAll()
@@ -36,7 +59,7 @@ class CouponController extends Controller
             ->addColumn('fecha_fin', function ($coupon) {
                 return $this->convertStringToDate($coupon->fecha_fin);
             })
-            ->addColumn('actions', 'coupons.actions')
+            ->addColumn('actions', 'administrador.coupons.actions')
             ->rawColumns(['actions'])
             ->make(true);
 

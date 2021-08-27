@@ -134,7 +134,7 @@ class PublicityController extends Controller
                     ->addColumn('sub_categoria', function($publicity) {
                         return $publicity->enterprise->nombre_comercial;
                     })
-                    ->addColumn('actions', 'publicities.actions')
+                    ->addColumn('actions', 'empresa.publicities.actions')
                     ->rawColumns(['actions'])
                     ->make(true);
             }

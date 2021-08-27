@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return view('categories.index');
+        return view('administrador.categories.index');
     }
 
     public function store(Request $request)
@@ -144,7 +144,7 @@ class CategoryController extends Controller
             ->addColumn('status', function ($category) {
                 return $category->estado === 'A' ? 'Activo' : 'Inactivo';
             })
-            ->addColumn('actions', 'categories.actions')
+            ->addColumn('actions', 'administrador.categories.actions')
             ->rawColumns(['actions'])
             ->make(true);
     }

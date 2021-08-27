@@ -30,15 +30,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('profile/{user}', 'ProfileController@update')->name('profile.update');
 
     // Empresa
-    Route::get('enterprises', 'EnterpriseController@index')->name('enterprises.index');
-    Route::get('enterprises/all', 'EnterpriseController@findAll')->name('enterprises.data');
-    Route::get('enterprises/{enterprise}/branch-office', 'BranchOfficeController@showViewOfBranchOfficeByEnterprises')->name('branchOffices.createBranchOffice');
-    Route::get('enterprises/{enterprise}/branch-offices', 'BranchOfficeController@findAllBranchOfficeByEnterprise')->name('branchOffices.data');
     Route::get('enterprises/{enterprise}/benefit', 'BenefitController@showViewOfBenefitByEnterprises')->name('benefits.create');
     Route::get('enterprises/{enterprise}/benefits', 'BenefitController@findAllBenefitsByEnterprise')->name('benefits.data');
-    Route::post('enterprises', 'EnterpriseController@store')->name('enterprises.store');
     Route::get('enterprises/{enterprise}/show', 'EnterpriseController@show')->name('enterprises.show');
-    Route::put('enterprises/{enterprise}', 'EnterpriseController@update')->name('enterprises.update');
     Route::post('enterprises/{enterprise}/image/background', 'EnterpriseController@updateImageBackground')->name('enterprises.updateImageBackground');
     Route::post('enterprises/{enterprise}/image/content', 'EnterpriseController@updateImageContent')->name('enterprises.updateImageContent');
 
@@ -60,8 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('coupons', 'CouponController@store')->name('coupons.store');
     Route::put('coupons/{coupon}', 'CouponController@update')->name('coupons.update');
     Route::get('coupons/{coupon}/show', 'CouponController@show')->name('coupons.show');
-    Route::put('coupons/{coupon}/disabled', 'CouponController@disabled')->name('coupons.disabled');
-    Route::put('coupons/{coupon}/enabled', 'CouponController@enabled')->name('coupons.enabled');
+
 
     // Publicidades
     Route::get('publicities/{publicity}/show', 'PublicityController@show')->name('publicities.show');
@@ -78,7 +71,6 @@ Route::middleware(['auth', 'administrator'])->group(function () {
     Route::post('users', 'Administrador\UserController@store')->name('users.store');
     Route::get('users/create', 'Administrador\UserController@create')->name('users.create');
     Route::get('users/{user}/edit', 'Administrador\UserController@edit')->name('users.edit');
-    Route::get('users/{user}/show/{enterprise?}', 'Administrador\UserController@show')->name('users.show');
     Route::put('users/{user}', 'Administrador\UserController@update')->name('users.update');
     Route::delete('users/{user}', 'Administrador\UserController@destroy')->name('users.destroy');
     Route::get('users/all', 'Administrador\UserController@findAll')->name('users.data');
@@ -93,8 +85,15 @@ Route::middleware(['auth', 'administrator'])->group(function () {
     Route::get('categories/all', 'Administrador\CategoryController@findAll')->name('categories.data');
 
     // Empresas
+    Route::get('enterprises', 'Administrador\EnterpriseController@index')->name('enterprises.index');
+    Route::get('enterprises/all', 'Administrador\EnterpriseController@findAll')->name('enterprises.data');
+    Route::post('enterprises', 'Administrador\EnterpriseController@store')->name('enterprises.store');
+    Route::put('enterprises/{enterprise}', 'Administrador\EnterpriseController@update')->name('enterprises.update');
     Route::delete('enterprises/{enterprise}', 'Administrador\EnterpriseController@destroy')->name('enterprise.destroy');
     Route::get('enterprises/search', 'Administrador\EnterpriseController@searchEnterprise')->name('enterprises.search');
+    Route::get('enterprises/{enterprise}/branch-office', 'Administrador\BranchOfficeController@showViewOfBranchOfficeByEnterprises')->name('branchOffices.createBranchOffice');
+    Route::get('enterprises/{enterprise}/branch-offices', 'Administrador\BranchOfficeController@findAllBranchOfficeByEnterprise')->name('branchOffices.data');
+
 
     // Publicidades
     Route::get('publicities', 'Administrador\PublicityController@index')->name('publicities.index');
@@ -104,6 +103,8 @@ Route::middleware(['auth', 'administrator'])->group(function () {
     // Cupones
     Route::get('coupons', 'Administrador\CouponController@index')->name('coupons.index');
     Route::get('coupons/all', 'Administrador\CouponController@findAll')->name('coupons.data');
+    Route::put('coupons/{coupon}/disabled', 'Administrador\CouponController@disabled')->name('coupons.disabled');
+    Route::put('coupons/{coupon}/enabled', 'Administrador\CouponController@enabled')->name('coupons.enabled');
 
 });
 
@@ -111,6 +112,11 @@ Route::middleware(['auth', 'enterprise'])->group(function () {
     // Empresas
     Route::get('my/{user}/enterprises', 'Empresa\EnterpriseController@index')->name('users.enterprises.index');
     Route::get('my/{user}/enterprises/all', 'Empresa\EnterpriseController@findAll')->name('users.enterprises.data');
+    Route::get('my/enterprises/{enterprise}/branch-office', 'Empresa\BranchOfficeController@showViewOfBranchOfficeByEnterprises')->name('users.branchOffices.createBranchOffice');
+    Route::get('my/enterprises/{enterprise}/branch-offices', 'Empresa\BranchOfficeController@findAllBranchOfficeByEnterprise')->name('users.branchOffices.data');
+    Route::post('my/enterprises', 'Empresa\EnterpriseController@store')->name('users.enterprises.store');
+    Route::put('my/enterprises/{enterprise}', 'Empresa\EnterpriseController@update')->name('users.enterprises.update');
+
 
     // Publicidades
     Route::get('my/{user}/publicities', 'Empresa\PublicityController@index')->name('publicities.enterprise.index');
@@ -119,6 +125,6 @@ Route::middleware(['auth', 'enterprise'])->group(function () {
     Route::put('my/publicities/{publicity}', 'Empresa\PublicityController@update')->name('enterprises.enterprise.update');
 
     // Cupones
-    Route::get('coupons/{enterprise}/all', 'Empresa\CouponController@findAll')->name('coupons.dataEnterprise');
-    Route::get('coupons/{enterprise}/create', 'Empresa\CouponController@create')->name('coupons.create');
+    Route::get('my/coupons/{enterprise}/all', 'Empresa\CouponController@findAll')->name('coupons.dataEnterprise');
+    Route::get('my/coupons/{enterprise}/create', 'Empresa\CouponController@create')->name('coupons.create');
 });

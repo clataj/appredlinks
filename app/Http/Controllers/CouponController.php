@@ -109,29 +109,6 @@ class CouponController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function disabled($id)
-    {
-        $coupon = Coupon::findOrFail($id);
-
-        $coupon->update([
-            'estado' => 5
-        ]);
-
-        return $coupon;
-
-    }
-
-    public function enabled($id)
-    {
-        $coupon = Coupon::findOrFail($id);
-
-        $coupon->update([
-            'estado' => 2
-        ]);
-
-        return $coupon;
-    }
-
     public function validator(Request $request)
     {
         $validator = Validator::make($request->all(), [

@@ -19,29 +19,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $enterprises = Enterprise::where('tipo','LA')->where('estado','A')->get();
-        return view('users.create', compact('roles','enterprises'));
-    }
-
-    /**
-     * This method will get data of an user by id
-     * @param int $id id of user
-     * @return JsonResponse data of user in format JSON
-     */
-    public function show(int $id): JsonResponse
-    {
-        $user = User::findOrFail($id);
-        if($user->role_id == 2) {
-            $enterprises = $user->enterprises;
-            return response()->json([
-                'data' => $user,
-                'enterprises' => $enterprises
-            ], Response::HTTP_FOUND);
-        }
-
-        return response()->json([
-            'data' => $user
-        ], Response::HTTP_FOUND);
-
+        return view('administrador.users.create', compact('roles','enterprises'));
     }
 
     /**
@@ -116,7 +94,7 @@ class UserController extends Controller
         $ids = $user->enterprises()->pluck('empresas.id')->toArray();
         $enterprises = Enterprise::where('tipo','LA')->where('estado', 'A')->get();
         $roles = Role::all();
-        return view('users.edit', compact('user','roles', 'ids', 'enterprises'));
+        return view('administrador.users.edit', compact('user','roles', 'ids', 'enterprises'));
     }
 
     /**
@@ -210,7 +188,7 @@ class UserController extends Controller
             ->addColumn('email', function ($user) {
                 return $user->email;
             })
-            ->addColumn('options', 'users.actions')
+            ->addColumn('options', 'administrador.users.actions')
             ->rawColumns(['options'])
             ->make(true);
     }
