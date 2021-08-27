@@ -117,7 +117,6 @@ Route::middleware(['auth', 'enterprise'])->group(function () {
     Route::post('my/enterprises', 'Empresa\EnterpriseController@store')->name('users.enterprises.store');
     Route::put('my/enterprises/{enterprise}', 'Empresa\EnterpriseController@update')->name('users.enterprises.update');
 
-
     // Publicidades
     Route::get('my/{user}/publicities', 'Empresa\PublicityController@index')->name('publicities.enterprise.index');
     Route::get('my/{user}/publicities/all', 'Empresa\PublicityController@findAll')->name('publicities.enterprise.data');
