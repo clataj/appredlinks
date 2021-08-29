@@ -1,4 +1,3 @@
-
 export async function storePublicity(form) {
     let nombre = form['nombre'].value;
     let descripcion = form['descripcion'].value;
@@ -20,7 +19,6 @@ export async function storePublicity(form) {
         },
         body: formData
     })
-    debugger
     return response.json()
 }
 

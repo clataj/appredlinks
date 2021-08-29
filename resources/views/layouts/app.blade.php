@@ -32,7 +32,6 @@
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-select/css/select.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-select/css/select.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-checkboxes/css/dataTables.checkboxes.css') }}">
     <!-- Bootstrap Date-Picker Plugin -->
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
@@ -152,7 +151,6 @@
     <script src="{{ asset('/assets/lte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{ asset('/assets/lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('/assets/lte/plugins/datatables-select/js/select.bootstrap4.min.js')}}"></script>
-    <script src="{{ asset('assets/lte/plugins/datatables-checkboxes/js/dataTables.checkboxes.min.js')}}"></script>
 
     <!-- jQuery Validate -->
     <script src="{{ asset('/assets/lte/plugins/jquery-validate/jquery.validate.js') }}"></script>

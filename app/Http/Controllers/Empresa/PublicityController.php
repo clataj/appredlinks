@@ -117,27 +117,25 @@ class PublicityController extends Controller
         $user = User::where('id', $id)->with(['enterprises.publicities'])->first();
 
         foreach ($user->enterprises as $enterprise) {
-            if(count($enterprise->publicities) > 0) {
-                return DataTables::of($enterprise->publicities)
-                    ->addColumn('tipo', function($publicity) {
-                        return $publicity->tipo==='P' ? 'Publicidad Destacada' : 'Publicidad Secundaria';
-                    })
-                    ->addColumn('estado', function($publicity) {
-                        if($publicity->estado == 'A') {
-                            return 'Activo';
-                        }
-                        if($publicity->estado == 'I') {
-                            return 'Inactivo';
-                        }
-                        return 'En Revision';
-                    })
-                    ->addColumn('sub_categoria', function($publicity) {
-                        return $publicity->enterprise->nombre_comercial;
-                    })
-                    ->addColumn('actions', 'empresa.publicities.actions')
-                    ->rawColumns(['actions'])
-                    ->make(true);
-            }
+            return DataTables::of($enterprise->publicities)
+                ->addColumn('tipo', function($publicity) {
+                    return $publicity->tipo==='P' ? 'Publicidad Destacada' : 'Publicidad Secundaria';
+                })
+                ->addColumn('estado', function($publicity) {
+                    if($publicity->estado == 'A') {
+                        return 'Activo';
+                    }
+                    if($publicity->estado == 'I') {
+                        return 'Inactivo';
+                    }
+                    return 'En Revision';
+                })
+                ->addColumn('sub_categoria', function($publicity) {
+                    return $publicity->enterprise->nombre_comercial;
+                })
+                ->addColumn('actions', 'empresa.publicities.actions')
+                ->rawColumns(['actions'])
+                ->make(true);
         }
     }
 }

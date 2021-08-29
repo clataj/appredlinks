@@ -1,5 +1,5 @@
 import { responsePromise, showAlertDelete, showAlertWaiting, showImage } from "../../helpers.js";
-import { changeImage, deletePublicity, getPublicity } from "../../publicities/endpoints.js";
+import { changeImage, deletePublicity, getPublicity } from "../../administrador/publicities/endpoints.js";
 import { storePublicity, updatePublicity } from "./endpoints.js";
 
 

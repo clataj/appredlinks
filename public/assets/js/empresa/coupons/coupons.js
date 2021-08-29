@@ -1,6 +1,18 @@
-import { getEnterprise } from "../../enterprises/endpoints.js";
-import { loadDataEnterprise, responsePromise, showAlertDisabled, showAlertEnabled, showAlertWaiting } from "../../helpers.js";
-import { couponDisabled, couponEnabled, getCoupon, storeCoupon, updateCoupon } from "./endpoints.js";
+import { getEnterprise } from "../enterprises/endpoints.js";
+import {
+    loadDataEnterprise,
+    responsePromise,
+    showAlertDisabled,
+    showAlertEnabled,
+    showAlertWaiting
+} from "../../helpers.js";
+import {
+    couponDisabled,
+    couponEnabled,
+    getCoupon,
+    storeCoupon,
+    updateCoupon
+} from "./endpoints.js";
 
 let limiteCupones = document.getElementById('limite_cupones')
 let infoCupon = document.getElementById('infoCupon')

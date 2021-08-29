@@ -1,5 +1,5 @@
 import { responsePromise, showAlertDisabled, showAlertEnabled, showAlertWaiting } from "../../helpers.js";
-import { getEnterprise } from "../../enterprises/endpoints.js"
+import { getEnterprise } from "../enterprises/endpoints.js"
 import { couponDisabled, couponEnabled, getCoupon, storeCoupon, updateCoupon } from "./endpoints.js"
 
 let openModalCoupon = document.getElementById('openModalCoupon');
