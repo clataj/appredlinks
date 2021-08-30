@@ -5,6 +5,7 @@ roleId.onchange = (event) => {
     if(event.target.value==2) {
         searchShow.style.display = ''
         $("#enterprises").select2({
+            theme: 'bootstrap4',
             placeholder: "SELECCIONE.."
         });
     } else {

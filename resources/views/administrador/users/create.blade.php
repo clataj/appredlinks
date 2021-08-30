@@ -152,5 +152,5 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/js/users/create-user.js') }}"></script>
+    <script src="{{ asset('assets/js/administrador/users/create-user.js') }}"></script>
 @endpush
