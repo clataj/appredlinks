@@ -108,5 +108,5 @@
         ]
     });
 </script>
-<script src="{{ asset('assets/js/users/users.js') }}" type="module"></script>
+<script src="{{ asset('assets/js/administrador/users/users.js') }}" type="module"></script>
 @endpush

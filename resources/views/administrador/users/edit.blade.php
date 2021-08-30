@@ -154,5 +154,5 @@
             theme: 'bootstrap4'
         });
     </script>
-    <script src="{{ asset('assets/js/users/edit-user.js') }}"></script>
+    <script src="{{ asset('assets/js/administrador/users/edit-user.js') }}"></script>
 @endpush
